@@ -21,5 +21,31 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Brand Asset Utility -->
+    <div id="brand-utility" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px;">
+      <button onclick="clearBrandCache()" style="background: #F5F1EE; color: #4A3728; border: 1px solid #4A3728; padding: 8px 12px; font-family: monospace; font-size: 10px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        Refresh Brand Assets
+      </button>
+    </div>
+    <script>
+      function clearBrandCache() {
+        if (confirm("This will refresh all brand sketches and assets. Continue?")) {
+          if (window.navigator && navigator.serviceWorker) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+              for (let registration of registrations) {
+                registration.unregister();
+              }
+            });
+          }
+          if ('caches' in window) {
+            caches.keys().then(function(names) {
+              for (let name of names) caches.delete(name);
+            });
+          }
+          // Use location.reload(true) to force a server fetch if supported, otherwise just reload
+          window.location.reload();
+        }
+      }
+    </script>
   </body>
 </html>
