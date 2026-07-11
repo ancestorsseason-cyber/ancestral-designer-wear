@@ -195,12 +195,42 @@
       transition: transform 0.2s, opacity 0.2s;
     }
 
+    /* ── Mobile nav dropdown ────────────────────────────── */
     @media (max-width: 600px) {
       nav { padding: 14px 20px; }
-      .nav-links { display: none; }
       .nav-logo span { font-size: 14px; }
       .nav-mobile-menu { display: flex; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        background: var(--cream);
+        border-top: 1px solid rgba(61,31,0,0.1);
+        box-shadow: 0 12px 32px rgba(26,10,0,0.14);
+        padding: 6px 0 20px;
+        z-index: 99;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { border-bottom: 1px solid rgba(61,31,0,0.06); }
+      .nav-links a {
+        display: block;
+        padding: 15px 28px;
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        color: var(--brown);
+      }
+      .nav-links a:hover { background: var(--warm); }
     }
+
+    /* Hamburger → X animation */
+    .nav-mobile-menu.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-mobile-menu.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-mobile-menu.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
     /* ── Hero ─────────────────────────────────────────────── */
     #hero {
@@ -892,6 +922,116 @@
       padding: 0; margin: -1px; overflow: hidden;
       clip: rect(0,0,0,0); white-space: nowrap; border: 0;
     }
+
+    /* ── Founder Bio ─────────────────────────────────────── */
+    #founder {
+      background: var(--ink);
+      padding: 112px 40px;
+    }
+    .founder-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 88px;
+      align-items: center;
+    }
+    .founder-portrait-wrap {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: #2d1200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin: 0 auto;
+      animation: adw-founder-glow 4s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes adw-founder-glow {
+      0%, 100% { box-shadow: 0 0 0 3px var(--gold), 0 0 40px rgba(200,139,26,0.25); }
+      50%       { box-shadow: 0 0 0 3px var(--gold), 0 0 80px rgba(200,139,26,0.55); }
+    }
+    .founder-portrait-wrap img {
+      width: 78%;
+      height: 78%;
+      object-fit: contain;
+    }
+    .founder-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .founder-name {
+      font-family: var(--serif);
+      font-size: clamp(44px, 5.5vw, 72px);
+      font-weight: 300;
+      color: var(--cream);
+      letter-spacing: 0.06em;
+      line-height: 1.0;
+      margin-bottom: 14px;
+    }
+    .founder-title {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(200,139,26,0.75);
+      margin-bottom: 36px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(200,139,26,0.18);
+    }
+    .founder-body {
+      font-size: 15px;
+      line-height: 1.9;
+      color: rgba(245,240,232,0.6);
+      margin-bottom: 22px;
+    }
+    .founder-body strong {
+      color: rgba(245,240,232,0.9);
+      font-weight: 500;
+    }
+    .founder-quote {
+      font-family: var(--serif);
+      font-size: 21px;
+      font-style: italic;
+      color: var(--gold);
+      line-height: 1.6;
+      padding-left: 22px;
+      border-left: 2px solid rgba(200,139,26,0.5);
+      margin-top: 36px;
+    }
+    .founder-signature {
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .founder-signature-line {
+      height: 1px;
+      width: 40px;
+      background: rgba(200,139,26,0.4);
+    }
+    .founder-signature-name {
+      font-family: var(--serif);
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      color: rgba(245,240,232,0.5);
+    }
+
+    @media (max-width: 860px) {
+      #founder { padding: 72px 24px; }
+      .founder-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        text-align: center;
+      }
+      .founder-portrait-wrap { width: 220px; height: 220px; }
+      .founder-quote { text-align: left; }
+      .founder-signature { justify-content: center; }
+    }
   </style>
 </head>
 <body>
@@ -914,13 +1054,14 @@
       <img src="./assets/adw-logo-nobg.png" alt="A.D.W logo" />
       <span>A.D.W</span>
     </a>
-    <ul class="nav-links">
-      <li><a href="#collections">Collections</a></li>
-      <li><a href="#gallery">Studio</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">WhatsApp Us</a></li>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#collections" onclick="closeMobileMenu()">Collections</a></li>
+      <li><a href="#gallery"     onclick="closeMobileMenu()">Studio</a></li>
+      <li><a href="#about"       onclick="closeMobileMenu()">About</a></li>
+      <li><a href="#founder"     onclick="closeMobileMenu()">Founder</a></li>
+      <li><a href="#contact"     onclick="closeMobileMenu()">WhatsApp Us</a></li>
     </ul>
-    <button class="nav-mobile-menu" aria-label="Menu" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'">
+    <button class="nav-mobile-menu" id="nav-hamburger" aria-label="Open menu" aria-expanded="false" onclick="toggleMobileMenu()">
       <span></span><span></span><span></span>
     </button>
   </nav>
@@ -1042,6 +1183,44 @@
           <span class="tag">African Heritage</span>
           <span class="tag">Men &amp; Women</span>
           <span class="tag">Coming Soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Founder Bio ── -->
+  <section id="founder">
+    <div class="founder-inner">
+      <div class="founder-portrait reveal">
+        <div class="founder-portrait-wrap">
+          <img src="./assets/adw-logo-nobg.png" alt="DC. ANCESTOR — Founder of A.D.W" />
+        </div>
+      </div>
+      <div class="founder-bio">
+        <p class="founder-eyebrow reveal">The Visionary Behind A.D.W</p>
+        <h2 class="founder-name reveal">DC.<br>ANCESTOR</h2>
+        <p class="founder-title reveal">Founder &amp; Creative Director — Ancestral Designer Wear</p>
+        <p class="founder-body reveal">
+          Born from a deep reverence for <strong>African heritage and contemporary artistry</strong>,
+          DC. ANCESTOR is the creative mind and founding force behind A.D.W — Ancestral Designer Wear.
+          With a vision rooted in cultural memory and an eye trained on the future of fashion,
+          DC. ANCESTOR set out to build a brand that speaks the language of ancestry
+          while dressing the world of tomorrow.
+        </p>
+        <p class="founder-body reveal">
+          A.D.W is not simply a clothing brand — it is a <strong>cultural declaration</strong>.
+          Every silhouette, fabric choice, and design detail is a deliberate act of
+          preservation and reinvention, drawn from the rich visual traditions of kente,
+          ankara, and adinkra, and the broader pan-African aesthetic canon.
+          DC. ANCESTOR believes that the most powerful fashion is that which knows
+          exactly where it comes from — and dares to carry it forward.
+        </p>
+        <blockquote class="founder-quote reveal">
+          "To dress in A.D.W is to wear your roots with pride — and your future with intention."
+        </blockquote>
+        <div class="founder-signature reveal">
+          <span class="founder-signature-line"></span>
+          <span class="founder-signature-name">DC. ANCESTOR · Founder, A.D.W · Est. 2024</span>
         </div>
       </div>
     </div>
@@ -1384,6 +1563,29 @@
 
     // Initial render on DOM ready
     document.addEventListener('DOMContentLoaded', function() { renderGrid(); });
+
+    // ─────────────────────────────────────────────────────────
+    // Mobile menu
+    // ─────────────────────────────────────────────────────────
+    function toggleMobileMenu() {
+      var links = document.getElementById('nav-links');
+      var btn   = document.getElementById('nav-hamburger');
+      var isOpen = links.classList.contains('open');
+      links.classList.toggle('open', !isOpen);
+      btn.classList.toggle('open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      btn.setAttribute('aria-label', isOpen ? 'Open menu' : 'Close menu');
+    }
+    function closeMobileMenu() {
+      var links = document.getElementById('nav-links');
+      var btn   = document.getElementById('nav-hamburger');
+      if (links) { links.classList.remove('open'); }
+      if (btn)   { btn.classList.remove('open'); btn.setAttribute('aria-expanded','false'); btn.setAttribute('aria-label','Open menu'); }
+    }
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('nav')) { closeMobileMenu(); }
+    });
 
     // ─────────────────────────────────────────────────────────
     // Loader dismiss
