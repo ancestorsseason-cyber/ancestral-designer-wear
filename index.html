@@ -177,6 +177,74 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--brown); }
+
+    /* ── Desktop Collections dropdown ───────────────────── */
+    .has-dropdown { position: relative; }
+    .has-dropdown > a::after {
+      content: ' ▾';
+      font-size: 8px;
+      vertical-align: middle;
+      opacity: 0.5;
+      margin-left: 1px;
+    }
+    .nav-dropdown {
+      position: absolute;
+      top: calc(100% + 18px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: var(--cream);
+      border: 1px solid rgba(61,31,0,0.1);
+      border-radius: 4px;
+      padding: 20px 4px 18px;
+      box-shadow: 0 16px 48px rgba(26,10,0,0.14);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      min-width: 580px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      z-index: 200;
+    }
+    .has-dropdown:hover .nav-dropdown,
+    .has-dropdown:focus-within .nav-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .nav-dropdown-col {
+      padding: 0 18px;
+      border-right: 1px solid rgba(61,31,0,0.07);
+    }
+    .nav-dropdown-col:last-child { border-right: none; }
+    .nav-dropdown-heading {
+      display: block;
+      font-size: 8px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(200,139,26,0.15);
+      white-space: nowrap;
+    }
+    .nav-dropdown a {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px 0;
+      transition: color 0.15s;
+      white-space: nowrap;
+    }
+    .nav-dropdown a:hover { color: var(--brown); }
+    @media (max-width: 600px) {
+      .nav-dropdown { display: none !important; }
+      .has-dropdown > a::after { display: none; }
+    }
+
     .nav-mobile-menu {
       display: none;
       background: none;
@@ -424,6 +492,37 @@
       background: var(--brown);
       color: var(--cream);
       border-color: var(--brown);
+    }
+
+    /* Sub-category tabs */
+    .subcat-tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: -36px;
+      margin-bottom: 44px;
+      min-height: 34px;
+    }
+    .subcat-btn {
+      font-family: var(--sans);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 7px 18px;
+      border: 1px solid rgba(61,31,0,0.14);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .subcat-btn:hover { background: var(--warm); color: var(--brown); border-color: rgba(61,31,0,0.28); }
+    .subcat-btn.active {
+      background: var(--rust);
+      color: var(--cream);
+      border-color: var(--rust);
     }
 
     /* Results count */
@@ -1055,11 +1154,35 @@
       <span>A.D.W</span>
     </a>
     <ul class="nav-links" id="nav-links">
-      <li><a href="#collections" onclick="closeMobileMenu()">Collections</a></li>
-      <li><a href="#gallery"     onclick="closeMobileMenu()">Studio</a></li>
-      <li><a href="#about"       onclick="closeMobileMenu()">About</a></li>
-      <li><a href="#founder"     onclick="closeMobileMenu()">Founder</a></li>
-      <li><a href="#contact"     onclick="closeMobileMenu()">WhatsApp Us</a></li>
+      <li class="has-dropdown">
+        <a href="#collections" onclick="closeMobileMenu()">Collections</a>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-heading">T-Shirts</span>
+            <a href="#collections" onclick="goToCollection('tshirt','short-sleeve');closeMobileMenu()">Short Sleeve</a>
+            <a href="#collections" onclick="goToCollection('tshirt','long-sleeve');closeMobileMenu()">Long Sleeve</a>
+          </div>
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-heading">Trousers</span>
+            <a href="#collections" onclick="goToCollection('trousers','shorts');closeMobileMenu()">Shorts</a>
+            <a href="#collections" onclick="goToCollection('trousers','long-trousers');closeMobileMenu()">Long Trousers</a>
+          </div>
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-heading">Shoes</span>
+            <a href="#collections" onclick="goToCollection('shoes','slides');closeMobileMenu()">Slides</a>
+            <a href="#collections" onclick="goToCollection('shoes','sneakers');closeMobileMenu()">Sneakers</a>
+          </div>
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-heading">Joggers</span>
+            <a href="#collections" onclick="goToCollection('joggers','top');closeMobileMenu()">Top</a>
+            <a href="#collections" onclick="goToCollection('joggers','bottoms');closeMobileMenu()">Trousers</a>
+          </div>
+        </div>
+      </li>
+      <li><a href="#gallery"   onclick="closeMobileMenu()">Studio</a></li>
+      <li><a href="#about"     onclick="closeMobileMenu()">About</a></li>
+      <li><a href="#founder"   onclick="closeMobileMenu()">Founder</a></li>
+      <li><a href="#contact"   onclick="closeMobileMenu()">WhatsApp Us</a></li>
     </ul>
     <button class="nav-mobile-menu" id="nav-hamburger" aria-label="Open menu" aria-expanded="false" onclick="toggleMobileMenu()">
       <span></span><span></span><span></span>
@@ -1113,16 +1236,15 @@
 
     <!-- Category tabs -->
     <div class="category-tabs reveal" role="group" aria-label="Filter by category">
-      <button class="cat-btn active" data-cat="all"         onclick="setCat(this,'all')">All</button>
-      <button class="cat-btn" data-cat="clothes"     onclick="setCat(this,'clothes')">Clothes</button>
-      <button class="cat-btn" data-cat="shoes"       onclick="setCat(this,'shoes')">Shoes</button>
-      <button class="cat-btn" data-cat="watches"     onclick="setCat(this,'watches')">Watches</button>
-      <button class="cat-btn" data-cat="bags"        onclick="setCat(this,'bags')">Bags</button>
-      <button class="cat-btn" data-cat="accessories" onclick="setCat(this,'accessories')">Accessories</button>
-      <button class="cat-btn" data-cat="jewelry"     onclick="setCat(this,'jewelry')">Jewelry</button>
-      <button class="cat-btn" data-cat="perfume"     onclick="setCat(this,'perfume')">Perfume</button>
-      <button class="cat-btn" data-cat="headwear"    onclick="setCat(this,'headwear')">Headwear</button>
+      <button class="cat-btn active" data-cat="all"      onclick="setCat(this,'all')">All</button>
+      <button class="cat-btn" data-cat="tshirt"   onclick="setCat(this,'tshirt')">T-Shirts</button>
+      <button class="cat-btn" data-cat="trousers" onclick="setCat(this,'trousers')">Trousers</button>
+      <button class="cat-btn" data-cat="shoes"    onclick="setCat(this,'shoes')">Shoes</button>
+      <button class="cat-btn" data-cat="joggers"  onclick="setCat(this,'joggers')">Joggers</button>
     </div>
+
+    <!-- Sub-category tabs (JS-rendered) -->
+    <div class="subcat-tabs reveal" id="subcat-tabs" role="group" aria-label="Filter by sub-category"></div>
 
     <p class="collection-meta" id="collection-count"></p>
 
@@ -1256,14 +1378,22 @@
             <label class="cf-label" for="cf-interest">I'm interested in</label>
             <select id="cf-interest" class="cf-select" required>
               <option value="" disabled selected>Select a category…</option>
-              <option>Clothes</option>
-              <option>Shoes</option>
-              <option>Watches</option>
-              <option>Bags</option>
-              <option>Accessories</option>
-              <option>Jewelry</option>
-              <option>Perfume</option>
-              <option>Headwear</option>
+              <optgroup label="T-Shirts">
+                <option>T-Shirts — Short Sleeve</option>
+                <option>T-Shirts — Long Sleeve</option>
+              </optgroup>
+              <optgroup label="Trousers">
+                <option>Trousers — Shorts</option>
+                <option>Trousers — Long</option>
+              </optgroup>
+              <optgroup label="Shoes">
+                <option>Shoes — Slides</option>
+                <option>Shoes — Sneakers</option>
+              </optgroup>
+              <optgroup label="Joggers">
+                <option>Joggers — Top</option>
+                <option>Joggers — Bottoms</option>
+              </optgroup>
               <option>Full Collection — Notify me of everything</option>
             </select>
           </div>
@@ -1314,176 +1444,180 @@
 
   <script>
     // ─────────────────────────────────────────────────────────
-    // Product catalogue
+    // Product catalogue  (4 focused categories · 128 items)
     // ─────────────────────────────────────────────────────────
     var C = {
-      INK:     '#1a0a00',
-      BROWN:   '#3d1f00',
-      GOLD:    '#c88b1a',
-      RUST:    '#b84a1a',
-      GREEN:   '#2a6640',
-      SADDLE:  '#8b4513',
-      BGOLD:   '#d4af37',
-      CREAM:   '#e8e0d0',
-      BLUE:    '#2c4a6e',
-      TERRA:   '#c1604a',
-      PURPLE:  '#4a2040',
-      EMERALD: '#1e4d3a',
-      ROSE:    '#c4706a',
-      COPPER:  '#b87333',
+      INK:'#1a0a00', BROWN:'#3d1f00', GOLD:'#c88b1a', RUST:'#b84a1a',
+      GREEN:'#2a6640', SADDLE:'#8b4513', BGOLD:'#d4af37', CREAM:'#e8e0d0',
+      BLUE:'#2c4a6e', TERRA:'#c1604a', PURPLE:'#4a2040', EMERALD:'#1e4d3a',
+      ROSE:'#c4706a', COPPER:'#b87333',
     };
 
     var PRODUCTS = [
-      // ── CLOTHES ─ Men (8) ──────────────────────────────────
-      { id:1,  name:'Heritage Hoodie',         cat:'clothes',     gender:'men',    price:'GH₵ 580',  colors:[C.INK, C.BROWN, C.GOLD, C.GREEN, C.RUST],              sizes:['XS','S','M','L','XL','XXL'] },
-      { id:2,  name:'Kente Bomber Jacket',     cat:'clothes',     gender:'men',    price:'GH₵ 920',  colors:[C.INK, C.GOLD, C.GREEN],                               sizes:['S','M','L','XL','XXL'] },
-      { id:3,  name:'Adinkra Trench Coat',     cat:'clothes',     gender:'men',    price:'GH₵ 1,450',colors:[C.SADDLE, C.INK, C.BROWN],                             sizes:['S','M','L','XL'] },
-      { id:4,  name:'Tribal Print Tee',        cat:'clothes',     gender:'men',    price:'GH₵ 280',  colors:[C.CREAM, C.INK, C.RUST, C.GREEN, C.GOLD, C.BLUE],      sizes:['XS','S','M','L','XL','XXL'] },
-      { id:5,  name:'Ankara Joggers',          cat:'clothes',     gender:'men',    price:'GH₵ 460',  colors:[C.INK, C.BROWN, C.TERRA, C.GREEN],                     sizes:['XS','S','M','L','XL','XXL'] },
-      { id:6,  name:'Wax Print Shorts',        cat:'clothes',     gender:'men',    price:'GH₵ 320',  colors:[C.GOLD, C.RUST, C.GREEN, C.BLUE],                      sizes:['S','M','L','XL','XXL'] },
-      { id:7,  name:'Dashiki Shirt',           cat:'clothes',     gender:'men',    price:'GH₵ 540',  colors:[C.GOLD, C.RUST, C.GREEN, C.CREAM],                     sizes:['S','M','L','XL','XXL'] },
-      { id:8,  name:'Royal Kufi Coat',         cat:'clothes',     gender:'men',    price:'GH₵ 1,850',colors:[C.INK, C.BROWN, C.PURPLE],                             sizes:['S','M','L','XL'] },
-      // ── CLOTHES ─ Women (8) ────────────────────────────────
-      { id:9,  name:'Ankara Maxi Dress',       cat:'clothes',     gender:'women',  price:'GH₵ 680',  colors:[C.RUST, C.GOLD, C.EMERALD, C.BLUE, C.PURPLE],          sizes:['XS','S','M','L','XL'] },
-      { id:10, name:'Kente Wrap Blouse',       cat:'clothes',     gender:'women',  price:'GH₵ 420',  colors:[C.GOLD, C.RUST, C.GREEN, C.CREAM],                     sizes:['XS','S','M','L','XL'] },
-      { id:11, name:'Heritage Midi Skirt',     cat:'clothes',     gender:'women',  price:'GH₵ 480',  colors:[C.BROWN, C.RUST, C.GOLD, C.EMERALD],                   sizes:['XS','S','M','L','XL'] },
-      { id:12, name:'Adinkra Bodysuit',        cat:'clothes',     gender:'women',  price:'GH₵ 360',  colors:[C.INK, C.BROWN, C.ROSE],                               sizes:['XS','S','M','L','XL'] },
-      { id:13, name:'Tribal Print Blazer',     cat:'clothes',     gender:'women',  price:'GH₵ 860',  colors:[C.INK, C.BROWN, C.CREAM],                              sizes:['XS','S','M','L'] },
-      { id:14, name:'Wax Print Jumpsuit',      cat:'clothes',     gender:'women',  price:'GH₵ 720',  colors:[C.RUST, C.EMERALD, C.GOLD, C.BLUE],                    sizes:['XS','S','M','L','XL'] },
-      { id:15, name:'Silk Kente Slip Dress',   cat:'clothes',     gender:'women',  price:'GH₵ 980',  colors:[C.GOLD, C.RUST, C.CREAM],                              sizes:['XS','S','M','L'] },
-      { id:16, name:'Ankara Crop Top',         cat:'clothes',     gender:'women',  price:'GH₵ 260',  colors:[C.RUST, C.GOLD, C.GREEN, C.BLUE, C.PURPLE],            sizes:['XS','S','M','L','XL'] },
-      // ── SHOES ─ Men (8) ────────────────────────────────────
-      { id:17, name:'ADW Heritage Sneakers',   cat:'shoes',       gender:'men',    price:'GH₵ 780',  colors:[C.CREAM, C.INK, C.GOLD, C.RUST, C.GREEN],              sizes:['40','41','42','43','44','45'] },
-      { id:18, name:'Kente High-Tops',         cat:'shoes',       gender:'men',    price:'GH₵ 860',  colors:[C.GOLD, C.INK, C.RUST],                                sizes:['40','41','42','43','44','45'] },
-      { id:19, name:'Tribal Loafers',          cat:'shoes',       gender:'men',    price:'GH₵ 650',  colors:[C.BROWN, C.INK, C.SADDLE],                             sizes:['40','41','42','43','44','45'] },
-      { id:20, name:'Ankara Chelsea Boots',    cat:'shoes',       gender:'men',    price:'GH₵ 920',  colors:[C.INK, C.BROWN, C.SADDLE],                             sizes:['40','41','42','43','44','45'] },
-      { id:21, name:'Heritage Derby',          cat:'shoes',       gender:'men',    price:'GH₵ 880',  colors:[C.INK, C.BROWN, C.COPPER],                             sizes:['40','41','42','43','44','45'] },
-      { id:22, name:'Wax Print Slides',        cat:'shoes',       gender:'men',    price:'GH₵ 320',  colors:[C.GOLD, C.RUST, C.GREEN, C.BLUE],                      sizes:['40','41','42','43','44','45'] },
-      { id:23, name:'Desert Boot',             cat:'shoes',       gender:'men',    price:'GH₵ 750',  colors:[C.SADDLE, C.CREAM, C.INK],                             sizes:['40','41','42','43','44','45'] },
-      { id:24, name:'Royal Moccasin',          cat:'shoes',       gender:'men',    price:'GH₵ 820',  colors:[C.BROWN, C.COPPER, C.SADDLE],                          sizes:['40','41','42','43','44','45'] },
-      // ── SHOES ─ Women (8) ──────────────────────────────────
-      { id:25, name:'ADW Platform Sneakers',   cat:'shoes',       gender:'women',  price:'GH₵ 820',  colors:[C.CREAM, C.INK, C.GOLD, C.ROSE],                       sizes:['36','37','38','39','40','41'] },
-      { id:26, name:'Kente Heeled Mules',      cat:'shoes',       gender:'women',  price:'GH₵ 680',  colors:[C.GOLD, C.RUST, C.CREAM],                              sizes:['36','37','38','39','40','41'] },
-      { id:27, name:'Heritage Sandals',        cat:'shoes',       gender:'women',  price:'GH₵ 440',  colors:[C.SADDLE, C.GOLD, C.TERRA],                            sizes:['36','37','38','39','40','41'] },
-      { id:28, name:'Tribal Pumps',            cat:'shoes',       gender:'women',  price:'GH₵ 750',  colors:[C.INK, C.RUST, C.EMERALD],                             sizes:['36','37','38','39','40','41'] },
-      { id:29, name:'Ankara Ankle Boot',       cat:'shoes',       gender:'women',  price:'GH₵ 880',  colors:[C.INK, C.BROWN, C.COPPER],                             sizes:['36','37','38','39','40','41'] },
-      { id:30, name:'Wax Print Ballet Flat',   cat:'shoes',       gender:'women',  price:'GH₵ 380',  colors:[C.RUST, C.GOLD, C.GREEN, C.BLUE],                      sizes:['36','37','38','39','40','41'] },
-      { id:31, name:'Embroidered Slipper',     cat:'shoes',       gender:'women',  price:'GH₵ 350',  colors:[C.GOLD, C.CREAM, C.ROSE],                              sizes:['36','37','38','39','40','41'] },
-      { id:32, name:'Strappy Heritage Heel',   cat:'shoes',       gender:'women',  price:'GH₵ 820',  colors:[C.SADDLE, C.GOLD, C.INK],                              sizes:['36','37','38','39','40','41'] },
-      // ── WATCHES ─ Men (8) ──────────────────────────────────
-      { id:33, name:'Heritage Gold Dial',      cat:'watches',     gender:'men',    price:'GH₵ 2,400',colors:[C.GOLD, C.CREAM, C.BROWN],                             sizes:['38mm','40mm','42mm','44mm'] },
-      { id:34, name:'Onyx Midnight',           cat:'watches',     gender:'men',    price:'GH₵ 2,200',colors:[C.INK, C.GOLD],                                        sizes:['40mm','42mm','44mm'] },
-      { id:35, name:'Kente Dial Watch',        cat:'watches',     gender:'men',    price:'GH₵ 2,800',colors:[C.GOLD, C.RUST, C.GREEN],                              sizes:['40mm','42mm','44mm'] },
-      { id:36, name:'Bronze Edition',          cat:'watches',     gender:'men',    price:'GH₵ 2,600',colors:[C.COPPER, C.BROWN, C.CREAM],                           sizes:['38mm','40mm','42mm','44mm'] },
-      { id:37, name:'Tribal Motif Watch',      cat:'watches',     gender:'men',    price:'GH₵ 3,200',colors:[C.INK, C.COPPER, C.GOLD],                              sizes:['40mm','42mm','44mm'] },
-      { id:38, name:'Savanna Sport',           cat:'watches',     gender:'men',    price:'GH₵ 1,800',colors:[C.CREAM, C.INK, C.RUST, C.GREEN],                      sizes:['42mm','44mm'] },
-      { id:39, name:'Ivory Classic',           cat:'watches',     gender:'men',    price:'GH₵ 2,100',colors:[C.CREAM, C.SADDLE, C.GOLD],                            sizes:['38mm','40mm','42mm'] },
-      { id:40, name:'Black Steel Heritage',    cat:'watches',     gender:'men',    price:'GH₵ 2,900',colors:[C.INK, C.BGOLD],                                       sizes:['40mm','42mm','44mm'] },
-      // ── WATCHES ─ Women (8) ────────────────────────────────
-      { id:41, name:'Rose Gold Kente',         cat:'watches',     gender:'women',  price:'GH₵ 2,400',colors:[C.ROSE, C.GOLD, C.CREAM],                              sizes:['34mm','36mm','38mm'] },
-      { id:42, name:'Pearl Ivory Dial',        cat:'watches',     gender:'women',  price:'GH₵ 2,200',colors:[C.CREAM, C.GOLD, C.SADDLE],                            sizes:['34mm','36mm','38mm'] },
-      { id:43, name:'Ankara Print Strap',      cat:'watches',     gender:'women',  price:'GH₵ 2,600',colors:[C.RUST, C.GOLD, C.EMERALD],                            sizes:['34mm','36mm','38mm'] },
-      { id:44, name:'Gold Bezel Classic',      cat:'watches',     gender:'women',  price:'GH₵ 2,800',colors:[C.BGOLD, C.CREAM, C.INK],                              sizes:['34mm','36mm','38mm'] },
-      { id:45, name:'Copper Heritage',         cat:'watches',     gender:'women',  price:'GH₵ 2,100',colors:[C.COPPER, C.CREAM, C.BROWN],                           sizes:['34mm','36mm','38mm'] },
-      { id:46, name:'Floral Kente Watch',      cat:'watches',     gender:'women',  price:'GH₵ 2,300',colors:[C.GOLD, C.RUST, C.GREEN, C.CREAM],                     sizes:['34mm','36mm','38mm'] },
-      { id:47, name:'Slim Tribal',             cat:'watches',     gender:'women',  price:'GH₵ 1,950',colors:[C.INK, C.GOLD, C.ROSE],                                sizes:['28mm','30mm','34mm'] },
-      { id:48, name:'Crystal Adinkra',         cat:'watches',     gender:'women',  price:'GH₵ 2,750',colors:[C.CREAM, C.BGOLD, C.ROSE],                             sizes:['34mm','36mm','38mm'] },
-      // ── BAGS ─ Men (8) ─────────────────────────────────────
-      { id:49, name:'Streetwear Backpack',     cat:'bags',        gender:'men',    price:'GH₵ 680',  colors:[C.INK, C.BROWN, C.RUST, C.GREEN],                      sizes:['One Size'] },
-      { id:50, name:'Heritage Duffel',         cat:'bags',        gender:'men',    price:'GH₵ 820',  colors:[C.INK, C.BROWN, C.SADDLE],                             sizes:['One Size'] },
-      { id:51, name:'Tribal Crossbody',        cat:'bags',        gender:'men',    price:'GH₵ 520',  colors:[C.BROWN, C.SADDLE, C.INK],                             sizes:['One Size'] },
-      { id:52, name:'Wax Print Tote',          cat:'bags',        gender:'men',    price:'GH₵ 440',  colors:[C.RUST, C.GOLD, C.GREEN, C.BLUE],                      sizes:['One Size'] },
-      { id:53, name:'Laptop Satchel',          cat:'bags',        gender:'men',    price:'GH₵ 760',  colors:[C.BROWN, C.INK, C.SADDLE],                             sizes:['One Size'] },
-      { id:54, name:'ADW Waist Bag',           cat:'bags',        gender:'men',    price:'GH₵ 380',  colors:[C.INK, C.GOLD, C.RUST, C.GREEN],                       sizes:['One Size'] },
-      { id:55, name:'Ankara Messenger',        cat:'bags',        gender:'men',    price:'GH₵ 580',  colors:[C.GOLD, C.RUST, C.GREEN, C.BROWN],                     sizes:['One Size'] },
-      { id:56, name:'ADW Weekender',           cat:'bags',        gender:'men',    price:'GH₵ 960',  colors:[C.INK, C.BROWN],                                       sizes:['One Size'] },
-      // ── BAGS ─ Women (8) ───────────────────────────────────
-      { id:57, name:'Heritage Tote',           cat:'bags',        gender:'women',  price:'GH₵ 560',  colors:[C.SADDLE, C.RUST, C.GOLD, C.EMERALD],                  sizes:['One Size'] },
-      { id:58, name:'Kente Mini Bag',          cat:'bags',        gender:'women',  price:'GH₵ 420',  colors:[C.GOLD, C.RUST, C.GREEN],                              sizes:['One Size'] },
-      { id:59, name:'Adinkra Clutch',          cat:'bags',        gender:'women',  price:'GH₵ 380',  colors:[C.BGOLD, C.CREAM, C.ROSE],                             sizes:['One Size'] },
-      { id:60, name:'Wax Print Crossbody',     cat:'bags',        gender:'women',  price:'GH₵ 480',  colors:[C.RUST, C.GOLD, C.EMERALD, C.BLUE],                    sizes:['One Size'] },
-      { id:61, name:'Ankara Shopper',          cat:'bags',        gender:'women',  price:'GH₵ 520',  colors:[C.GOLD, C.RUST, C.BROWN],                              sizes:['One Size'] },
-      { id:62, name:'Tribal Bucket Bag',       cat:'bags',        gender:'women',  price:'GH₵ 540',  colors:[C.BROWN, C.SADDLE, C.COPPER],                          sizes:['One Size'] },
-      { id:63, name:'Heritage Satchel',        cat:'bags',        gender:'women',  price:'GH₵ 680',  colors:[C.SADDLE, C.BROWN, C.INK],                             sizes:['One Size'] },
-      { id:64, name:'Embroidered Evening Bag', cat:'bags',        gender:'women',  price:'GH₵ 760',  colors:[C.BGOLD, C.CREAM, C.INK],                              sizes:['One Size'] },
-      // ── ACCESSORIES ─ Men (8) ──────────────────────────────
-      { id:65, name:'Kente Belt',              cat:'accessories', gender:'men',    price:'GH₵ 220',  colors:[C.BROWN, C.INK, C.SADDLE],                             sizes:['S/M','L/XL'] },
-      { id:66, name:'Tribal Sunglasses',       cat:'accessories', gender:'men',    price:'GH₵ 380',  colors:[C.INK, C.GOLD, C.BROWN],                               sizes:['One Size'] },
-      { id:67, name:'Adinkra Keychain',        cat:'accessories', gender:'men',    price:'GH₵ 95',   colors:[C.GOLD, C.INK, C.RUST],                                sizes:['One Size'] },
-      { id:68, name:'Heritage Beanie',         cat:'accessories', gender:'men',    price:'GH₵ 240',  colors:[C.INK, C.BROWN, C.RUST, C.GREEN],                      sizes:['One Size'] },
-      { id:69, name:'Wax Print Scarf',         cat:'accessories', gender:'men',    price:'GH₵ 280',  colors:[C.RUST, C.GOLD, C.GREEN, C.BLUE],                      sizes:['One Size'] },
-      { id:70, name:'ADW Socks Set',           cat:'accessories', gender:'men',    price:'GH₵ 180',  colors:[C.CREAM, C.INK, C.GOLD, C.RUST, C.GREEN],              sizes:['S/M','L/XL'] },
-      { id:71, name:'Leather Card Holder',     cat:'accessories', gender:'men',    price:'GH₵ 195',  colors:[C.BROWN, C.INK, C.SADDLE],                             sizes:['One Size'] },
-      { id:72, name:'Tribal Phone Case',       cat:'accessories', gender:'men',    price:'GH₵ 165',  colors:[C.INK, C.GOLD, C.BROWN, C.RUST],                       sizes:['One Size'] },
-      // ── ACCESSORIES ─ Women (8) ────────────────────────────
-      { id:73, name:'Adinkra Headband',        cat:'accessories', gender:'women',  price:'GH₵ 160',  colors:[C.GOLD, C.RUST, C.GREEN, C.CREAM],                     sizes:['One Size'] },
-      { id:74, name:'Heritage Beret',          cat:'accessories', gender:'women',  price:'GH₵ 280',  colors:[C.BROWN, C.INK, C.RUST, C.EMERALD],                    sizes:['One Size'] },
-      { id:75, name:'Tribal Bandana',          cat:'accessories', gender:'women',  price:'GH₵ 140',  colors:[C.RUST, C.GOLD, C.GREEN, C.BLUE],                      sizes:['One Size'] },
-      { id:76, name:'Wax Print Fascinator',    cat:'accessories', gender:'women',  price:'GH₵ 360',  colors:[C.GOLD, C.RUST, C.EMERALD],                            sizes:['One Size'] },
-      { id:77, name:'Ankara Hair Clip Set',    cat:'accessories', gender:'women',  price:'GH₵ 195',  colors:[C.GOLD, C.RUST, C.GREEN, C.INK, C.BLUE],               sizes:['One Size'] },
-      { id:78, name:'ADW Sunglasses',          cat:'accessories', gender:'women',  price:'GH₵ 380',  colors:[C.INK, C.ROSE, C.BGOLD],                               sizes:['One Size'] },
-      { id:79, name:'Heritage Silk Wrap',      cat:'accessories', gender:'women',  price:'GH₵ 320',  colors:[C.RUST, C.GOLD, C.CREAM, C.BLUE],                      sizes:['One Size'] },
-      { id:80, name:'Embroidered Coin Purse',  cat:'accessories', gender:'women',  price:'GH₵ 155',  colors:[C.GOLD, C.SADDLE, C.RUST],                             sizes:['One Size'] },
-      // ── JEWELRY ─ Men (8) ──────────────────────────────────
-      { id:81, name:'Heritage Gold Chain',     cat:'jewelry',     gender:'men',    price:'GH₵ 1,200',colors:[C.BGOLD, C.GOLD, C.COPPER],                            sizes:['45cm','50cm','55cm','60cm'] },
-      { id:82, name:'Adinkra Cuff Bracelet',   cat:'jewelry',     gender:'men',    price:'GH₵ 680',  colors:[C.BGOLD, C.COPPER, C.INK],                             sizes:['S','M','L'] },
-      { id:83, name:'Tribal Signet Ring',      cat:'jewelry',     gender:'men',    price:'GH₵ 580',  colors:[C.BGOLD, C.INK],                                       sizes:['18mm','19mm','20mm','21mm','22mm'] },
-      { id:84, name:'Kente Pendant',           cat:'jewelry',     gender:'men',    price:'GH₵ 480',  colors:[C.BGOLD, C.COPPER, C.RUST],                            sizes:['One Size'] },
-      { id:85, name:'Heritage Stud Earring',   cat:'jewelry',     gender:'men',    price:'GH₵ 280',  colors:[C.BGOLD, C.INK, C.COPPER],                             sizes:['One Size'] },
-      { id:86, name:'Adinkra Bead Bracelet',   cat:'jewelry',     gender:'men',    price:'GH₵ 320',  colors:[C.BGOLD, C.RUST, C.GREEN, C.INK],                      sizes:['S','M','L','XL'] },
-      { id:87, name:'Tribal Lapel Pin',        cat:'jewelry',     gender:'men',    price:'GH₵ 195',  colors:[C.BGOLD, C.COPPER, C.INK],                             sizes:['One Size'] },
-      { id:88, name:'Ancestral Dog Tag',       cat:'jewelry',     gender:'men',    price:'GH₵ 350',  colors:[C.BGOLD, C.INK, C.COPPER],                             sizes:['One Size'] },
-      // ── JEWELRY ─ Women (8) ────────────────────────────────
-      { id:89, name:'Kente Waist Beads',       cat:'jewelry',     gender:'women',  price:'GH₵ 280',  colors:[C.BGOLD, C.RUST, C.GREEN, C.BLUE, C.INK, C.CREAM, C.PURPLE, C.ROSE], sizes:['Adjustable'] },
-      { id:90, name:'Adinkra Stud Earrings',   cat:'jewelry',     gender:'women',  price:'GH₵ 320',  colors:[C.BGOLD, C.COPPER, C.ROSE],                            sizes:['One Size'] },
-      { id:91, name:'Heritage Choker',         cat:'jewelry',     gender:'women',  price:'GH₵ 480',  colors:[C.BGOLD, C.CREAM, C.INK],                              sizes:['Adjustable'] },
-      { id:92, name:'Tribal Hoop Set',         cat:'jewelry',     gender:'women',  price:'GH₵ 420',  colors:[C.BGOLD, C.ROSE, C.COPPER],                            sizes:['S','M','L'] },
-      { id:93, name:'Gold Charm Bracelet',     cat:'jewelry',     gender:'women',  price:'GH₵ 560',  colors:[C.BGOLD, C.ROSE, C.CREAM],                             sizes:['16cm','18cm','20cm'] },
-      { id:94, name:'Kente Pendant Necklace',  cat:'jewelry',     gender:'women',  price:'GH₵ 520',  colors:[C.BGOLD, C.COPPER, C.EMERALD],                         sizes:['45cm','50cm','55cm'] },
-      { id:95, name:'Crystal Anklet',          cat:'jewelry',     gender:'women',  price:'GH₵ 260',  colors:[C.BGOLD, C.CREAM, C.ROSE],                             sizes:['Adjustable'] },
-      { id:96, name:'Heritage Statement Ring', cat:'jewelry',     gender:'women',  price:'GH₵ 480',  colors:[C.BGOLD, C.COPPER, C.EMERALD],                         sizes:['16mm','17mm','18mm','19mm','20mm'] },
-      // ── PERFUME ─ Men (8) ──────────────────────────────────
-      { id:97,  name:'Ancestry Noir',          cat:'perfume',     gender:'men',    price:'GH₵ 580',  colors:[C.INK, C.BGOLD, C.COPPER],                             sizes:['30ml','50ml','100ml'] },
-      { id:98,  name:'Heritage Oud',           cat:'perfume',     gender:'men',    price:'GH₵ 720',  colors:[C.BROWN, C.BGOLD, C.COPPER],                           sizes:['30ml','50ml','100ml'] },
-      { id:99,  name:'Gold Coast Man',         cat:'perfume',     gender:'men',    price:'GH₵ 650',  colors:[C.BGOLD, C.SADDLE, C.INK],                             sizes:['30ml','50ml','100ml'] },
-      { id:100, name:'Savanna Deep',           cat:'perfume',     gender:'men',    price:'GH₵ 540',  colors:[C.EMERALD, C.BGOLD, C.BROWN],                          sizes:['30ml','50ml','100ml'] },
-      { id:101, name:'Midnight Accra',         cat:'perfume',     gender:'men',    price:'GH₵ 680',  colors:[C.INK, C.BLUE, C.BGOLD],                               sizes:['30ml','50ml','100ml'] },
-      { id:102, name:'Royal Cedarwood',        cat:'perfume',     gender:'men',    price:'GH₵ 760',  colors:[C.SADDLE, C.BGOLD, C.INK],                             sizes:['50ml','100ml'] },
-      { id:103, name:'Kente Amber',            cat:'perfume',     gender:'men',    price:'GH₵ 620',  colors:[C.COPPER, C.BGOLD, C.BROWN],                           sizes:['30ml','50ml','100ml'] },
-      { id:104, name:'The Founder',            cat:'perfume',     gender:'men',    price:'GH₵ 1,200',colors:[C.INK, C.BGOLD],                                       sizes:['50ml','100ml','200ml'] },
-      // ── PERFUME ─ Women (8) ────────────────────────────────
-      { id:105, name:'Ancestry Bloom',         cat:'perfume',     gender:'women',  price:'GH₵ 580',  colors:[C.ROSE, C.BGOLD, C.CREAM],                             sizes:['30ml','50ml','100ml'] },
-      { id:106, name:'Kente Rose',             cat:'perfume',     gender:'women',  price:'GH₵ 640',  colors:[C.ROSE, C.RUST, C.BGOLD],                              sizes:['30ml','50ml','100ml'] },
-      { id:107, name:'Heritage Florals',       cat:'perfume',     gender:'women',  price:'GH₵ 560',  colors:[C.CREAM, C.ROSE, C.EMERALD],                           sizes:['30ml','50ml','100ml'] },
-      { id:108, name:'Savanna Dreams',         cat:'perfume',     gender:'women',  price:'GH₵ 600',  colors:[C.BGOLD, C.CREAM, C.GREEN],                            sizes:['30ml','50ml','100ml'] },
-      { id:109, name:'Gold Coast Woman',       cat:'perfume',     gender:'women',  price:'GH₵ 680',  colors:[C.BGOLD, C.ROSE, C.CREAM],                             sizes:['30ml','50ml','100ml'] },
-      { id:110, name:'Ancestral Jasmine',      cat:'perfume',     gender:'women',  price:'GH₵ 720',  colors:[C.CREAM, C.BGOLD, C.GREEN],                            sizes:['30ml','50ml','100ml'] },
-      { id:111, name:'Shea & Vanilla',         cat:'perfume',     gender:'women',  price:'GH₵ 520',  colors:[C.CREAM, C.SADDLE, C.BGOLD],                           sizes:['30ml','50ml','100ml'] },
-      { id:112, name:'The Matriarch',          cat:'perfume',     gender:'women',  price:'GH₵ 1,200',colors:[C.ROSE, C.BGOLD, C.PURPLE],                            sizes:['50ml','100ml','200ml'] },
-      // ── HEADWEAR ─ Men (8) ─────────────────────────────────
-      { id:113, name:'Kente Snapback',         cat:'headwear',    gender:'men',    price:'GH₵ 320',  colors:[C.GOLD, C.INK, C.RUST, C.GREEN],                       sizes:['S/M','L/XL'] },
-      { id:114, name:'Heritage Kufi',          cat:'headwear',    gender:'men',    price:'GH₵ 360',  colors:[C.BGOLD, C.INK, C.BROWN, C.GREEN],                     sizes:['S','M','L'] },
-      { id:115, name:'Dashiki Cap',            cat:'headwear',    gender:'men',    price:'GH₵ 280',  colors:[C.GOLD, C.RUST, C.GREEN, C.BLUE],                      sizes:['S/M','L/XL'] },
-      { id:116, name:'Ankara Beret',           cat:'headwear',    gender:'men',    price:'GH₵ 340',  colors:[C.RUST, C.INK, C.BROWN],                               sizes:['S/M','L/XL'] },
-      { id:117, name:'Tribal Fez',             cat:'headwear',    gender:'men',    price:'GH₵ 420',  colors:[C.RUST, C.BGOLD, C.BROWN],                             sizes:['S','M','L'] },
-      { id:118, name:'ADW Bucket Hat',         cat:'headwear',    gender:'men',    price:'GH₵ 300',  colors:[C.INK, C.CREAM, C.RUST, C.GREEN, C.GOLD],              sizes:['S/M','L/XL'] },
-      { id:119, name:'Wax Print Flat Cap',     cat:'headwear',    gender:'men',    price:'GH₵ 350',  colors:[C.RUST, C.GOLD, C.GREEN, C.BLUE],                      sizes:['S/M','L/XL'] },
-      { id:120, name:'Heritage Crown Hat',     cat:'headwear',    gender:'men',    price:'GH₵ 580',  colors:[C.BGOLD, C.INK, C.BROWN],                              sizes:['One Size'] },
-      // ── HEADWEAR ─ Women (8) ───────────────────────────────
-      { id:121, name:'Kente Head Wrap',        cat:'headwear',    gender:'women',  price:'GH₵ 360',  colors:[C.GOLD, C.RUST, C.GREEN, C.BLUE, C.CREAM, C.PURPLE],   sizes:['One Size'] },
-      { id:122, name:'Ankara Gele',            cat:'headwear',    gender:'women',  price:'GH₵ 480',  colors:[C.GOLD, C.RUST, C.GREEN, C.BLUE],                      sizes:['One Size'] },
-      { id:123, name:'Heritage Turban',        cat:'headwear',    gender:'women',  price:'GH₵ 420',  colors:[C.RUST, C.BGOLD, C.EMERALD, C.CREAM, C.PURPLE],        sizes:['One Size'] },
-      { id:124, name:'Tribal Head Scarf',      cat:'headwear',    gender:'women',  price:'GH₵ 280',  colors:[C.GOLD, C.RUST, C.GREEN, C.BLUE, C.CREAM],             sizes:['One Size'] },
-      { id:125, name:'Adinkra Crown Band',     cat:'headwear',    gender:'women',  price:'GH₵ 520',  colors:[C.BGOLD, C.CREAM, C.ROSE],                             sizes:['Adjustable'] },
-      { id:126, name:'Wax Print Beret',        cat:'headwear',    gender:'women',  price:'GH₵ 340',  colors:[C.RUST, C.GOLD, C.GREEN, C.BROWN],                     sizes:['One Size'] },
-      { id:127, name:'Heritage Fascinator',    cat:'headwear',    gender:'women',  price:'GH₵ 680',  colors:[C.BGOLD, C.CREAM, C.ROSE, C.EMERALD],                  sizes:['One Size'] },
-      { id:128, name:'Royal Embroidered Cap',  cat:'headwear',    gender:'women',  price:'GH₵ 440',  colors:[C.BGOLD, C.RUST, C.EMERALD],                           sizes:['One Size'] },
+      // ── T-SHIRTS · SHORT SLEEVE · MEN ──────────────────────
+      { id:1,  name:'ADW Classic Tee',           cat:'tshirt',  sub:'short-sleeve', gender:'men',   price:'GH\u20b5 220', colors:[C.INK,C.CREAM,C.BROWN,C.RUST,C.GREEN,C.GOLD],    sizes:['XS','S','M','L','XL','XXL'] },
+      { id:2,  name:'Heritage Graphic Tee',       cat:'tshirt',  sub:'short-sleeve', gender:'men',   price:'GH\u20b5 250', colors:[C.CREAM,C.INK,C.BLUE,C.GREEN],                   sizes:['XS','S','M','L','XL','XXL'] },
+      { id:3,  name:'Adinkra Symbol Tee',         cat:'tshirt',  sub:'short-sleeve', gender:'men',   price:'GH\u20b5 270', colors:[C.CREAM,C.GOLD,C.BROWN,C.RUST],                  sizes:['XS','S','M','L','XL','XXL'] },
+      { id:4,  name:'Kente Print Tee',            cat:'tshirt',  sub:'short-sleeve', gender:'men',   price:'GH\u20b5 280', colors:[C.GOLD,C.RUST,C.GREEN,C.BLUE,C.INK],             sizes:['XS','S','M','L','XL','XXL'] },
+      { id:5,  name:'Ankara Graphic Tee',         cat:'tshirt',  sub:'short-sleeve', gender:'men',   price:'GH\u20b5 260', colors:[C.RUST,C.GOLD,C.CREAM,C.GREEN],                  sizes:['XS','S','M','L','XL','XXL'] },
+      { id:6,  name:'Tribal Crest Tee',           cat:'tshirt',  sub:'short-sleeve', gender:'men',   price:'GH\u20b5 290', colors:[C.INK,C.CREAM,C.COPPER,C.BROWN],                 sizes:['XS','S','M','L','XL','XXL'] },
+      { id:7,  name:'Wax Print Tee',              cat:'tshirt',  sub:'short-sleeve', gender:'men',   price:'GH\u20b5 300', colors:[C.RUST,C.GOLD,C.GREEN,C.BLUE,C.CREAM],           sizes:['XS','S','M','L','XL','XXL'] },
+      { id:8,  name:'Ancestral Script Tee',       cat:'tshirt',  sub:'short-sleeve', gender:'men',   price:'GH\u20b5 320', colors:[C.INK,C.BGOLD,C.BROWN],                          sizes:['XS','S','M','L','XL','XXL'] },
+      // ── T-SHIRTS · SHORT SLEEVE · WOMEN ────────────────────
+      { id:9,  name:'ADW Fitted Crop Tee',        cat:'tshirt',  sub:'short-sleeve', gender:'women', price:'GH\u20b5 220', colors:[C.CREAM,C.INK,C.ROSE,C.RUST,C.EMERALD],          sizes:['XS','S','M','L','XL'] },
+      { id:10, name:"Heritage Women's Tee",       cat:'tshirt',  sub:'short-sleeve', gender:'women', price:'GH\u20b5 240', colors:[C.CREAM,C.GOLD,C.RUST,C.BLUE],                   sizes:['XS','S','M','L','XL'] },
+      { id:11, name:"Adinkra Women's Tee",        cat:'tshirt',  sub:'short-sleeve', gender:'women', price:'GH\u20b5 260', colors:[C.GOLD,C.RUST,C.EMERALD,C.CREAM],                sizes:['XS','S','M','L','XL'] },
+      { id:12, name:"Kente Women's Tee",          cat:'tshirt',  sub:'short-sleeve', gender:'women', price:'GH\u20b5 270', colors:[C.RUST,C.GOLD,C.GREEN,C.BLUE,C.PURPLE],          sizes:['XS','S','M','L','XL'] },
+      { id:13, name:'Ankara Crop Tee',            cat:'tshirt',  sub:'short-sleeve', gender:'women', price:'GH\u20b5 250', colors:[C.ROSE,C.GOLD,C.CREAM,C.EMERALD],                sizes:['XS','S','M','L','XL'] },
+      { id:14, name:"Tribal Women's Tee",         cat:'tshirt',  sub:'short-sleeve', gender:'women', price:'GH\u20b5 280', colors:[C.INK,C.ROSE,C.CREAM,C.BLUE],                    sizes:['XS','S','M','L','XL'] },
+      { id:15, name:"Wax Print Women's Tee",      cat:'tshirt',  sub:'short-sleeve', gender:'women', price:'GH\u20b5 290', colors:[C.RUST,C.GOLD,C.GREEN,C.CREAM],                  sizes:['XS','S','M','L','XL'] },
+      { id:16, name:"Ancestral Women's Tee",      cat:'tshirt',  sub:'short-sleeve', gender:'women', price:'GH\u20b5 300', colors:[C.CREAM,C.BGOLD,C.ROSE,C.EMERALD],               sizes:['XS','S','M','L','XL'] },
+      // ── T-SHIRTS · LONG SLEEVE · MEN ───────────────────────
+      { id:17, name:'ADW Long Sleeve Tee',        cat:'tshirt',  sub:'long-sleeve',  gender:'men',   price:'GH\u20b5 300', colors:[C.INK,C.CREAM,C.BROWN,C.RUST,C.GREEN,C.GOLD],    sizes:['XS','S','M','L','XL','XXL'] },
+      { id:18, name:'Heritage Long Sleeve',       cat:'tshirt',  sub:'long-sleeve',  gender:'men',   price:'GH\u20b5 320', colors:[C.CREAM,C.INK,C.BLUE],                           sizes:['XS','S','M','L','XL','XXL'] },
+      { id:19, name:'Adinkra Long Sleeve',        cat:'tshirt',  sub:'long-sleeve',  gender:'men',   price:'GH\u20b5 340', colors:[C.CREAM,C.GOLD,C.BROWN,C.RUST],                  sizes:['XS','S','M','L','XL','XXL'] },
+      { id:20, name:'Kente Print LS Tee',         cat:'tshirt',  sub:'long-sleeve',  gender:'men',   price:'GH\u20b5 360', colors:[C.GOLD,C.RUST,C.GREEN,C.BLUE,C.INK],             sizes:['XS','S','M','L','XL','XXL'] },
+      { id:21, name:'Ankara LS Tee',              cat:'tshirt',  sub:'long-sleeve',  gender:'men',   price:'GH\u20b5 330', colors:[C.RUST,C.GOLD,C.CREAM,C.GREEN],                  sizes:['XS','S','M','L','XL','XXL'] },
+      { id:22, name:'Tribal LS Tee',              cat:'tshirt',  sub:'long-sleeve',  gender:'men',   price:'GH\u20b5 350', colors:[C.INK,C.CREAM,C.COPPER,C.BROWN],                 sizes:['XS','S','M','L','XL','XXL'] },
+      { id:23, name:'Wax Print LS Tee',           cat:'tshirt',  sub:'long-sleeve',  gender:'men',   price:'GH\u20b5 370', colors:[C.RUST,C.GOLD,C.GREEN,C.BLUE,C.CREAM],           sizes:['XS','S','M','L','XL','XXL'] },
+      { id:24, name:'Mock-Neck Heritage LS',      cat:'tshirt',  sub:'long-sleeve',  gender:'men',   price:'GH\u20b5 400', colors:[C.INK,C.BGOLD,C.BROWN,C.CREAM],                  sizes:['XS','S','M','L','XL','XXL'] },
+      // ── T-SHIRTS · LONG SLEEVE · WOMEN ─────────────────────
+      { id:25, name:"ADW Women's LS Tee",         cat:'tshirt',  sub:'long-sleeve',  gender:'women', price:'GH\u20b5 300', colors:[C.CREAM,C.INK,C.ROSE,C.RUST,C.EMERALD],          sizes:['XS','S','M','L','XL'] },
+      { id:26, name:"Heritage Women's LS",        cat:'tshirt',  sub:'long-sleeve',  gender:'women', price:'GH\u20b5 320', colors:[C.CREAM,C.GOLD,C.RUST,C.BLUE],                   sizes:['XS','S','M','L','XL'] },
+      { id:27, name:"Adinkra Women's LS",         cat:'tshirt',  sub:'long-sleeve',  gender:'women', price:'GH\u20b5 340', colors:[C.GOLD,C.RUST,C.EMERALD,C.CREAM],                sizes:['XS','S','M','L','XL'] },
+      { id:28, name:"Kente Women's LS Tee",       cat:'tshirt',  sub:'long-sleeve',  gender:'women', price:'GH\u20b5 350', colors:[C.RUST,C.GOLD,C.GREEN,C.BLUE,C.PURPLE],          sizes:['XS','S','M','L','XL'] },
+      { id:29, name:'Fitted Crop LS Tee',         cat:'tshirt',  sub:'long-sleeve',  gender:'women', price:'GH\u20b5 310', colors:[C.ROSE,C.GOLD,C.CREAM,C.EMERALD],                sizes:['XS','S','M','L','XL'] },
+      { id:30, name:"Tribal Women's LS",          cat:'tshirt',  sub:'long-sleeve',  gender:'women', price:'GH\u20b5 360', colors:[C.INK,C.ROSE,C.CREAM,C.BLUE],                    sizes:['XS','S','M','L','XL'] },
+      { id:31, name:'Wrap LS Top',                cat:'tshirt',  sub:'long-sleeve',  gender:'women', price:'GH\u20b5 380', colors:[C.RUST,C.GOLD,C.GREEN,C.CREAM],                  sizes:['XS','S','M','L','XL'] },
+      { id:32, name:"Ancestral Women's LS",       cat:'tshirt',  sub:'long-sleeve',  gender:'women', price:'GH\u20b5 400', colors:[C.CREAM,C.BGOLD,C.ROSE,C.EMERALD],               sizes:['XS','S','M','L','XL'] },
+      // ── TROUSERS · SHORTS · MEN ─────────────────────────────
+      { id:33, name:'ADW Cargo Shorts',           cat:'trousers',sub:'shorts',        gender:'men',   price:'GH\u20b5 380', colors:[C.INK,C.CREAM,C.BROWN,C.RUST,C.GREEN,C.BGOLD],  sizes:['S','M','L','XL','XXL'] },
+      { id:34, name:'Heritage Shorts',            cat:'trousers',sub:'shorts',        gender:'men',   price:'GH\u20b5 360', colors:[C.CREAM,C.INK,C.GOLD,C.GREEN],                  sizes:['S','M','L','XL','XXL'] },
+      { id:35, name:'Kente Trim Shorts',          cat:'trousers',sub:'shorts',        gender:'men',   price:'GH\u20b5 400', colors:[C.GOLD,C.RUST,C.GREEN,C.BLUE],                  sizes:['S','M','L','XL','XXL'] },
+      { id:36, name:'Tribal Track Shorts',        cat:'trousers',sub:'shorts',        gender:'men',   price:'GH\u20b5 340', colors:[C.INK,C.CREAM,C.RUST,C.GREEN,C.GOLD],           sizes:['S','M','L','XL','XXL'] },
+      { id:37, name:'Ankara Print Shorts',        cat:'trousers',sub:'shorts',        gender:'men',   price:'GH\u20b5 420', colors:[C.RUST,C.GOLD,C.GREEN,C.BLUE,C.CREAM],          sizes:['S','M','L','XL','XXL'] },
+      { id:38, name:'Wax Print Shorts',           cat:'trousers',sub:'shorts',        gender:'men',   price:'GH\u20b5 380', colors:[C.GOLD,C.RUST,C.BLUE,C.EMERALD],                sizes:['S','M','L','XL','XXL'] },
+      { id:39, name:'Board Shorts ADW',           cat:'trousers',sub:'shorts',        gender:'men',   price:'GH\u20b5 360', colors:[C.CREAM,C.BLUE,C.RUST,C.GREEN],                 sizes:['S','M','L','XL','XXL'] },
+      { id:40, name:'Tailored Short',             cat:'trousers',sub:'shorts',        gender:'men',   price:'GH\u20b5 440', colors:[C.INK,C.BROWN,C.SADDLE],                        sizes:['S','M','L','XL'] },
+      // ── TROUSERS · SHORTS · WOMEN ───────────────────────────
+      { id:41, name:"ADW Women's Shorts",         cat:'trousers',sub:'shorts',        gender:'women', price:'GH\u20b5 340', colors:[C.CREAM,C.INK,C.ROSE,C.RUST,C.EMERALD],         sizes:['XS','S','M','L','XL'] },
+      { id:42, name:"Heritage Women's Shorts",    cat:'trousers',sub:'shorts',        gender:'women', price:'GH\u20b5 360', colors:[C.CREAM,C.GOLD,C.RUST,C.BLUE],                  sizes:['XS','S','M','L','XL'] },
+      { id:43, name:'Ankara Shorts',              cat:'trousers',sub:'shorts',        gender:'women', price:'GH\u20b5 380', colors:[C.RUST,C.GOLD,C.GREEN,C.BLUE,C.PURPLE],         sizes:['XS','S','M','L','XL'] },
+      { id:44, name:"Kente Women's Shorts",       cat:'trousers',sub:'shorts',        gender:'women', price:'GH\u20b5 360', colors:[C.GOLD,C.RUST,C.EMERALD,C.CREAM],               sizes:['XS','S','M','L','XL'] },
+      { id:45, name:'High-Waist Tribal Shorts',   cat:'trousers',sub:'shorts',        gender:'women', price:'GH\u20b5 400', colors:[C.INK,C.ROSE,C.CREAM,C.BLUE],                   sizes:['XS','S','M','L','XL'] },
+      { id:46, name:"Wax Print Women's Shorts",   cat:'trousers',sub:'shorts',        gender:'women', price:'GH\u20b5 380', colors:[C.RUST,C.GOLD,C.GREEN,C.CREAM],                 sizes:['XS','S','M','L','XL'] },
+      { id:47, name:'Flowy Ankara Shorts',        cat:'trousers',sub:'shorts',        gender:'women', price:'GH\u20b5 420', colors:[C.CREAM,C.BGOLD,C.ROSE,C.EMERALD],              sizes:['XS','S','M','L','XL'] },
+      { id:48, name:'ADW Denim-Style Shorts',     cat:'trousers',sub:'shorts',        gender:'women', price:'GH\u20b5 440', colors:[C.BLUE,C.INK,C.CREAM],                          sizes:['XS','S','M','L','XL'] },
+      // ── TROUSERS · LONG TROUSERS · MEN ─────────────────────
+      { id:49, name:'ADW Heritage Trousers',      cat:'trousers',sub:'long-trousers', gender:'men',   price:'GH\u20b5 520', colors:[C.INK,C.BROWN,C.CREAM,C.GOLD,C.GREEN],          sizes:['S','M','L','XL','XXL'] },
+      { id:50, name:'Ankara Wide Leg',            cat:'trousers',sub:'long-trousers', gender:'men',   price:'GH\u20b5 560', colors:[C.RUST,C.GOLD,C.GREEN,C.BLUE],                  sizes:['S','M','L','XL','XXL'] },
+      { id:51, name:'Kente Trim Trousers',        cat:'trousers',sub:'long-trousers', gender:'men',   price:'GH\u20b5 540', colors:[C.GOLD,C.INK,C.BROWN],                          sizes:['S','M','L','XL','XXL'] },
+      { id:52, name:'Tribal Slim-Fit Pants',      cat:'trousers',sub:'long-trousers', gender:'men',   price:'GH\u20b5 500', colors:[C.INK,C.CREAM,C.COPPER,C.BROWN],                sizes:['S','M','L','XL','XXL'] },
+      { id:53, name:'Wax Print Trousers',         cat:'trousers',sub:'long-trousers', gender:'men',   price:'GH\u20b5 580', colors:[C.RUST,C.GOLD,C.GREEN,C.BLUE,C.CREAM],          sizes:['S','M','L','XL','XXL'] },
+      { id:54, name:'ADW Cargo Trousers',         cat:'trousers',sub:'long-trousers', gender:'men',   price:'GH\u20b5 560', colors:[C.INK,C.CREAM,C.BROWN,C.GREEN,C.RUST],          sizes:['S','M','L','XL','XXL'] },
+      { id:55, name:'Heritage Chino',             cat:'trousers',sub:'long-trousers', gender:'men',   price:'GH\u20b5 520', colors:[C.SADDLE,C.CREAM,C.INK],                        sizes:['S','M','L','XL','XXL'] },
+      { id:56, name:'Adinkra Print Trousers',     cat:'trousers',sub:'long-trousers', gender:'men',   price:'GH\u20b5 600', colors:[C.BGOLD,C.INK,C.BROWN,C.CREAM],                 sizes:['S','M','L','XL'] },
+      // ── TROUSERS · LONG TROUSERS · WOMEN ───────────────────
+      { id:57, name:"ADW Women's Trousers",       cat:'trousers',sub:'long-trousers', gender:'women', price:'GH\u20b5 500', colors:[C.CREAM,C.INK,C.ROSE,C.RUST,C.EMERALD],         sizes:['XS','S','M','L','XL'] },
+      { id:58, name:'Palazzo Pants',              cat:'trousers',sub:'long-trousers', gender:'women', price:'GH\u20b5 560', colors:[C.RUST,C.GOLD,C.EMERALD,C.BLUE,C.PURPLE],       sizes:['XS','S','M','L','XL'] },
+      { id:59, name:"Ankara Wide Leg Women's",    cat:'trousers',sub:'long-trousers', gender:'women', price:'GH\u20b5 580', colors:[C.GOLD,C.RUST,C.GREEN,C.BLUE],                  sizes:['XS','S','M','L','XL'] },
+      { id:60, name:"Kente Women's Trousers",     cat:'trousers',sub:'long-trousers', gender:'women', price:'GH\u20b5 540', colors:[C.RUST,C.GOLD,C.EMERALD,C.CREAM],               sizes:['XS','S','M','L','XL'] },
+      { id:61, name:'Flared Tribal Pants',        cat:'trousers',sub:'long-trousers', gender:'women', price:'GH\u20b5 520', colors:[C.INK,C.ROSE,C.CREAM,C.BLUE],                   sizes:['XS','S','M','L','XL'] },
+      { id:62, name:'High-Waist Ankara Pants',    cat:'trousers',sub:'long-trousers', gender:'women', price:'GH\u20b5 560', colors:[C.RUST,C.GOLD,C.GREEN,C.CREAM],                 sizes:['XS','S','M','L','XL'] },
+      { id:63, name:'Cropped Wide-Leg Pants',     cat:'trousers',sub:'long-trousers', gender:'women', price:'GH\u20b5 500', colors:[C.CREAM,C.BGOLD,C.ROSE,C.EMERALD],              sizes:['XS','S','M','L','XL'] },
+      { id:64, name:'Heritage Slim Trousers',     cat:'trousers',sub:'long-trousers', gender:'women', price:'GH\u20b5 540', colors:[C.INK,C.BROWN,C.CREAM],                         sizes:['XS','S','M','L','XL'] },
+      // ── SHOES · SLIDES · MEN ────────────────────────────────
+      { id:65, name:'ADW Heritage Slides',        cat:'shoes',   sub:'slides',        gender:'men',   price:'GH\u20b5 320', colors:[C.INK,C.CREAM,C.GOLD,C.RUST,C.GREEN,C.BROWN],  sizes:['40','41','42','43','44','45'] },
+      { id:66, name:'Kente Band Slides',          cat:'shoes',   sub:'slides',        gender:'men',   price:'GH\u20b5 340', colors:[C.GOLD,C.RUST,C.GREEN,C.BLUE],                  sizes:['40','41','42','43','44','45'] },
+      { id:67, name:'Tribal Slides',              cat:'shoes',   sub:'slides',        gender:'men',   price:'GH\u20b5 300', colors:[C.INK,C.CREAM,C.BROWN],                         sizes:['40','41','42','43','44','45'] },
+      { id:68, name:'Ankara Print Slides',        cat:'shoes',   sub:'slides',        gender:'men',   price:'GH\u20b5 360', colors:[C.RUST,C.GOLD,C.GREEN,C.CREAM],                 sizes:['40','41','42','43','44','45'] },
+      { id:69, name:'Heritage Pool Slide',        cat:'shoes',   sub:'slides',        gender:'men',   price:'GH\u20b5 280', colors:[C.CREAM,C.INK,C.GOLD,C.GREEN,C.RUST],           sizes:['40','41','42','43','44','45'] },
+      { id:70, name:'Wax Print Slides',           cat:'shoes',   sub:'slides',        gender:'men',   price:'GH\u20b5 340', colors:[C.GOLD,C.RUST,C.BLUE,C.EMERALD],                sizes:['40','41','42','43','44','45'] },
+      { id:71, name:'Leather ADW Slides',         cat:'shoes',   sub:'slides',        gender:'men',   price:'GH\u20b5 400', colors:[C.SADDLE,C.INK,C.BROWN,C.CREAM],                sizes:['40','41','42','43','44','45'] },
+      { id:72, name:'Adinkra Embossed Slides',    cat:'shoes',   sub:'slides',        gender:'men',   price:'GH\u20b5 380', colors:[C.BGOLD,C.INK,C.BROWN],                         sizes:['40','41','42','43','44','45'] },
+      // ── SHOES · SLIDES · WOMEN ──────────────────────────────
+      { id:73, name:"ADW Women's Slides",         cat:'shoes',   sub:'slides',        gender:'women', price:'GH\u20b5 300', colors:[C.CREAM,C.INK,C.ROSE,C.GOLD,C.RUST],            sizes:['36','37','38','39','40','41'] },
+      { id:74, name:"Kente Women's Slides",       cat:'shoes',   sub:'slides',        gender:'women', price:'GH\u20b5 320', colors:[C.GOLD,C.RUST,C.GREEN,C.CREAM],                 sizes:['36','37','38','39','40','41'] },
+      { id:75, name:'Platform Slides ADW',        cat:'shoes',   sub:'slides',        gender:'women', price:'GH\u20b5 360', colors:[C.INK,C.CREAM,C.ROSE,C.GOLD],                   sizes:['36','37','38','39','40','41'] },
+      { id:76, name:"Ankara Women's Slides",      cat:'shoes',   sub:'slides',        gender:'women', price:'GH\u20b5 340', colors:[C.RUST,C.GOLD,C.EMERALD,C.BLUE],                sizes:['36','37','38','39','40','41'] },
+      { id:77, name:"Heritage Women's Slide",     cat:'shoes',   sub:'slides',        gender:'women', price:'GH\u20b5 300', colors:[C.CREAM,C.SADDLE,C.GOLD],                       sizes:['36','37','38','39','40','41'] },
+      { id:78, name:'Embroidered Mule Slide',     cat:'shoes',   sub:'slides',        gender:'women', price:'GH\u20b5 380', colors:[C.BGOLD,C.CREAM,C.ROSE],                        sizes:['36','37','38','39','40','41'] },
+      { id:79, name:'Tribal Flat Slide',          cat:'shoes',   sub:'slides',        gender:'women', price:'GH\u20b5 280', colors:[C.RUST,C.GOLD,C.GREEN,C.INK],                   sizes:['36','37','38','39','40','41'] },
+      { id:80, name:'Strappy ADW Slide',          cat:'shoes',   sub:'slides',        gender:'women', price:'GH\u20b5 360', colors:[C.SADDLE,C.INK,C.GOLD],                         sizes:['36','37','38','39','40','41'] },
+      // ── SHOES · SNEAKERS · MEN ──────────────────────────────
+      { id:81, name:'ADW Heritage Sneakers',      cat:'shoes',   sub:'sneakers',      gender:'men',   price:'GH\u20b5 780', colors:[C.CREAM,C.INK,C.GOLD,C.RUST,C.GREEN,C.BROWN],  sizes:['40','41','42','43','44','45'] },
+      { id:82, name:'Kente High-Tops',            cat:'shoes',   sub:'sneakers',      gender:'men',   price:'GH\u20b5 860', colors:[C.GOLD,C.INK,C.RUST,C.GREEN],                  sizes:['40','41','42','43','44','45'] },
+      { id:83, name:'Tribal Low-Tops',            cat:'shoes',   sub:'sneakers',      gender:'men',   price:'GH\u20b5 720', colors:[C.INK,C.CREAM,C.RUST,C.BLUE],                  sizes:['40','41','42','43','44','45'] },
+      { id:84, name:'Ankara Runner',              cat:'shoes',   sub:'sneakers',      gender:'men',   price:'GH\u20b5 800', colors:[C.RUST,C.GOLD,C.GREEN,C.BLUE,C.CREAM],          sizes:['40','41','42','43','44','45'] },
+      { id:85, name:'Heritage Classic Sneaker',   cat:'shoes',   sub:'sneakers',      gender:'men',   price:'GH\u20b5 760', colors:[C.CREAM,C.INK,C.SADDLE,C.GOLD],                sizes:['40','41','42','43','44','45'] },
+      { id:86, name:'Wax Print Sneaker',          cat:'shoes',   sub:'sneakers',      gender:'men',   price:'GH\u20b5 820', colors:[C.GOLD,C.RUST,C.GREEN,C.BLUE],                  sizes:['40','41','42','43','44','45'] },
+      { id:87, name:'ADW Chunky Sneaker',         cat:'shoes',   sub:'sneakers',      gender:'men',   price:'GH\u20b5 880', colors:[C.INK,C.CREAM,C.BGOLD,C.RUST],                 sizes:['40','41','42','43','44','45'] },
+      { id:88, name:'Adinkra Court Shoe',         cat:'shoes',   sub:'sneakers',      gender:'men',   price:'GH\u20b5 840', colors:[C.INK,C.BROWN,C.CREAM],                         sizes:['40','41','42','43','44','45'] },
+      // ── SHOES · SNEAKERS · WOMEN ────────────────────────────
+      { id:89, name:"ADW Women's Sneakers",       cat:'shoes',   sub:'sneakers',      gender:'women', price:'GH\u20b5 760', colors:[C.CREAM,C.INK,C.ROSE,C.GOLD,C.RUST],            sizes:['36','37','38','39','40','41'] },
+      { id:90, name:"Kente Women's Sneakers",     cat:'shoes',   sub:'sneakers',      gender:'women', price:'GH\u20b5 800', colors:[C.GOLD,C.RUST,C.GREEN,C.CREAM],                 sizes:['36','37','38','39','40','41'] },
+      { id:91, name:'Platform Sneakers ADW',      cat:'shoes',   sub:'sneakers',      gender:'women', price:'GH\u20b5 860', colors:[C.INK,C.CREAM,C.ROSE,C.GOLD],                   sizes:['36','37','38','39','40','41'] },
+      { id:92, name:"Ankara Women's Sneakers",    cat:'shoes',   sub:'sneakers',      gender:'women', price:'GH\u20b5 820', colors:[C.RUST,C.GOLD,C.EMERALD,C.BLUE],                sizes:['36','37','38','39','40','41'] },
+      { id:93, name:"Classic Women's Low-Top",    cat:'shoes',   sub:'sneakers',      gender:'women', price:'GH\u20b5 720', colors:[C.CREAM,C.INK,C.SADDLE,C.GOLD],                 sizes:['36','37','38','39','40','41'] },
+      { id:94, name:"Wax Print Women's Sneaker",  cat:'shoes',   sub:'sneakers',      gender:'women', price:'GH\u20b5 780', colors:[C.RUST,C.GOLD,C.GREEN,C.CREAM],                 sizes:['36','37','38','39','40','41'] },
+      { id:95, name:'Slip-On ADW',                cat:'shoes',   sub:'sneakers',      gender:'women', price:'GH\u20b5 700', colors:[C.CREAM,C.GOLD,C.ROSE,C.BLUE],                  sizes:['36','37','38','39','40','41'] },
+      { id:96, name:"Tribal Women's Sneaker",     cat:'shoes',   sub:'sneakers',      gender:'women', price:'GH\u20b5 840', colors:[C.INK,C.BGOLD,C.ROSE,C.EMERALD],                sizes:['36','37','38','39','40','41'] },
+      // ── JOGGERS · TOP · MEN ─────────────────────────────────
+      { id:97,  name:'ADW Heritage Hoodie',       cat:'joggers', sub:'top',           gender:'men',   price:'GH\u20b5 580', colors:[C.INK,C.CREAM,C.BROWN,C.RUST,C.GREEN,C.GOLD],  sizes:['XS','S','M','L','XL','XXL'] },
+      { id:98,  name:'Kente Hoodie',              cat:'joggers', sub:'top',           gender:'men',   price:'GH\u20b5 620', colors:[C.GOLD,C.INK,C.RUST,C.GREEN],                  sizes:['XS','S','M','L','XL','XXL'] },
+      { id:99,  name:'Tribal Crewneck',           cat:'joggers', sub:'top',           gender:'men',   price:'GH\u20b5 540', colors:[C.INK,C.CREAM,C.RUST,C.BROWN],                 sizes:['XS','S','M','L','XL','XXL'] },
+      { id:100, name:'Ankara Zip Hoodie',         cat:'joggers', sub:'top',           gender:'men',   price:'GH\u20b5 660', colors:[C.RUST,C.GOLD,C.GREEN,C.BLUE,C.CREAM],          sizes:['XS','S','M','L','XL','XXL'] },
+      { id:101, name:'Heritage Sweatshirt',       cat:'joggers', sub:'top',           gender:'men',   price:'GH\u20b5 520', colors:[C.CREAM,C.INK,C.SADDLE,C.GOLD],                sizes:['XS','S','M','L','XL','XXL'] },
+      { id:102, name:'Wax Print Hoodie',          cat:'joggers', sub:'top',           gender:'men',   price:'GH\u20b5 600', colors:[C.GOLD,C.RUST,C.GREEN,C.BLUE],                  sizes:['XS','S','M','L','XL','XXL'] },
+      { id:103, name:'ADW Oversized Hoodie',      cat:'joggers', sub:'top',           gender:'men',   price:'GH\u20b5 640', colors:[C.INK,C.CREAM,C.BGOLD,C.RUST],                 sizes:['XS','S','M','L','XL','XXL'] },
+      { id:104, name:'Adinkra Half-Zip',          cat:'joggers', sub:'top',           gender:'men',   price:'GH\u20b5 580', colors:[C.INK,C.BROWN,C.CREAM,C.GOLD],                 sizes:['XS','S','M','L','XL','XXL'] },
+      // ── JOGGERS · TOP · WOMEN ───────────────────────────────
+      { id:105, name:"ADW Women's Hoodie",        cat:'joggers', sub:'top',           gender:'women', price:'GH\u20b5 560', colors:[C.CREAM,C.INK,C.ROSE,C.RUST,C.EMERALD,C.GOLD], sizes:['XS','S','M','L','XL'] },
+      { id:106, name:"Kente Women's Hoodie",      cat:'joggers', sub:'top',           gender:'women', price:'GH\u20b5 600', colors:[C.GOLD,C.RUST,C.GREEN,C.CREAM],                 sizes:['XS','S','M','L','XL'] },
+      { id:107, name:'Cropped Hoodie ADW',        cat:'joggers', sub:'top',           gender:'women', price:'GH\u20b5 520', colors:[C.INK,C.CREAM,C.ROSE,C.GOLD],                   sizes:['XS','S','M','L','XL'] },
+      { id:108, name:"Tribal Women's Crewneck",   cat:'joggers', sub:'top',           gender:'women', price:'GH\u20b5 540', colors:[C.RUST,C.GOLD,C.EMERALD,C.BLUE],                sizes:['XS','S','M','L','XL'] },
+      { id:109, name:"Ankara Women's Hoodie",     cat:'joggers', sub:'top',           gender:'women', price:'GH\u20b5 580', colors:[C.CREAM,C.INK,C.SADDLE,C.GOLD],                 sizes:['XS','S','M','L','XL'] },
+      { id:110, name:"Wax Print Women's Hoodie",  cat:'joggers', sub:'top',           gender:'women', price:'GH\u20b5 580', colors:[C.RUST,C.GOLD,C.GREEN,C.CREAM],                 sizes:['XS','S','M','L','XL'] },
+      { id:111, name:'Fitted Crewneck ADW',       cat:'joggers', sub:'top',           gender:'women', price:'GH\u20b5 500', colors:[C.CREAM,C.GOLD,C.ROSE,C.BLUE],                  sizes:['XS','S','M','L','XL'] },
+      { id:112, name:"Oversized Women's Hoodie",  cat:'joggers', sub:'top',           gender:'women', price:'GH\u20b5 620', colors:[C.INK,C.BGOLD,C.ROSE,C.EMERALD],                sizes:['XS','S','M','L','XL'] },
+      // ── JOGGERS · BOTTOMS · MEN ─────────────────────────────
+      { id:113, name:'ADW Jogger Pants',          cat:'joggers', sub:'bottoms',       gender:'men',   price:'GH\u20b5 480', colors:[C.INK,C.CREAM,C.BROWN,C.RUST,C.GREEN,C.GOLD],  sizes:['XS','S','M','L','XL','XXL'] },
+      { id:114, name:'Kente Trim Joggers',        cat:'joggers', sub:'bottoms',       gender:'men',   price:'GH\u20b5 500', colors:[C.GOLD,C.INK,C.RUST,C.GREEN],                  sizes:['XS','S','M','L','XL','XXL'] },
+      { id:115, name:'Tribal Joggers',            cat:'joggers', sub:'bottoms',       gender:'men',   price:'GH\u20b5 460', colors:[C.INK,C.CREAM,C.RUST,C.BROWN],                 sizes:['XS','S','M','L','XL','XXL'] },
+      { id:116, name:'Ankara Jogger Pants',       cat:'joggers', sub:'bottoms',       gender:'men',   price:'GH\u20b5 520', colors:[C.RUST,C.GOLD,C.GREEN,C.BLUE,C.CREAM],          sizes:['XS','S','M','L','XL','XXL'] },
+      { id:117, name:'Heritage Slim Jogger',      cat:'joggers', sub:'bottoms',       gender:'men',   price:'GH\u20b5 480', colors:[C.CREAM,C.INK,C.SADDLE,C.GOLD],                sizes:['XS','S','M','L','XL','XXL'] },
+      { id:118, name:'Wax Print Joggers',         cat:'joggers', sub:'bottoms',       gender:'men',   price:'GH\u20b5 500', colors:[C.GOLD,C.RUST,C.GREEN,C.BLUE],                  sizes:['XS','S','M','L','XL','XXL'] },
+      { id:119, name:'ADW Wide-Leg Jogger',       cat:'joggers', sub:'bottoms',       gender:'men',   price:'GH\u20b5 540', colors:[C.INK,C.CREAM,C.BGOLD,C.RUST],                 sizes:['XS','S','M','L','XL','XXL'] },
+      { id:120, name:'Cargo Jogger ADW',          cat:'joggers', sub:'bottoms',       gender:'men',   price:'GH\u20b5 560', colors:[C.INK,C.BROWN,C.CREAM,C.GREEN],                 sizes:['XS','S','M','L','XL','XXL'] },
+      // ── JOGGERS · BOTTOMS · WOMEN ───────────────────────────
+      { id:121, name:"ADW Women's Joggers",       cat:'joggers', sub:'bottoms',       gender:'women', price:'GH\u20b5 460', colors:[C.CREAM,C.INK,C.ROSE,C.RUST,C.EMERALD,C.GOLD], sizes:['XS','S','M','L','XL'] },
+      { id:122, name:"Kente Women's Joggers",     cat:'joggers', sub:'bottoms',       gender:'women', price:'GH\u20b5 480', colors:[C.GOLD,C.RUST,C.GREEN,C.CREAM],                 sizes:['XS','S','M','L','XL'] },
+      { id:123, name:'Flared Joggers ADW',        cat:'joggers', sub:'bottoms',       gender:'women', price:'GH\u20b5 500', colors:[C.INK,C.CREAM,C.ROSE,C.GOLD],                   sizes:['XS','S','M','L','XL'] },
+      { id:124, name:"Tribal Women's Joggers",    cat:'joggers', sub:'bottoms',       gender:'women', price:'GH\u20b5 460', colors:[C.RUST,C.GOLD,C.EMERALD,C.BLUE],                sizes:['XS','S','M','L','XL'] },
+      { id:125, name:"Ankara Women's Joggers",    cat:'joggers', sub:'bottoms',       gender:'women', price:'GH\u20b5 480', colors:[C.CREAM,C.INK,C.SADDLE,C.GOLD],                 sizes:['XS','S','M','L','XL'] },
+      { id:126, name:"Wax Print Women's Joggers", cat:'joggers', sub:'bottoms',       gender:'women', price:'GH\u20b5 500', colors:[C.RUST,C.GOLD,C.GREEN,C.CREAM],                 sizes:['XS','S','M','L','XL'] },
+      { id:127, name:"Fitted Women's Jogger",     cat:'joggers', sub:'bottoms',       gender:'women', price:'GH\u20b5 440', colors:[C.CREAM,C.GOLD,C.ROSE,C.BLUE],                  sizes:['XS','S','M','L','XL'] },
+      { id:128, name:'Cropped Jogger Pants',      cat:'joggers', sub:'bottoms',       gender:'women', price:'GH\u20b5 460', colors:[C.INK,C.BGOLD,C.ROSE,C.EMERALD],                sizes:['XS','S','M','L','XL'] },
     ];
 
     // ─────────────────────────────────────────────────────────
     // Filter state
     // ─────────────────────────────────────────────────────────
-    var state = { gender: 'all', cat: 'all' };
+    var state = { gender: 'all', cat: 'all', sub: 'all' };
+
+    var CAT_LABELS = { tshirt:'T-Shirts', trousers:'Trousers', shoes:'Shoes', joggers:'Joggers' };
+    var SUB_LABELS = {
+      'short-sleeve':'Short Sleeve', 'long-sleeve':'Long Sleeve',
+      'shorts':'Shorts', 'long-trousers':'Long Trousers',
+      'slides':'Slides', 'sneakers':'Sneakers',
+      'top':'Top', 'bottoms':'Trousers'
+    };
+    var SUBCATS = {
+      tshirt:   [{ val:'short-sleeve', label:'Short Sleeve' }, { val:'long-sleeve', label:'Long Sleeve' }],
+      trousers: [{ val:'shorts', label:'Shorts' }, { val:'long-trousers', label:'Long Trousers' }],
+      shoes:    [{ val:'slides', label:'Slides' }, { val:'sneakers', label:'Sneakers' }],
+      joggers:  [{ val:'top', label:'Top' }, { val:'bottoms', label:'Bottoms' }],
+    };
 
     function setGender(btn, val) {
       state.gender = val;
@@ -1493,36 +1627,65 @@
     }
     function setCat(btn, val) {
       state.cat = val;
+      state.sub = 'all';
       document.querySelectorAll('.cat-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      renderSubcatTabs();
+      renderGrid();
+    }
+    function setSub(btn, val) {
+      state.sub = val;
+      document.querySelectorAll('.subcat-btn').forEach(function(b) { b.classList.remove('active'); });
       btn.classList.add('active');
       renderGrid();
     }
-
-    // ─────────────────────────────────────────────────────────
-    // Category display names
-    // ─────────────────────────────────────────────────────────
-    var CAT_LABELS = {
-      clothes:'Clothes', shoes:'Shoes', watches:'Watches', bags:'Bags',
-      accessories:'Accessories', jewelry:'Jewelry', perfume:'Perfume', headwear:'Headwear'
-    };
+    function goToCollection(cat, sub) {
+      state.cat = cat;
+      state.sub = sub || 'all';
+      document.querySelectorAll('.cat-btn').forEach(function(b) {
+        b.classList.toggle('active', b.dataset.cat === cat);
+      });
+      renderSubcatTabs();
+      if (sub && sub !== 'all') {
+        setTimeout(function() {
+          document.querySelectorAll('.subcat-btn').forEach(function(b) {
+            b.classList.toggle('active', b.dataset.sub === sub);
+          });
+        }, 10);
+      }
+      renderGrid();
+      var el = document.getElementById('collections');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    function renderSubcatTabs() {
+      var el = document.getElementById('subcat-tabs');
+      if (!el) return;
+      var subs = SUBCATS[state.cat];
+      if (!subs || !subs.length) { el.innerHTML = ''; return; }
+      var html = '<button class="subcat-btn active" data-sub="all" onclick="setSub(this,\'all\')">All ' + CAT_LABELS[state.cat] + '</button>';
+      subs.forEach(function(s) {
+        html += '<button class="subcat-btn" data-sub="' + s.val + '" onclick="setSub(this,\'' + s.val + '\')">' + s.label + '</button>';
+      });
+      el.innerHTML = html;
+    }
 
     // ─────────────────────────────────────────────────────────
     // Render
     // ─────────────────────────────────────────────────────────
     function renderGrid() {
       var filtered = PRODUCTS.filter(function(p) {
-        var gMatch = state.gender === 'all' || p.gender === state.gender ||
-                     (state.gender === 'men'   && p.gender === 'unisex') ||
-                     (state.gender === 'women' && p.gender === 'unisex');
+        var gMatch = state.gender === 'all' || p.gender === state.gender;
         var cMatch = state.cat === 'all' || p.cat === state.cat;
-        return gMatch && cMatch;
+        var sMatch = state.sub === 'all' || p.sub === state.sub;
+        return gMatch && cMatch && sMatch;
       });
 
       var count = filtered.length;
-      var g = state.gender === 'all' ? 'All' : (state.gender === 'men' ? "Men's" : "Women's");
-      var c = state.cat === 'all' ? 'Collections' : CAT_LABELS[state.cat];
+      var gLabel = state.gender === 'all' ? 'All' : (state.gender === 'men' ? "Men's" : "Women's");
+      var cLabel = state.cat === 'all' ? 'Collections' : CAT_LABELS[state.cat];
+      var sLabel = (state.sub !== 'all' && SUB_LABELS[state.sub]) ? ' \u00b7 ' + SUB_LABELS[state.sub] : '';
       document.getElementById('collection-count').textContent =
-        count + ' item' + (count !== 1 ? 's' : '') + ' — ' + g + ' · ' + c;
+        count + ' item' + (count !== 1 ? 's' : '') + ' \u2014 ' + gLabel + ' \u00b7 ' + cLabel + sLabel;
 
       var grid = document.getElementById('product-grid');
       if (count === 0) {
@@ -1531,20 +1694,21 @@
       }
 
       grid.innerHTML = filtered.map(function(p) {
-        var gLabel = p.gender === 'men' ? 'Men' : p.gender === 'women' ? 'Women' : 'Unisex';
+        var gPill   = p.gender === 'men' ? 'Men' : 'Women';
+        var subPill = SUB_LABELS[p.sub] || p.sub;
         var swatches = p.colors.map(function(c, i) {
           return '<span class="color-swatch" style="background:' + c + '" title="Variant ' + (i+1) + '" role="img" aria-label="Colour variant ' + (i+1) + '"></span>';
         }).join('');
         var chips = p.sizes.map(function(s) {
           return '<span class="size-chip">' + s + '</span>';
         }).join('');
-        var waMsg = encodeURIComponent('Hi ADW! 👋\n\nI\'m interested in the *' + p.name + '* from the ' + CAT_LABELS[p.cat] + ' collection (' + gLabel + ').\n\nCould you let me know availability and next steps? 🙏');
+        var waMsg = encodeURIComponent('Hi ADW! \ud83d\udc4b\n\nI\'m interested in the *' + p.name + '* (' + CAT_LABELS[p.cat] + ' \u2014 ' + subPill + ', ' + gPill + ').\n\nCould you let me know availability and next steps? \ud83d\ude4f');
         return [
           '<article class="product-card" aria-label="' + p.name + '">',
           '  <div class="product-image-wrap">',
           '    <img src="./assets/adw-logo-nobg.png" class="product-logo-img" alt="A.D.W ' + p.name + '" loading="lazy" />',
-          '    <span class="product-badge">Coming Soon</span>',
-          '    <span class="product-gender-pill ' + p.gender + '">' + gLabel + '</span>',
+          '    <span class="product-badge">' + subPill + '</span>',
+          '    <span class="product-gender-pill ' + p.gender + '">' + gPill + '</span>',
           '  </div>',
           '  <div class="product-info">',
           '    <p class="product-category-label">' + CAT_LABELS[p.cat] + '</p>',
