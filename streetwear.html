@@ -373,21 +373,6 @@
       window.open('https://wa.me/233500325083?text=' + encodeURIComponent(msg), '_blank', 'noopener');
     }
 
-    var hamburger = document.getElementById('nav-hamburger');
-    var navLinks  = document.getElementById('nav-links');
-    var mobileSub = document.getElementById('mobile-collections-sub');
-    var dropTrigger = document.querySelector('.has-dropdown > a');
-    hamburger.addEventListener('click', function() {
-      var open = navLinks.classList.toggle('open');
-      hamburger.classList.toggle('open', open);
-      hamburger.setAttribute('aria-expanded', open);
-    });
-    if (dropTrigger && mobileSub) {
-      dropTrigger.addEventListener('click', function(e) {
-        if (window.innerWidth <= 820) { e.preventDefault(); mobileSub.classList.toggle('open'); }
-      });
-    }
-
     if ('IntersectionObserver' in window) {
       var obs = new IntersectionObserver(function(entries) {
         entries.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} });

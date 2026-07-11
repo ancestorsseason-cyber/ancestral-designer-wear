@@ -221,7 +221,7 @@
         <p class="section-eyebrow">Official Drop Date</p>
         <h2 class="section-title" style="color:var(--cream);">The wait <em style="font-style:italic;color:var(--gold);">ends soon.</em></h2>
       </div>
-      <p class="countdown-drop-date">Target: 1st September 2025</p>
+      <p class="countdown-drop-date">Target: 1st September 2026</p>
       <div class="countdown-grid">
         <div class="countdown-unit">
           <span class="countdown-num" id="cd-days">00</span>
@@ -470,24 +470,8 @@
   </footer>
 
   <script>
-    // ── Mobile Nav ──────────────────────────────────────────
-    var hamburger = document.getElementById('nav-hamburger');
-    var navLinks  = document.getElementById('nav-links');
-    var mobileSub = document.getElementById('mobile-collections-sub');
-    var dropTrigger = document.querySelector('.has-dropdown > a');
-    hamburger.addEventListener('click', function() {
-      var open = navLinks.classList.toggle('open');
-      hamburger.classList.toggle('open', open);
-      hamburger.setAttribute('aria-expanded', open);
-    });
-    if (dropTrigger && mobileSub) {
-      dropTrigger.addEventListener('click', function(e) {
-        if (window.innerWidth <= 820) { e.preventDefault(); mobileSub.classList.toggle('open'); }
-      });
-    }
-
     // ── Countdown ──────────────────────────────────────────
-    var DROP_DATE = new Date('2025-09-01T00:00:00').getTime();
+    var DROP_DATE = new Date('2026-09-01T00:00:00').getTime();
     function updateCountdown() {
       var now  = Date.now();
       var diff = DROP_DATE - now;

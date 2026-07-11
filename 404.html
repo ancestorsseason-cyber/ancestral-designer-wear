@@ -1,25 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>A.D.W — Ancestral Designer Wear</title>
-    <meta name="description" content="A.D.W — Ancestral Designer Wear — built on Replit. Update this description to reflect the app." />
-    <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="A.D.W — Ancestral Designer Wear" />
-    <meta property="og:description" content="A.D.W — Ancestral Designer Wear — built on Replit. Update this description to reflect the app." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="A.D.W — Ancestral Designer Wear" />
-    <meta name="twitter:description" content="A.D.W — Ancestral Designer Wear — built on Replit. Update this description to reflect the app." />
-    <link rel="icon" type="image/svg+xml" href="/ancestral-designer-wear/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/ancestral-designer-wear/assets/index-LdP0aVkv.js"></script>
-    <link rel="stylesheet" crossorigin href="/ancestral-designer-wear/assets/index-6xHyJjNy.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <style>.nav-overlay{clip-path:inset(0 0 100% 0)!important;pointer-events:none!important}.nav-overlay.open{clip-path:inset(0 0 0% 0)!important;pointer-events:auto!important}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — A.D.W Ancestral Designer Wear</title>
+  <meta name="description" content="Page not found — A.D.W Ancestral Designer Wear." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/png" href="./assets/new_adw_logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/style.css?v=2" />
+  <style>
+    #not-found {
+      min-height: calc(100vh - var(--nav-h));
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 80px 40px;
+      background: var(--cream);
+    }
+    .nf-code {
+      font-family: var(--serif); font-size: clamp(96px, 18vw, 180px);
+      font-weight: 300; line-height: 1; color: var(--warm);
+      letter-spacing: -.02em; margin-bottom: 0; display: block;
+    }
+    .nf-title {
+      font-family: var(--serif); font-size: clamp(28px, 4vw, 48px);
+      font-weight: 300; color: var(--brown); letter-spacing: .04em;
+      margin-bottom: 16px; margin-top: -12px;
+    }
+    .nf-title em { font-style: italic; color: var(--rust); }
+    .nf-sub {
+      font-size: 15px; line-height: 1.8; color: var(--muted);
+      max-width: 400px; margin: 0 auto 40px;
+    }
+    .nf-ctas { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+    @media (max-width: 480px) {
+      #not-found { padding: 60px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <a href="./index.html" class="nav-logo">
+      <img src="./assets/adw-logo-nobg.png" alt="A.D.W logo" />
+      <span>A.D.W</span>
+    </a>
+    <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false">
+      <span class="menu-btn-label">Menu</span>
+      <div class="menu-btn-lines"><span></span><span></span></div>
+    </button>
+  </nav>
+
+  <div class="nav-overlay" id="nav-overlay" aria-hidden="true">
+    <div class="overlay-wrap">
+      <nav class="overlay-nav">
+        <a href="./collections.html" class="overlay-link">Collections</a>
+        <a href="./streetwear.html"  class="overlay-link">Streetwear</a>
+        <a href="./studio.html"      class="overlay-link">Studio</a>
+        <a href="./about.html"       class="overlay-link">About</a>
+        <a href="./reviews.html"     class="overlay-link">Reviews</a>
+        <a href="./contact.html"     class="overlay-link">Contact</a>
+      </nav>
+      <div class="overlay-deco">
+        <p class="overlay-tagline">Ancestral<br><em>Designer</em><br>Wear</p>
+      </div>
+    </div>
+    <div class="overlay-footer">
+      <a href="https://www.instagram.com/adwears233/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/share/1FLLn61R7K/" target="_blank" rel="noopener">Facebook</a>
+      <span class="overlay-footer-copy">© 2025 A.D.W</span>
+    </div>
+  </div>
+
+  <main class="page-body">
+    <section id="not-found">
+      <span class="nf-code">404</span>
+      <h1 class="nf-title">This page has <em>wandered off.</em></h1>
+      <p class="nf-sub">
+        The page you're looking for doesn't exist — but the collection does.
+        Head back and explore A.D.W.
+      </p>
+      <div class="nf-ctas">
+        <a href="./index.html" class="btn-primary">
+          Back to Home
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7H11.5M7.5 3L11.5 7L7.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="./collections.html" class="btn-ghost">Browse Collections</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="./assets/adw-logo-nobg.png" alt="A.D.W logo" />
+          <span>A.D.W</span>
+        </div>
+        <p class="footer-tagline">Heritage · Craft · Identity</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <span class="footer-nav-heading">Pages</span>
+        <a href="./collections.html">Collections</a>
+        <a href="./streetwear.html">Streetwear</a>
+        <a href="./studio.html">Studio</a>
+        <a href="./about.html">About</a>
+        <a href="./reviews.html">Reviews</a>
+        <a href="./contact.html">Contact</a>
+      </nav>
+      <div class="footer-social">
+        <p class="footer-tagline" style="text-align:right;">Follow the drop</p>
+        <div class="footer-social-links">
+          <a href="https://www.instagram.com/adwears233/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.facebook.com/share/1FLLn61R7K/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 A.D.W — Ancestral Designer Wear. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      var btn     = document.getElementById('menu-btn');
+      var overlay = document.getElementById('nav-overlay');
+      function openMenu() {
+        overlay.classList.add('open');
+        btn.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMenu() {
+        overlay.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      btn.addEventListener('click', function() {
+        overlay.classList.contains('open') ? closeMenu() : openMenu();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+      overlay.querySelectorAll('.overlay-link').forEach(function(link) {
+        link.addEventListener('click', function() { closeMenu(); });
+      });
+    })();
+  </script>
+</body>
 </html>
