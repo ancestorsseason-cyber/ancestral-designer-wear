@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collections — A.D.W Ancestral Designer Wear</title>
+  <meta name="description" content="Browse A.D.W collections — T-Shirts, Trousers, Shoes & Joggers. Rooted in African artistry." />
+  <link rel="icon" type="image/png" href="./assets/new_adw_logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/style.css" />
+  <style>
+    /* ── Collections Page ──────────────────────────────────── */
+    #collections { padding: 72px 40px 96px; }
+
+    /* Gender filter */
+    .gender-filter {
+      display: flex; justify-content: center; gap: 8px;
+      margin-bottom: 28px; flex-wrap: wrap;
+    }
+    .gender-btn {
+      font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+      padding: 12px 28px; border-radius: 2px; cursor: pointer;
+      border: 1.5px solid rgba(61,31,0,.2); background: transparent;
+      color: var(--muted); font-family: var(--sans);
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .gender-btn.active, .gender-btn:hover {
+      background: var(--brown); color: var(--cream); border-color: var(--brown);
+    }
+
+    /* Category tabs */
+    .category-tabs {
+      display: flex; justify-content: center; gap: 6px;
+      margin-bottom: 16px; flex-wrap: wrap;
+    }
+    .cat-btn {
+      font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+      padding: 9px 20px; border-radius: 2px; cursor: pointer;
+      border: 1px solid rgba(61,31,0,.15); background: transparent;
+      color: var(--muted); font-family: var(--sans);
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .cat-btn.active, .cat-btn:hover {
+      background: var(--gold); color: var(--cream); border-color: var(--gold);
+    }
+
+    /* Sub-category tabs */
+    .subcat-tabs {
+      display: flex; justify-content: center; gap: 6px;
+      margin-bottom: 36px; flex-wrap: wrap; min-height: 34px;
+    }
+    .subcat-btn {
+      font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+      padding: 7px 16px; border-radius: 20px; cursor: pointer;
+      border: 1px solid rgba(61,31,0,.12); background: transparent;
+      color: var(--muted); font-family: var(--sans);
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .subcat-btn.active, .subcat-btn:hover {
+      background: var(--brown); color: var(--cream); border-color: var(--brown);
+    }
+
+    .collection-meta {
+      text-align: center; font-size: 11px; letter-spacing: .12em;
+      color: var(--muted); margin-bottom: 32px; text-transform: uppercase;
+    }
+
+    /* Product grid */
+    .product-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 20px; max-width: 1200px; margin: 0 auto;
+    }
+    .product-card {
+      background: #fff; border-radius: 4px; overflow: hidden;
+      border: 1px solid rgba(61,31,0,.07);
+      transition: transform .3s ease, box-shadow .3s ease;
+      cursor: pointer;
+    }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(26,10,0,.1); }
+    .product-image-wrap {
+      position: relative; aspect-ratio: 1/1;
+      background: var(--warm); display: flex;
+      align-items: center; justify-content: center; overflow: hidden;
+    }
+    .product-logo-img {
+      width: 62%; height: 62%; object-fit: contain;
+      animation: adw-product-float 3.2s ease-in-out infinite;
+    }
+    @keyframes adw-product-float {
+      0%,100% { transform: translateY(0) scale(1); filter: drop-shadow(0 6px 18px rgba(200,139,26,.28)); }
+      50%      { transform: translateY(-9px) scale(1.035); filter: drop-shadow(0 18px 32px rgba(200,139,26,.52)); }
+    }
+    .product-card:nth-child(2n) .product-logo-img { animation-delay:-1.6s; }
+    .product-card:nth-child(3n) .product-logo-img { animation-delay:-0.8s; }
+    .product-card:nth-child(4n) .product-logo-img { animation-delay:-2.4s; }
+    .product-badge {
+      position: absolute; top:12px; left:12px;
+      font-size: 8px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--cream); background: var(--brown);
+      border-radius: 2px; padding: 4px 10px;
+    }
+    .product-gender-pill {
+      position: absolute; top:12px; right:12px;
+      font-size: 8px; letter-spacing: .15em; text-transform: uppercase;
+      border-radius: 20px; padding: 4px 10px;
+    }
+    .product-gender-pill.men    { background:rgba(42,102,64,.15); color:var(--green); border:1px solid rgba(42,102,64,.25); }
+    .product-gender-pill.women  { background:rgba(184,74,26,.12); color:var(--rust);  border:1px solid rgba(184,74,26,.2); }
+    .product-gender-pill.unisex { background:rgba(200,139,26,.12); color:var(--gold); border:1px solid rgba(200,139,26,.25); }
+
+    .product-info { padding: 18px 16px 20px; }
+    .product-category-label {
+      font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 5px;
+    }
+    .product-name {
+      font-family: var(--serif); font-size: 17px; font-weight: 400;
+      color: var(--brown); letter-spacing: .04em; margin-bottom: 12px; line-height: 1.2;
+    }
+    .product-colors { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+    .color-swatch {
+      width:16px; height:16px; border-radius:50%;
+      border:2px solid rgba(255,255,255,.6);
+      box-shadow:0 0 0 1px rgba(61,31,0,.12);
+      cursor:pointer; transition:transform .15s, box-shadow .15s; flex-shrink:0;
+    }
+    .color-swatch:hover { transform:scale(1.25); box-shadow:0 0 0 2px var(--gold); }
+    .product-sizes { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:14px; }
+    .size-chip {
+      font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); border: 1px solid rgba(61,31,0,.15);
+      border-radius: 2px; padding: 3px 7px; cursor:pointer;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .size-chip:hover { background:var(--brown); color:var(--cream); border-color:var(--brown); }
+    .product-footer { display:flex; align-items:center; justify-content:space-between; }
+    .product-price { font-family:var(--serif); font-size:16px; font-weight:600; color:var(--brown); letter-spacing:.04em; }
+    .product-enquire {
+      font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); border: 1px solid rgba(200,139,26,.35);
+      border-radius: 2px; padding: 6px 12px; text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+    .product-enquire:hover { background:var(--gold); color:var(--cream); }
+    .no-results {
+      grid-column: 1/-1; text-align:center; padding:80px 20px;
+      color:var(--muted); font-family:var(--serif); font-size:22px; font-style:italic;
+    }
+
+    @media (max-width:1100px) { .product-grid { grid-template-columns:repeat(3,1fr); } }
+    @media (max-width:820px) {
+      #collections { padding:56px 20px 72px; }
+      .product-grid { grid-template-columns:repeat(2,1fr); gap:14px; }
+    }
+    @media (max-width:480px) {
+      .product-grid { grid-template-columns:1fr 1fr; gap:10px; }
+      .product-info { padding:12px 10px 14px; }
+      .product-name { font-size:14px; }
+    }
+    @media (max-width:360px) { .product-grid { grid-template-columns:1fr; } }
+    @media (prefers-reduced-motion:reduce) { .product-logo-img { animation:none; } }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <a href="./index.html" class="nav-logo">
+      <img src="./assets/adw-logo-nobg.png" alt="A.D.W logo" />
+      <span>A.D.W</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li class="has-dropdown">
+        <a href="./collections.html" class="active">Collections</a>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-heading">T-Shirts</span>
+            <a href="./collections.html?cat=tshirt&sub=short-sleeve">Short Sleeve</a>
+            <a href="./collections.html?cat=tshirt&sub=long-sleeve">Long Sleeve</a>
+          </div>
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-heading">Trousers</span>
+            <a href="./collections.html?cat=trousers&sub=shorts">Shorts</a>
+            <a href="./collections.html?cat=trousers&sub=long-trousers">Long Trousers</a>
+          </div>
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-heading">Shoes</span>
+            <a href="./collections.html?cat=shoes&sub=slides">Slides</a>
+            <a href="./collections.html?cat=shoes&sub=sneakers">Sneakers</a>
+          </div>
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-heading">Joggers</span>
+            <a href="./collections.html?cat=joggers&sub=top">Tops</a>
+            <a href="./collections.html?cat=joggers&sub=bottoms">Trousers</a>
+          </div>
+        </div>
+        <ul class="mobile-sub" id="mobile-collections-sub">
+          <li><a href="./collections.html?cat=tshirt&sub=short-sleeve">Short Sleeve Tees</a></li>
+          <li><a href="./collections.html?cat=tshirt&sub=long-sleeve">Long Sleeve Tees</a></li>
+          <li><a href="./collections.html?cat=trousers&sub=shorts">Shorts</a></li>
+          <li><a href="./collections.html?cat=trousers&sub=long-trousers">Long Trousers</a></li>
+          <li><a href="./collections.html?cat=shoes&sub=slides">Slides</a></li>
+          <li><a href="./collections.html?cat=shoes&sub=sneakers">Sneakers</a></li>
+          <li><a href="./collections.html?cat=joggers&sub=top">Jogger Tops</a></li>
+          <li><a href="./collections.html?cat=joggers&sub=bottoms">Jogger Trousers</a></li>
+        </ul>
+      </li>
+      <li><a href="./streetwear.html">Streetwear</a></li>
+      <li><a href="./studio.html">Studio</a></li>
+      <li><a href="./about.html">About</a></li>
+      <li><a href="./reviews.html">Reviews</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main class="page-body">
+
+    <!-- Banner -->
+    <div class="page-banner">
+      <p class="page-banner-eyebrow">The Full Range</p>
+      <h1 class="page-banner-title">Collections</h1>
+      <p class="page-banner-sub">Rooted in African artistry. Crafted for the future.</p>
+    </div>
+
+    <!-- Collections -->
+    <section id="collections">
+
+      <!-- Gender Filter -->
+      <div class="gender-filter" role="group" aria-label="Filter by gender">
+        <button class="gender-btn active" data-gender="all"   onclick="setGender(this,'all')">All</button>
+        <button class="gender-btn"        data-gender="men"   onclick="setGender(this,'men')">Men</button>
+        <button class="gender-btn"        data-gender="women" onclick="setGender(this,'women')">Women</button>
+      </div>
+
+      <!-- Category tabs -->
+      <div class="category-tabs" role="group" aria-label="Filter by category">
+        <button class="cat-btn active" data-cat="all"      onclick="setCat(this,'all')">All</button>
+        <button class="cat-btn"        data-cat="tshirt"   onclick="setCat(this,'tshirt')">T-Shirts</button>
+        <button class="cat-btn"        data-cat="trousers" onclick="setCat(this,'trousers')">Trousers</button>
+        <button class="cat-btn"        data-cat="shoes"    onclick="setCat(this,'shoes')">Shoes</button>
+        <button class="cat-btn"        data-cat="joggers"  onclick="setCat(this,'joggers')">Joggers</button>
+      </div>
+
+      <!-- Sub-category tabs (JS-rendered) -->
+      <div class="subcat-tabs" id="subcat-tabs" role="group" aria-label="Filter by sub-category"></div>
+
+      <p class="collection-meta" id="collection-count"></p>
+
+      <!-- Product grid (JS-rendered) -->
+      <div class="product-grid" id="product-grid" aria-live="polite"></div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="./assets/adw-logo-nobg.png" alt="A.D.W logo" />
+          <span>A.D.W</span>
+        </div>
+        <p class="footer-tagline">Heritage · Craft · Identity</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <span class="footer-nav-heading">Pages</span>
+        <a href="./collections.html">Collections</a>
+        <a href="./streetwear.html">Streetwear</a>
+        <a href="./studio.html">Studio</a>
+        <a href="./about.html">About</a>
+        <a href="./reviews.html">Reviews</a>
+        <a href="./contact.html">Contact</a>
+      </nav>
+      <div class="footer-social">
+        <p class="footer-tagline" style="text-align:right;">Follow the drop</p>
+        <div class="footer-social-links">
+          <a href="https://www.instagram.com/adwears233/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.facebook.com/share/1FLLn61R7K/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 A.D.W — Ancestral Designer Wear. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ── Mobile Nav ──────────────────────────────────────────
+    var hamburger = document.getElementById('nav-hamburger');
+    var navLinks  = document.getElementById('nav-links');
+    var mobileSub = document.getElementById('mobile-collections-sub');
+    var dropTrigger = document.querySelector('.has-dropdown > a');
+    hamburger.addEventListener('click', function() {
+      var open = navLinks.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+    });
+    if (dropTrigger && mobileSub) {
+      dropTrigger.addEventListener('click', function(e) {
+        if (window.innerWidth <= 820) { e.preventDefault(); mobileSub.classList.toggle('open'); }
+      });
+    }
+
+    // ── Product Catalogue ───────────────────────────────────
+    var C = {
+      INK:'#1a0a00', BROWN:'#3d1f00', GOLD:'#c88b1a', RUST:'#b84a1a',
+      GREEN:'#2a6640', SADDLE:'#8b4513', BGOLD:'#d4af37', CREAM:'#e8e0d0',
+      BLUE:'#2c4a6e', TERRA:'#c1604a', PURPLE:'#4a2040', EMERALD:'#1e4d3a',
+      ROSE:'#c4706a', COPPER:'#b87333',
+    };
+    var PRODUCTS = [
+      {id:1,  name:'ADW Classic Tee',           cat:'tshirt',  sub:'short-sleeve', gender:'men',   price:'GH₵ 220', colors:[C.INK,C.CREAM,C.BROWN,C.RUST,C.GREEN,C.GOLD],    sizes:['XS','S','M','L','XL','XXL']},
+      {id:2,  name:'Heritage Graphic Tee',       cat:'tshirt',  sub:'short-sleeve', gender:'men',   price:'GH₵ 250', colors:[C.CREAM,C.INK,C.BLUE,C.GREEN],                   sizes:['XS','S','M','L','XL','XXL']},
+      {id:3,  name:'Adinkra Symbol Tee',         cat:'tshirt',  sub:'short-sleeve', gender:'men',   price:'GH₵ 270', colors:[C.CREAM,C.GOLD,C.BROWN,C.RUST],                  sizes:['XS','S','M','L','XL','XXL']},
+      {id:4,  name:'Kente Print Tee',            cat:'tshirt',  sub:'short-sleeve', gender:'men',   price:'GH₵ 280', colors:[C.GOLD,C.RUST,C.GREEN,C.BLUE,C.INK],             sizes:['XS','S','M','L','XL','XXL']},
+      {id:5,  name:'Ankara Graphic Tee',         cat:'tshirt',  sub:'short-sleeve', gender:'men',   price:'GH₵ 260', colors:[C.RUST,C.GOLD,C.CREAM,C.GREEN],                  sizes:['XS','S','M','L','XL','XXL']},
+      {id:6,  name:'Tribal Crest Tee',           cat:'tshirt',  sub:'short-sleeve', gender:'men',   price:'GH₵ 290', colors:[C.INK,C.CREAM,C.COPPER,C.BROWN],                 sizes:['XS','S','M','L','XL','XXL']},
+      {id:7,  name:'Wax Print Tee',              cat:'tshirt',  sub:'short-sleeve', gender:'men',   price:'GH₵ 300', colors:[C.RUST,C.GOLD,C.GREEN,C.BLUE,C.CREAM],           sizes:['XS','S','M','L','XL','XXL']},
+      {id:8,  name:'Ancestral Script Tee',       cat:'tshirt',  sub:'short-sleeve', gender:'men',   price:'GH₵ 320', colors:[C.INK,C.BGOLD,C.BROWN],                          sizes:['XS','S','M','L','XL','XXL']},
+      {id:9,  name:'ADW Fitted Crop Tee',        cat:'tshirt',  sub:'short-sleeve', gender:'women', price:'GH₵ 220', colors:[C.CREAM,C.INK,C.ROSE,C.RUST,C.EMERALD],          sizes:['XS','S','M','L','XL']},
+      {id:10, name:"Heritage Women's Tee",       cat:'tshirt',  sub:'short-sleeve', gender:'women', price:'GH₵ 240', colors:[C.CREAM,C.GOLD,C.RUST,C.BLUE],                   sizes:['XS','S','M','L','XL']},
+      {id:11, name:"Adinkra Women's Tee",        cat:'tshirt',  sub:'short-sleeve', gender:'women', price:'GH₵ 260', colors:[C.GOLD,C.RUST,C.EMERALD,C.CREAM],                sizes:['XS','S','M','L','XL']},
+      {id:12, name:"Kente Women's Tee",          cat:'tshirt',  sub:'short-sleeve', gender:'women', price:'GH₵ 270', colors:[C.RUST,C.GOLD,C.GREEN,C.BLUE,C.PURPLE],          sizes:['XS','S','M','L','XL']},
+      {id:13, name:'Ankara Crop Tee',            cat:'tshirt',  sub:'short-sleeve', gender:'women', price:'GH₵ 250', colors:[C.ROSE,C.GOLD,C.CREAM,C.EMERALD],                sizes:['XS','S','M','L','XL']},
+      {id:14, name:"Tribal Women's Tee",         cat:'tshirt',  sub:'short-sleeve', gender:'women', price:'GH₵ 280', colors:[C.INK,C.ROSE,C.CREAM,C.BLUE],                    sizes:['XS','S','M','L','XL']},
+      {id:15, name:"Wax Print Women's Tee",      cat:'tshirt',  sub:'short-sleeve', gender:'women', price:'GH₵ 290', colors:[C.RUST,C.GOLD,C.GREEN,C.CREAM],                  sizes:['XS','S','M','L','XL']},
+      {id:16, name:"Ancestral Women's Tee",      cat:'tshirt',  sub:'short-sleeve', gender:'women', price:'GH₵ 300', colors:[C.CREAM,C.BGOLD,C.ROSE,C.EMERALD],               sizes:['XS','S','M','L','XL']},
+      {id:17, name:'ADW Long Sleeve Tee',        cat:'tshirt',  sub:'long-sleeve',  gender:'men',   price:'GH₵ 300', colors:[C.INK,C.CREAM,C.BROWN,C.RUST,C.GREEN,C.GOLD],    sizes:['XS','S','M','L','XL','XXL']},
+      {id:18, name:'Heritage Long Sleeve',       cat:'tshirt',  sub:'long-sleeve',  gender:'men',   price:'GH₵ 320', colors:[C.CREAM,C.INK,C.BLUE,C.BROWN],                   sizes:['XS','S','M','L','XL','XXL']},
+      {id:19, name:'Adinkra Long Sleeve',        cat:'tshirt',  sub:'long-sleeve',  gender:'men',   price:'GH₵ 340', colors:[C.INK,C.GOLD,C.RUST,C.GREEN],                    sizes:['XS','S','M','L','XL','XXL']},
+      {id:20, name:'Kente Long Sleeve',          cat:'tshirt',  sub:'long-sleeve',  gender:'men',   price:'GH₵ 350', colors:[C.GOLD,C.RUST,C.GREEN,C.BLUE],                   sizes:['XS','S','M','L','XL','XXL']},
+      {id:21, name:"ADW Women's Long Sleeve",    cat:'tshirt',  sub:'long-sleeve',  gender:'women', price:'GH₵ 300', colors:[C.CREAM,C.INK,C.ROSE,C.RUST,C.EMERALD],          sizes:['XS','S','M','L','XL']},
+      {id:22, name:"Heritage Women's Long Sleeve",cat:'tshirt', sub:'long-sleeve',  gender:'women', price:'GH₵ 320', colors:[C.CREAM,C.GOLD,C.RUST,C.BLUE],                   sizes:['XS','S','M','L','XL']},
+      {id:23, name:"Kente Women's Long Sleeve",  cat:'tshirt',  sub:'long-sleeve',  gender:'women', price:'GH₵ 340', colors:[C.RUST,C.GOLD,C.GREEN,C.CREAM],                  sizes:['XS','S','M','L','XL']},
+      {id:24, name:'Ankara Long Sleeve Women',   cat:'tshirt',  sub:'long-sleeve',  gender:'women', price:'GH₵ 330', colors:[C.ROSE,C.GOLD,C.CREAM,C.EMERALD],                sizes:['XS','S','M','L','XL']},
+      {id:25, name:'ADW Chino Shorts',           cat:'trousers',sub:'shorts',        gender:'men',   price:'GH₵ 350', colors:[C.INK,C.CREAM,C.BROWN,C.RUST,C.GREEN],           sizes:['XS','S','M','L','XL','XXL']},
+      {id:26, name:'Heritage Cargo Shorts',      cat:'trousers',sub:'shorts',        gender:'men',   price:'GH₵ 380', colors:[C.BROWN,C.INK,C.CREAM,C.GREEN],                  sizes:['XS','S','M','L','XL','XXL']},
+      {id:27, name:'Kente Shorts',               cat:'trousers',sub:'shorts',        gender:'men',   price:'GH₵ 370', colors:[C.GOLD,C.RUST,C.GREEN,C.BLUE,C.INK],             sizes:['XS','S','M','L','XL','XXL']},
+      {id:28, name:'Ankara Shorts',              cat:'trousers',sub:'shorts',        gender:'men',   price:'GH₵ 360', colors:[C.RUST,C.GOLD,C.CREAM,C.GREEN],                  sizes:['XS','S','M','L','XL','XXL']},
+      {id:29, name:"ADW Women's Shorts",         cat:'trousers',sub:'shorts',        gender:'women', price:'GH₵ 320', colors:[C.CREAM,C.INK,C.ROSE,C.RUST,C.EMERALD],          sizes:['XS','S','M','L','XL']},
+      {id:30, name:"Kente Women's Shorts",       cat:'trousers',sub:'shorts',        gender:'women', price:'GH₵ 340', colors:[C.RUST,C.GOLD,C.GREEN,C.CREAM],                  sizes:['XS','S','M','L','XL']},
+      {id:31, name:'ADW Slim Trousers',          cat:'trousers',sub:'long-trousers', gender:'men',   price:'GH₵ 420', colors:[C.INK,C.CREAM,C.BROWN,C.RUST,C.GREEN,C.GOLD],    sizes:['XS','S','M','L','XL','XXL']},
+      {id:32, name:'Heritage Wide-Leg',          cat:'trousers',sub:'long-trousers', gender:'men',   price:'GH₵ 450', colors:[C.CREAM,C.INK,C.BLUE,C.BROWN],                   sizes:['XS','S','M','L','XL','XXL']},
+      {id:33, name:'Adinkra Trousers',           cat:'trousers',sub:'long-trousers', gender:'men',   price:'GH₵ 460', colors:[C.INK,C.GOLD,C.RUST,C.GREEN],                    sizes:['XS','S','M','L','XL','XXL']},
+      {id:34, name:'Ankara Straight Trousers',   cat:'trousers',sub:'long-trousers', gender:'men',   price:'GH₵ 440', colors:[C.RUST,C.GOLD,C.CREAM,C.GREEN,C.BLUE],           sizes:['XS','S','M','L','XL','XXL']},
+      {id:35, name:"ADW Women's Trousers",       cat:'trousers',sub:'long-trousers', gender:'women', price:'GH₵ 400', colors:[C.CREAM,C.INK,C.ROSE,C.RUST,C.EMERALD],          sizes:['XS','S','M','L','XL']},
+      {id:36, name:'Wide-Leg Women Trousers',    cat:'trousers',sub:'long-trousers', gender:'women', price:'GH₵ 430', colors:[C.CREAM,C.GOLD,C.RUST,C.BLUE],                   sizes:['XS','S','M','L','XL']},
+      {id:37, name:'ADW Slides',                 cat:'shoes',   sub:'slides',        gender:'men',   price:'GH₵ 280', colors:[C.INK,C.CREAM,C.BROWN,C.RUST,C.GREEN,C.GOLD],    sizes:['40','41','42','43','44','45','46']},
+      {id:38, name:'Heritage Slides',            cat:'shoes',   sub:'slides',        gender:'men',   price:'GH₵ 300', colors:[C.CREAM,C.INK,C.BLUE,C.BROWN],                   sizes:['40','41','42','43','44','45','46']},
+      {id:39, name:'Adinkra Slides',             cat:'shoes',   sub:'slides',        gender:'men',   price:'GH₵ 320', colors:[C.GOLD,C.RUST,C.GREEN,C.INK],                    sizes:['40','41','42','43','44','45','46']},
+      {id:40, name:"ADW Women's Slides",         cat:'shoes',   sub:'slides',        gender:'women', price:'GH₵ 260', colors:[C.CREAM,C.INK,C.ROSE,C.RUST,C.EMERALD],          sizes:['36','37','38','39','40','41']},
+      {id:41, name:"Heritage Women's Slides",    cat:'shoes',   sub:'slides',        gender:'women', price:'GH₵ 280', colors:[C.CREAM,C.GOLD,C.RUST,C.ROSE],                   sizes:['36','37','38','39','40','41']},
+      {id:42, name:'ADW Classic Sneakers',       cat:'shoes',   sub:'sneakers',      gender:'men',   price:'GH₵ 580', colors:[C.INK,C.CREAM,C.BROWN,C.RUST,C.GREEN,C.GOLD],    sizes:['40','41','42','43','44','45','46']},
+      {id:43, name:'Heritage Runner',            cat:'shoes',   sub:'sneakers',      gender:'men',   price:'GH₵ 620', colors:[C.CREAM,C.INK,C.BLUE,C.GREEN],                   sizes:['40','41','42','43','44','45','46']},
+      {id:44, name:'Adinkra High Top',           cat:'shoes',   sub:'sneakers',      gender:'men',   price:'GH₵ 660', colors:[C.INK,C.GOLD,C.RUST,C.GREEN],                    sizes:['40','41','42','43','44','45','46']},
+      {id:45, name:'Kente Low Sneaker',          cat:'shoes',   sub:'sneakers',      gender:'men',   price:'GH₵ 600', colors:[C.GOLD,C.RUST,C.GREEN,C.BLUE,C.INK],             sizes:['40','41','42','43','44','45','46']},
+      {id:46, name:"ADW Women's Sneakers",       cat:'shoes',   sub:'sneakers',      gender:'women', price:'GH₵ 560', colors:[C.CREAM,C.INK,C.ROSE,C.RUST,C.EMERALD],          sizes:['36','37','38','39','40','41']},
+      {id:47, name:"Heritage Women's Sneakers",  cat:'shoes',   sub:'sneakers',      gender:'women', price:'GH₵ 590', colors:[C.CREAM,C.GOLD,C.RUST,C.BLUE],                   sizes:['36','37','38','39','40','41']},
+      {id:48, name:"Ankara Women's Runners",     cat:'shoes',   sub:'sneakers',      gender:'women', price:'GH₵ 610', colors:[C.RUST,C.GOLD,C.GREEN,C.CREAM],                  sizes:['36','37','38','39','40','41']},
+      {id:49, name:'ADW Jogger Top',             cat:'joggers', sub:'top',           gender:'men',   price:'GH₵ 380', colors:[C.INK,C.CREAM,C.BROWN,C.RUST,C.GREEN,C.GOLD],    sizes:['XS','S','M','L','XL','XXL']},
+      {id:50, name:'Heritage Jogger Hoodie',     cat:'joggers', sub:'top',           gender:'men',   price:'GH₵ 420', colors:[C.CREAM,C.INK,C.BLUE,C.BROWN],                   sizes:['XS','S','M','L','XL','XXL']},
+      {id:51, name:'Adinkra Crewneck',           cat:'joggers', sub:'top',           gender:'men',   price:'GH₵ 400', colors:[C.INK,C.GOLD,C.RUST,C.GREEN],                    sizes:['XS','S','M','L','XL','XXL']},
+      {id:52, name:'Kente Zip Hoodie',           cat:'joggers', sub:'top',           gender:'men',   price:'GH₵ 460', colors:[C.GOLD,C.RUST,C.GREEN,C.BLUE,C.INK],             sizes:['XS','S','M','L','XL','XXL']},
+      {id:53, name:"ADW Women's Jogger Top",     cat:'joggers', sub:'top',           gender:'women', price:'GH₵ 360', colors:[C.CREAM,C.INK,C.ROSE,C.RUST,C.EMERALD],          sizes:['XS','S','M','L','XL']},
+      {id:54, name:"Heritage Women's Hoodie",    cat:'joggers', sub:'top',           gender:'women', price:'GH₵ 400', colors:[C.CREAM,C.GOLD,C.RUST,C.BLUE],                   sizes:['XS','S','M','L','XL']},
+      {id:55, name:"Kente Women's Crewneck",     cat:'joggers', sub:'top',           gender:'women', price:'GH₵ 390', colors:[C.RUST,C.GOLD,C.GREEN,C.CREAM],                  sizes:['XS','S','M','L','XL']},
+      {id:56, name:'ADW Slim Joggers',           cat:'joggers', sub:'bottoms',       gender:'men',   price:'GH₵ 440', colors:[C.INK,C.CREAM,C.BROWN,C.RUST,C.GREEN,C.GOLD],    sizes:['XS','S','M','L','XL','XXL']},
+      {id:57, name:'Heritage Track Pants',       cat:'joggers', sub:'bottoms',       gender:'men',   price:'GH₵ 460', colors:[C.CREAM,C.INK,C.BLUE,C.BROWN],                   sizes:['XS','S','M','L','XL','XXL']},
+      {id:58, name:'Adinkra Wide Joggers',       cat:'joggers', sub:'bottoms',       gender:'men',   price:'GH₵ 480', colors:[C.INK,C.GOLD,C.RUST,C.GREEN],                    sizes:['XS','S','M','L','XL','XXL']},
+      {id:59, name:'Cargo Jogger ADW',           cat:'joggers', sub:'bottoms',       gender:'men',   price:'GH₵ 500', colors:[C.INK,C.BROWN,C.CREAM,C.GREEN],                  sizes:['XS','S','M','L','XL','XXL']},
+      {id:60, name:"ADW Women's Joggers",        cat:'joggers', sub:'bottoms',       gender:'women', price:'GH₵ 420', colors:[C.CREAM,C.INK,C.ROSE,C.RUST,C.EMERALD,C.GOLD],  sizes:['XS','S','M','L','XL']},
+      {id:61, name:"Kente Women's Joggers",      cat:'joggers', sub:'bottoms',       gender:'women', price:'GH₵ 440', colors:[C.GOLD,C.RUST,C.GREEN,C.CREAM],                  sizes:['XS','S','M','L','XL']},
+      {id:62, name:'Flared Joggers ADW',         cat:'joggers', sub:'bottoms',       gender:'women', price:'GH₵ 460', colors:[C.INK,C.CREAM,C.ROSE,C.GOLD],                    sizes:['XS','S','M','L','XL']},
+      {id:63, name:"Ankara Women's Joggers",     cat:'joggers', sub:'bottoms',       gender:'women', price:'GH₵ 440', colors:[C.CREAM,C.INK,C.SADDLE,C.GOLD],                  sizes:['XS','S','M','L','XL']},
+    ];
+
+    var CAT_LABELS = {tshirt:'T-Shirts', trousers:'Trousers', shoes:'Shoes', joggers:'Joggers'};
+    var SUBCATS = {
+      tshirt:   [{val:'short-sleeve',label:'Short Sleeve'},{val:'long-sleeve',label:'Long Sleeve'}],
+      trousers: [{val:'shorts',label:'Shorts'},{val:'long-trousers',label:'Long Trousers'}],
+      shoes:    [{val:'slides',label:'Slides'},{val:'sneakers',label:'Sneakers'}],
+      joggers:  [{val:'top',label:'Tops'},{val:'bottoms',label:'Bottoms'}],
+    };
+    var state = {gender:'all', cat:'all', sub:'all'};
+
+    function setGender(btn, val) {
+      state.gender = val;
+      document.querySelectorAll('.gender-btn').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active'); renderGrid();
+    }
+    function setCat(btn, val) {
+      state.cat = val; state.sub = 'all';
+      document.querySelectorAll('.cat-btn').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active'); renderSubcatTabs(); renderGrid();
+    }
+    function setSub(btn, val) {
+      state.sub = val;
+      document.querySelectorAll('.subcat-btn').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active'); renderGrid();
+    }
+    function renderSubcatTabs() {
+      var tabs = document.getElementById('subcat-tabs');
+      tabs.innerHTML = '';
+      if (state.cat === 'all' || !SUBCATS[state.cat]) return;
+      SUBCATS[state.cat].forEach(function(sc) {
+        var btn = document.createElement('button');
+        btn.className = 'subcat-btn' + (state.sub === sc.val ? ' active' : '');
+        btn.textContent = sc.label;
+        btn.onclick = function(){ setSub(btn, sc.val); };
+        tabs.appendChild(btn);
+      });
+    }
+    function enquireWA(name, price) {
+      var msg = 'Hi ADW! 👋\n\nI\'m interested in: *' + name + '* (' + price + ')\n\nI\'d love to know more and get on the waitlist. 🙏';
+      window.open('https://wa.me/233500325083?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+    }
+    function renderGrid() {
+      var grid = document.getElementById('product-grid');
+      var count = document.getElementById('collection-count');
+      var filtered = PRODUCTS.filter(function(p) {
+        if (state.gender !== 'all' && p.gender !== state.gender) return false;
+        if (state.cat !== 'all' && p.cat !== state.cat) return false;
+        if (state.sub !== 'all' && p.sub !== state.sub) return false;
+        return true;
+      });
+      count.textContent = filtered.length + ' item' + (filtered.length !== 1 ? 's' : '') + ' shown';
+      if (!filtered.length) {
+        grid.innerHTML = '<p class="no-results">No items match this filter — try adjusting your selection.</p>';
+        return;
+      }
+      grid.innerHTML = filtered.map(function(p) {
+        var swatches = p.colors.map(function(c) {
+          return '<span class="color-swatch" style="background:' + c + '" title="' + c + '"></span>';
+        }).join('');
+        var sizes = p.sizes.map(function(s) {
+          return '<span class="size-chip">' + s + '</span>';
+        }).join('');
+        var catLabel = CAT_LABELS[p.cat] || p.cat;
+        return '<article class="product-card">'
+          + '<div class="product-image-wrap">'
+          + '<img src="./assets/adw-logo-nobg.png" alt="' + p.name + '" class="product-logo-img" loading="lazy" />'
+          + '<span class="product-badge">Coming Soon</span>'
+          + '<span class="product-gender-pill ' + p.gender + '">' + p.gender.charAt(0).toUpperCase() + p.gender.slice(1) + '</span>'
+          + '</div>'
+          + '<div class="product-info">'
+          + '<p class="product-category-label">' + catLabel + '</p>'
+          + '<h3 class="product-name">' + p.name + '</h3>'
+          + '<div class="product-colors">' + swatches + '</div>'
+          + '<div class="product-sizes">' + sizes + '</div>'
+          + '<div class="product-footer">'
+          + '<span class="product-price">' + p.price + '</span>'
+          + '<button class="product-enquire" onclick="enquireWA(\'' + p.name.replace(/'/g,"\\'") + '\',\'' + p.price + '\')">Enquire</button>'
+          + '</div>'
+          + '</div>'
+          + '</article>';
+      }).join('');
+    }
+
+    // ── Read URL params ─────────────────────────────────────
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var cat = params.get('cat'), sub = params.get('sub'), gender = params.get('gender');
+      if (cat) {
+        var catBtn = document.querySelector('[data-cat="' + cat + '"]');
+        if (catBtn) { state.cat = cat; catBtn.classList.add('active'); document.querySelector('[data-cat="all"]').classList.remove('active'); }
+      }
+      if (sub) { state.sub = sub; }
+      if (gender) {
+        var gBtn = document.querySelector('[data-gender="' + gender + '"]');
+        if (gBtn) { state.gender = gender; gBtn.classList.add('active'); document.querySelector('[data-gender="all"]').classList.remove('active'); }
+      }
+      renderSubcatTabs();
+      if (sub) {
+        document.querySelectorAll('.subcat-btn').forEach(function(b){
+          if (b.textContent.toLowerCase().replace(' ','') === sub.replace('-','')) b.classList.add('active');
+        });
+      }
+      renderGrid();
+    })();
+
+    // ── Scroll Reveal ───────────────────────────────────────
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} });
+      }, {threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+      document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+    } else {
+      document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('visible');});
+    }
+  </script>
+</body>
+</html>

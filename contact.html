@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — A.D.W Ancestral Designer Wear</title>
+  <meta name="description" content="Get in touch with A.D.W Ancestral Designer Wear — message us on WhatsApp or follow on social media." />
+  <link rel="icon" type="image/png" href="./assets/new_adw_logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/style.css" />
+  <style>
+    /* ── Contact Page ────────────────────────────────────── */
+    #contact { padding: 88px 40px; background: var(--brown); }
+    .contact-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; max-width: 1100px; margin: 0 auto;
+      align-items: start;
+    }
+
+    /* Left info panel */
+    .contact-info { color: var(--cream); }
+    .contact-info .section-header { text-align: left; margin-bottom: 28px; }
+    .contact-info-body {
+      font-size: 15px; line-height: 1.85; color: rgba(245,240,232,.55); margin-bottom: 40px;
+    }
+    .contact-channels { display: flex; flex-direction: column; gap: 16px; }
+    .contact-channel {
+      display: flex; align-items: center; gap: 16px;
+      background: rgba(245,240,232,.06); border: 1px solid rgba(245,240,232,.1);
+      border-radius: 8px; padding: 18px 20px; text-decoration: none;
+      transition: background .2s;
+    }
+    .contact-channel:hover { background: rgba(245,240,232,.12); }
+    .contact-channel-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .contact-channel-icon.wa  { background: #25D366; color: #fff; }
+    .contact-channel-icon.ig  { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: #fff; }
+    .contact-channel-icon.fb  { background: #1877F2; color: #fff; }
+    .contact-channel-text { }
+    .contact-channel-label {
+      font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 3px;
+    }
+    .contact-channel-handle {
+      font-family: var(--serif); font-size: 18px; font-weight: 400; color: var(--cream);
+    }
+
+    /* Right form */
+    .contact-form-section { }
+    .contact-form-section .section-header { text-align: left; margin-bottom: 28px; }
+    .contact-form-section .section-title { color: var(--cream); }
+    .contact-form-section .section-eyebrow { color: var(--gold); }
+
+    .cf-row { margin-bottom: 16px; }
+
+    /* FAQ accordion */
+    #faq { padding: 88px 40px; background: var(--cream); }
+    .faq-list { max-width: 720px; margin: 0 auto; }
+    .faq-item {
+      border-bottom: 1px solid rgba(61,31,0,.1);
+      overflow: hidden;
+    }
+    .faq-item:first-child { border-top: 1px solid rgba(61,31,0,.1); }
+    .faq-question {
+      width: 100%; background: none; border: none; text-align: left;
+      padding: 22px 0; cursor: pointer; display: flex; justify-content: space-between;
+      align-items: center; gap: 16px; font-family: var(--sans);
+    }
+    .faq-question-text {
+      font-family: var(--serif); font-size: 19px; font-weight: 400;
+      color: var(--brown); letter-spacing: .02em;
+    }
+    .faq-question-icon {
+      font-size: 20px; color: var(--gold); flex-shrink: 0;
+      transition: transform .25s; line-height: 1;
+    }
+    .faq-item.open .faq-question-icon { transform: rotate(45deg); }
+    .faq-answer {
+      font-size: 14px; line-height: 1.8; color: var(--muted);
+      max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s ease;
+      padding: 0;
+    }
+    .faq-item.open .faq-answer { max-height: 300px; padding-bottom: 20px; }
+
+    /* Social section */
+    #social { padding: 88px 40px; background: var(--ink); text-align: center; }
+    .social-cards {
+      display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+      max-width: 700px; margin: 48px auto 0;
+    }
+    .social-card {
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      background: rgba(245,240,232,.05); border: 1px solid rgba(245,240,232,.1);
+      border-radius: 12px; padding: 32px 36px; text-decoration: none;
+      transition: background .2s, transform .2s; flex: 1; min-width: 180px;
+    }
+    .social-card:hover { background: rgba(245,240,232,.1); transform: translateY(-4px); }
+    .social-card-icon { font-size: 36px; }
+    .social-card-name {
+      font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold);
+    }
+    .social-card-handle { font-family: var(--serif); font-size: 18px; color: var(--cream); }
+
+    @media (max-width:820px) {
+      #contact { padding: 64px 20px; }
+      .contact-layout { grid-template-columns: 1fr; gap: 48px; }
+      .contact-info .section-header { text-align: center; }
+      .contact-info-body { text-align: center; }
+      .contact-form-section .section-header { text-align: center; }
+      #faq { padding: 64px 20px; }
+      #social { padding: 64px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <a href="./index.html" class="nav-logo">
+      <img src="./assets/adw-logo-nobg.png" alt="A.D.W logo" />
+      <span>A.D.W</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li class="has-dropdown">
+        <a href="./collections.html">Collections</a>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-heading">T-Shirts</span>
+            <a href="./collections.html?cat=tshirt&sub=short-sleeve">Short Sleeve</a>
+            <a href="./collections.html?cat=tshirt&sub=long-sleeve">Long Sleeve</a>
+          </div>
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-heading">Trousers</span>
+            <a href="./collections.html?cat=trousers&sub=shorts">Shorts</a>
+            <a href="./collections.html?cat=trousers&sub=long-trousers">Long Trousers</a>
+          </div>
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-heading">Shoes</span>
+            <a href="./collections.html?cat=shoes&sub=slides">Slides</a>
+            <a href="./collections.html?cat=shoes&sub=sneakers">Sneakers</a>
+          </div>
+          <div class="nav-dropdown-col">
+            <span class="nav-dropdown-heading">Joggers</span>
+            <a href="./collections.html?cat=joggers&sub=top">Tops</a>
+            <a href="./collections.html?cat=joggers&sub=bottoms">Trousers</a>
+          </div>
+        </div>
+        <ul class="mobile-sub" id="mobile-collections-sub">
+          <li><a href="./collections.html?cat=tshirt&sub=short-sleeve">Short Sleeve Tees</a></li>
+          <li><a href="./collections.html?cat=tshirt&sub=long-sleeve">Long Sleeve Tees</a></li>
+          <li><a href="./collections.html?cat=trousers&sub=shorts">Shorts</a></li>
+          <li><a href="./collections.html?cat=trousers&sub=long-trousers">Long Trousers</a></li>
+          <li><a href="./collections.html?cat=shoes&sub=slides">Slides</a></li>
+          <li><a href="./collections.html?cat=shoes&sub=sneakers">Sneakers</a></li>
+          <li><a href="./collections.html?cat=joggers&sub=top">Jogger Tops</a></li>
+          <li><a href="./collections.html?cat=joggers&sub=bottoms">Jogger Trousers</a></li>
+        </ul>
+      </li>
+      <li><a href="./streetwear.html">Streetwear</a></li>
+      <li><a href="./studio.html">Studio</a></li>
+      <li><a href="./about.html">About</a></li>
+      <li><a href="./reviews.html">Reviews</a></li>
+      <li><a href="./contact.html" class="active">Contact</a></li>
+    </ul>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main class="page-body">
+
+    <!-- Banner -->
+    <div class="page-banner">
+      <p class="page-banner-eyebrow">Let's Talk</p>
+      <h1 class="page-banner-title">Get in <em>Touch</em></h1>
+      <p class="page-banner-sub">Questions, custom orders, wholesale enquiries — we reply via WhatsApp within 24 hours.</p>
+    </div>
+
+    <!-- ── Contact ── -->
+    <section id="contact">
+      <div class="contact-layout">
+
+        <!-- Left: Info -->
+        <div class="contact-info">
+          <div class="section-header reveal">
+            <p class="section-eyebrow">Reach Us</p>
+            <h2 class="section-title" style="color:var(--cream);">We're one<br>message away.</h2>
+          </div>
+          <p class="contact-info-body reveal">
+            The ADW team is based in Accra, Ghana, but ships passion worldwide.
+            Whether you're enquiring about a specific item, want to discuss custom orders,
+            or just want to say you love what we're building — hit us up.
+          </p>
+          <div class="contact-channels reveal">
+            <a href="https://wa.me/233500325083" target="_blank" rel="noopener" class="contact-channel">
+              <div class="contact-channel-icon wa">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </div>
+              <div class="contact-channel-text">
+                <div class="contact-channel-label">WhatsApp</div>
+                <div class="contact-channel-handle">+233 500 325 083</div>
+              </div>
+            </a>
+            <a href="https://www.instagram.com/adwears233/" target="_blank" rel="noopener" class="contact-channel">
+              <div class="contact-channel-icon ig">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              </div>
+              <div class="contact-channel-text">
+                <div class="contact-channel-label">Instagram</div>
+                <div class="contact-channel-handle">@adwears233</div>
+              </div>
+            </a>
+            <a href="https://www.facebook.com/share/1FLLn61R7K/" target="_blank" rel="noopener" class="contact-channel">
+              <div class="contact-channel-icon fb">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </div>
+              <div class="contact-channel-text">
+                <div class="contact-channel-label">Facebook</div>
+                <div class="contact-channel-handle">Ancestral Designer Wear</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Form -->
+        <div class="contact-form-section">
+          <div class="section-header reveal">
+            <p class="section-eyebrow">Quick Message</p>
+            <h2 class="section-title">Send via WhatsApp</h2>
+          </div>
+          <div class="contact-form-wrap reveal">
+            <form id="contact-form" onsubmit="sendToWhatsApp(event)">
+              <div class="contact-form-fields">
+                <div class="cf-row">
+                  <label class="cf-label" for="cf-name">Your name</label>
+                  <input id="cf-name" class="cf-input" type="text" placeholder="e.g. Kofi Mensah" required />
+                </div>
+                <div class="cf-row">
+                  <label class="cf-label" for="cf-gender-pref">Shopping for</label>
+                  <select id="cf-gender-pref" class="cf-select">
+                    <option value="" disabled selected>Men / Women / Both</option>
+                    <option>Men</option>
+                    <option>Women</option>
+                    <option>Both</option>
+                  </select>
+                </div>
+                <div class="cf-row">
+                  <label class="cf-label" for="cf-interest">I'm interested in</label>
+                  <select id="cf-interest" class="cf-select" required>
+                    <option value="" disabled selected>Select a category…</option>
+                    <optgroup label="T-Shirts">
+                      <option>T-Shirts — Short Sleeve</option>
+                      <option>T-Shirts — Long Sleeve</option>
+                    </optgroup>
+                    <optgroup label="Trousers">
+                      <option>Trousers — Shorts</option>
+                      <option>Trousers — Long</option>
+                    </optgroup>
+                    <optgroup label="Shoes">
+                      <option>Shoes — Slides</option>
+                      <option>Shoes — Sneakers</option>
+                    </optgroup>
+                    <optgroup label="Joggers">
+                      <option>Jogger Tops</option>
+                      <option>Jogger Trousers</option>
+                    </optgroup>
+                    <optgroup label="Streetwear">
+                      <option>Streetwear — Hoodie &amp; Sweatpants</option>
+                      <option>Streetwear — Bomber Jacket</option>
+                      <option>Streetwear — Sneakers</option>
+                      <option>Streetwear — Accessories</option>
+                    </optgroup>
+                    <option>Everything — I want the full drop!</option>
+                    <option>Custom Order Enquiry</option>
+                    <option>Wholesale / Stockist Enquiry</option>
+                    <option>General Question</option>
+                  </select>
+                </div>
+                <div class="cf-row">
+                  <label class="cf-label" for="cf-size">Preferred size</label>
+                  <select id="cf-size" class="cf-select">
+                    <option value="" disabled selected>Select size…</option>
+                    <option>XS</option>
+                    <option>S</option>
+                    <option>M</option>
+                    <option>L</option>
+                    <option>XL</option>
+                    <option>XXL</option>
+                    <option>Not sure yet</option>
+                  </select>
+                </div>
+                <div class="cf-row">
+                  <label class="cf-label" for="cf-message">Anything else? (optional)</label>
+                  <textarea id="cf-message" class="cf-textarea" placeholder="Custom order details, specific queries, or just some love for the brand…"></textarea>
+                </div>
+              </div>
+              <button type="submit" class="wa-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Send via WhatsApp
+              </button>
+              <p class="wa-disclaimer">Opens WhatsApp with your message pre-filled — we reply within 24 hrs.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FAQ ── -->
+    <section id="faq">
+      <div class="section-header reveal">
+        <p class="section-eyebrow">Common Questions</p>
+        <h2 class="section-title">FAQ</h2>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">When does the collection officially drop?</span>
+            <span class="faq-question-icon">+</span>
+          </button>
+          <div class="faq-answer">The first ADW drop is planned for September 2025. Waitlist members will be the first to be notified and get early access before the collection goes public. Join the waitlist via WhatsApp or the <a href="./reviews.html" style="color:var(--gold);">Reviews page</a>.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">Do you ship internationally?</span>
+            <span class="faq-question-icon">+</span>
+          </button>
+          <div class="faq-answer">Yes — ADW ships to Ghana and internationally, including the UK, USA, Canada, and Europe. Shipping details and costs will be confirmed at the time of order. Message us on WhatsApp to discuss your location.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">Can I make a custom order?</span>
+            <span class="faq-question-icon">+</span>
+          </button>
+          <div class="faq-answer">Absolutely. ADW accepts custom order enquiries for specific colourways, sizes, or personalised details. Message us directly on WhatsApp with your idea and we'll discuss what's possible.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">What sizing do ADW items come in?</span>
+            <span class="faq-question-icon">+</span>
+          </button>
+          <div class="faq-answer">Most garments are available in XS through XXL (Men) and XS through XL (Women). Footwear runs in EU 36–46 depending on the item. If you're unsure about your size, message us and we'll help you find the right fit.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">Are ADW items limited edition?</span>
+            <span class="faq-question-icon">+</span>
+          </button>
+          <div class="faq-answer">The first drop will be a limited run across all categories. Once items sell out, they may not be restocked — so joining the waitlist is the best way to guarantee your piece.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">Are you interested in stockist or wholesale partnerships?</span>
+            <span class="faq-question-icon">+</span>
+          </button>
+          <div class="faq-answer">Yes — we're open to stockist partnerships with retailers who share our values. Send us a message via WhatsApp or select "Wholesale / Stockist Enquiry" in the contact form and we'll get back to you.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Social ── -->
+    <section id="social">
+      <div class="section-header reveal">
+        <p class="section-eyebrow" style="color:var(--gold);">Stay Connected</p>
+        <h2 class="section-title" style="color:var(--cream);">Follow the journey</h2>
+      </div>
+      <div class="social-cards reveal">
+        <a href="https://www.instagram.com/adwears233/" target="_blank" rel="noopener" class="social-card">
+          <div class="social-card-icon">📸</div>
+          <span class="social-card-name">Instagram</span>
+          <span class="social-card-handle">@adwears233</span>
+        </a>
+        <a href="https://www.facebook.com/share/1FLLn61R7K/" target="_blank" rel="noopener" class="social-card">
+          <div class="social-card-icon">👥</div>
+          <span class="social-card-name">Facebook</span>
+          <span class="social-card-handle">Ancestral Designer Wear</span>
+        </a>
+        <a href="https://wa.me/233500325083" target="_blank" rel="noopener" class="social-card">
+          <div class="social-card-icon">💬</div>
+          <span class="social-card-name">WhatsApp</span>
+          <span class="social-card-handle">+233 500 325 083</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="./assets/adw-logo-nobg.png" alt="A.D.W logo" />
+          <span>A.D.W</span>
+        </div>
+        <p class="footer-tagline">Heritage · Craft · Identity</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <span class="footer-nav-heading">Pages</span>
+        <a href="./collections.html">Collections</a>
+        <a href="./streetwear.html">Streetwear</a>
+        <a href="./studio.html">Studio</a>
+        <a href="./about.html">About</a>
+        <a href="./reviews.html">Reviews</a>
+        <a href="./contact.html">Contact</a>
+      </nav>
+      <div class="footer-social">
+        <p class="footer-tagline" style="text-align:right;">Follow the drop</p>
+        <div class="footer-social-links">
+          <a href="https://www.instagram.com/adwears233/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.facebook.com/share/1FLLn61R7K/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 A.D.W — Ancestral Designer Wear. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ── WhatsApp form ───────────────────────────────────────
+    function sendToWhatsApp(e) {
+      e.preventDefault();
+      var name     = (document.getElementById('cf-name').value        || '').trim();
+      var genderP  = (document.getElementById('cf-gender-pref').value || '').trim();
+      var interest = (document.getElementById('cf-interest').value    || '').trim();
+      var size     = (document.getElementById('cf-size').value        || '').trim();
+      var message  = (document.getElementById('cf-message').value     || '').trim();
+      var lines = ['Hi ADW! 👋', ''];
+      lines.push('*Name:* ' + name);
+      if (genderP)  lines.push('*Shopping for:* ' + genderP);
+      lines.push('*Interested in:* ' + interest);
+      if (size && size !== 'Not sure yet') lines.push('*Preferred size:* ' + size);
+      if (message) { lines.push(''); lines.push('*Message:* ' + message); }
+      lines.push(''); lines.push("I'd love to be on the waitlist and get updates on the collection. 🙏");
+      window.open('https://wa.me/233500325083?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+    }
+
+    // ── FAQ Accordion ───────────────────────────────────────
+    document.querySelectorAll('.faq-question').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = btn.closest('.faq-item');
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); i.querySelector('.faq-question').setAttribute('aria-expanded','false'); });
+        if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+      });
+    });
+
+    // ── Mobile Nav ──────────────────────────────────────────
+    var hamburger = document.getElementById('nav-hamburger');
+    var navLinks  = document.getElementById('nav-links');
+    var mobileSub = document.getElementById('mobile-collections-sub');
+    var dropTrigger = document.querySelector('.has-dropdown > a');
+    hamburger.addEventListener('click', function() {
+      var open = navLinks.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+    });
+    if (dropTrigger && mobileSub) {
+      dropTrigger.addEventListener('click', function(e) {
+        if (window.innerWidth <= 820) { e.preventDefault(); mobileSub.classList.toggle('open'); }
+      });
+    }
+
+    // ── Scroll Reveal ───────────────────────────────────────
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} });
+      }, {threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+      document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+    } else {
+      document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('visible');});
+    }
+  </script>
+</body>
+</html>
