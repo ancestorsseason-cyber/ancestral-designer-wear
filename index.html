@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <style>.nav-links{display:none!important}.nav-links.open{display:flex!important}</style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>A.D.W — Ancestral Designer Wear</title>
   <meta name="description" content="A.D.W — Ancestral Designer Wear. Where heritage meets haute couture. Rooted in African artistry." />
@@ -14,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./assets/style.css" />
+  <link rel="stylesheet" href="./assets/style.css?v=2" />
   <style>
     /* ── Hero ──────────────────────────────────────────────── */
     #hero {
@@ -185,7 +186,7 @@
   <!-- ── Loader ── -->
   <div id="adw-loader" role="status" aria-label="Loading A.D.W">
     <div class="logo-wrap">
-      <img src="./assets/new_adw_logo.png" alt="" aria-hidden="true" />
+      <img src="./assets/adw-logo-nobg.png" alt="" aria-hidden="true" />
     </div>
     <div class="loader-brand">A . D . W</div>
     <div class="loader-dots" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -240,8 +241,9 @@
       <li><a href="./reviews.html">Reviews</a></li>
       <li><a href="./contact.html">Contact</a></li>
     </ul>
-    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <div class="nav-hamburger-bars"><span></span><span></span><span></span></div>
+      <span class="nav-hamburger-label">Menu</span>
     </button>
   </nav>
 

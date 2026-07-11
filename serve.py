@@ -9,6 +9,9 @@ class CORSHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Cross-Origin-Resource-Policy", "cross-origin")
         self.send_header("Cross-Origin-Embedder-Policy", "unsafe-none")
+        self.send_header("Cache-Control", "no-store, no-cache, must-revalidate")
+        self.send_header("Pragma", "no-cache")
+        self.send_header("Expires", "0")
         super().end_headers()
 
     def log_message(self, format, *args):
