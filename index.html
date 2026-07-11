@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <style>.nav-links{display:none!important}.nav-links.open{display:flex!important}</style>
+  <style>.nav-overlay{clip-path:inset(0 0 100% 0)!important;pointer-events:none!important}.nav-overlay.open{clip-path:inset(0 0 0% 0)!important;pointer-events:auto!important}</style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>A.D.W — Ancestral Designer Wear</title>
   <meta name="description" content="A.D.W — Ancestral Designer Wear. Where heritage meets haute couture. Rooted in African artistry." />
@@ -199,53 +199,32 @@
       <img src="./assets/adw-logo-nobg.png" alt="A.D.W logo" />
       <span>A.D.W</span>
     </a>
-    <ul class="nav-links" id="nav-links">
-      <li class="has-dropdown">
-        <a href="./collections.html" class="active">Collections</a>
-        <div class="nav-dropdown">
-          <div class="nav-dropdown-col">
-            <span class="nav-dropdown-heading">T-Shirts</span>
-            <a href="./collections.html?cat=tshirt&sub=short-sleeve">Short Sleeve</a>
-            <a href="./collections.html?cat=tshirt&sub=long-sleeve">Long Sleeve</a>
-          </div>
-          <div class="nav-dropdown-col">
-            <span class="nav-dropdown-heading">Trousers</span>
-            <a href="./collections.html?cat=trousers&sub=shorts">Shorts</a>
-            <a href="./collections.html?cat=trousers&sub=long-trousers">Long Trousers</a>
-          </div>
-          <div class="nav-dropdown-col">
-            <span class="nav-dropdown-heading">Shoes</span>
-            <a href="./collections.html?cat=shoes&sub=slides">Slides</a>
-            <a href="./collections.html?cat=shoes&sub=sneakers">Sneakers</a>
-          </div>
-          <div class="nav-dropdown-col">
-            <span class="nav-dropdown-heading">Joggers</span>
-            <a href="./collections.html?cat=joggers&sub=top">Tops</a>
-            <a href="./collections.html?cat=joggers&sub=bottoms">Trousers</a>
-          </div>
-        </div>
-        <ul class="mobile-sub" id="mobile-collections-sub">
-          <li><a href="./collections.html?cat=tshirt&sub=short-sleeve">Short Sleeve Tees</a></li>
-          <li><a href="./collections.html?cat=tshirt&sub=long-sleeve">Long Sleeve Tees</a></li>
-          <li><a href="./collections.html?cat=trousers&sub=shorts">Shorts</a></li>
-          <li><a href="./collections.html?cat=trousers&sub=long-trousers">Long Trousers</a></li>
-          <li><a href="./collections.html?cat=shoes&sub=slides">Slides</a></li>
-          <li><a href="./collections.html?cat=shoes&sub=sneakers">Sneakers</a></li>
-          <li><a href="./collections.html?cat=joggers&sub=top">Jogger Tops</a></li>
-          <li><a href="./collections.html?cat=joggers&sub=bottoms">Jogger Trousers</a></li>
-        </ul>
-      </li>
-      <li><a href="./streetwear.html">Streetwear</a></li>
-      <li><a href="./studio.html">Studio</a></li>
-      <li><a href="./about.html">About</a></li>
-      <li><a href="./reviews.html">Reviews</a></li>
-      <li><a href="./contact.html">Contact</a></li>
-    </ul>
-    <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
-      <div class="nav-hamburger-bars"><span></span><span></span><span></span></div>
-      <span class="nav-hamburger-label">Menu</span>
+    <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false">
+      <span class="menu-btn-label">Menu</span>
+      <div class="menu-btn-lines"><span></span><span></span></div>
     </button>
   </nav>
+
+  <div class="nav-overlay" id="nav-overlay" aria-hidden="true">
+    <div class="overlay-wrap">
+      <nav class="overlay-nav">
+        <a href="./collections.html" class="overlay-link">Collections</a>
+        <a href="./streetwear.html"  class="overlay-link">Streetwear</a>
+        <a href="./studio.html"      class="overlay-link">Studio</a>
+        <a href="./about.html"       class="overlay-link">About</a>
+        <a href="./reviews.html"     class="overlay-link">Reviews</a>
+        <a href="./contact.html"     class="overlay-link">Contact</a>
+      </nav>
+      <div class="overlay-deco">
+        <p class="overlay-tagline">Ancestral<br><em>Designer</em><br>Wear</p>
+      </div>
+    </div>
+    <div class="overlay-footer">
+      <a href="https://www.instagram.com/adwears233/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/share/1FLLn61R7K/" target="_blank" rel="noopener">Facebook</a>
+      <span class="overlay-footer-copy">© 2025 A.D.W</span>
+    </div>
+  </div>
 
   <main class="page-body">
 
@@ -478,6 +457,36 @@
         });
       }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
       document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+    })();
+  </script>
+  <script>
+    (function() {
+      var btn     = document.getElementById('menu-btn');
+      var overlay = document.getElementById('nav-overlay');
+      function openMenu() {
+        overlay.classList.add('open');
+        btn.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMenu() {
+        overlay.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      btn.addEventListener('click', function() {
+        overlay.classList.contains('open') ? closeMenu() : openMenu();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+      // Close overlay if a link in it is clicked
+      overlay.querySelectorAll('.overlay-link').forEach(function(link) {
+        link.addEventListener('click', function() { closeMenu(); });
+      });
     })();
   </script>
 </body>
