@@ -1,23 +1,31 @@
 # A.D.W — Ancestral Designer Wear
 
 ## Project overview
-Static pre-built React site for the A.D.W fashion brand. Contains only compiled output (HTML, JS, CSS, images) — no editable source code.
+Static pre-built site for the A.D.W fashion brand. Contains compiled HTML/CSS/JS — no editable source code beyond `index.html`.
 
 ## How to run
-Served via Python's built-in HTTP server:
+Served via Python's built-in HTTP server (workflow: **Start application**, port 5000):
 ```
-python3 -m http.server 5000
+python3 serve.py
 ```
-Workflow: **Start application** — configured and running on port 5000.
 
 ## Key files
-- `index.html` — main entry point; includes a spinning logo loading screen
-- `assets/logo-ancestral-nobg.png` — background-removed logo (transparent PNG)
-- `assets/logo-ancestral-Bfj8ePHN.png` — original logo
-- `assets/index-LdP0aVkv.js` — compiled React bundle
-- `assets/index-6xHyJjNy.css` — compiled styles
+- `index.html` — full single-page site (hero, collections, gallery, about, contact, footer)
+- `assets/adw-logo-nobg.png` — background-removed version of the new ADW logo (used everywhere)
+- `assets/new_adw_logo.png` — original logo with background
+- `serve.py` — Python static file server with CORS headers
 
-## Loading screen
-A CSS/JS loading screen is injected directly in `index.html`. The logo spins until the page `load` event fires (+ 800 ms grace period), with a 5 s safety fallback. Respects `prefers-reduced-motion`. Uses `role="status"` for accessibility.
+## Collections section
+- **128 products** across 8 categories: Clothes, Shoes, Watches, Bags, Accessories, Jewelry, Perfume, Headwear
+- **8 Men's + 8 Women's items** per category
+- **Gender filter**: All / Men / Women toggle
+- **Category tabs**: all 8 categories
+- Each product card shows the animated ADW logo (CSS float animation), up to 8 colour swatches, size chips, and a WhatsApp enquiry link
+- All JS-rendered from a `PRODUCTS` data array in `index.html` — no backend
+
+## GitHub remote
+- Repository: `https://github.com/ancestorsseason-cyber/ancestral-designer-wear`
+- Branch: `main`
+- GitHub Pages should be configured to serve from `main` root
 
 ## User preferences
