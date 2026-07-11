@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>A.D.W — Ancestral Designer Wear</title>
-  <meta name="description" content="A.D.W — Ancestral Designer Wear. Where heritage meets haute couture. Rooted in African artistry. Coming soon." />
+  <meta name="description" content="A.D.W — Ancestral Designer Wear. Where heritage meets haute couture. Rooted in African artistry. Shop Men & Women collections." />
   <meta name="robots" content="index, follow" />
   <meta property="og:title" content="A.D.W — Ancestral Designer Wear" />
   <meta property="og:description" content="Where heritage meets haute couture. Rooted in African artistry." />
@@ -65,22 +65,20 @@
     #adw-loader .logo-wrap {
       width: 160px;
       height: 160px;
-      /* animation: adw-spin 2s linear infinite; */ /* Disabled spin to fix latching feel */
+      animation: adw-loader-float 3s ease-in-out infinite;
       filter: drop-shadow(0 0 28px rgba(200,139,26,0.55));
-      transition: transform 0.5s ease;
     }
     #adw-loader:hover .logo-wrap {
-      transform: scale(1.05);
+      filter: drop-shadow(0 0 40px rgba(200,139,26,0.85));
     }
     #adw-loader .logo-wrap img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      /* border-radius: 50%; */ /* Removed to allow transparency */
     }
-    @keyframes adw-spin {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
+    @keyframes adw-loader-float {
+      0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 28px rgba(200,139,26,0.55)); }
+      50%       { transform: translateY(-12px) scale(1.03); filter: drop-shadow(0 20px 40px rgba(200,139,26,0.75)); }
     }
     #adw-loader .loader-brand {
       font-family: var(--serif);
@@ -140,9 +138,9 @@
       align-items: center;
       justify-content: space-between;
       padding: 18px 40px;
-      background: rgba(245,240,232,0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(245,240,232,0.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(61,31,0,0.08);
       transition: background 0.3s;
     }
@@ -153,8 +151,8 @@
       text-decoration: none;
     }
     .nav-logo img {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       object-fit: contain;
     }
     .nav-logo span {
@@ -167,7 +165,7 @@
     }
     .nav-links {
       display: flex;
-      gap: 36px;
+      gap: 32px;
       list-style: none;
     }
     .nav-links a {
@@ -179,11 +177,29 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--brown); }
+    .nav-mobile-menu {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .nav-mobile-menu span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--brown);
+      border-radius: 2px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
 
     @media (max-width: 600px) {
       nav { padding: 14px 20px; }
       .nav-links { display: none; }
       .nav-logo span { font-size: 14px; }
+      .nav-mobile-menu { display: flex; }
     }
 
     /* ── Hero ─────────────────────────────────────────────── */
@@ -242,6 +258,11 @@
       max-width: 380px;
       margin-bottom: 44px;
     }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
     .hero-cta {
       display: inline-flex;
       align-items: center;
@@ -258,6 +279,12 @@
       transition: background 0.25s;
     }
     .hero-cta:hover { background: var(--rust); }
+    .hero-cta.ghost {
+      color: var(--brown);
+      background: transparent;
+      border: 1px solid rgba(61,31,0,0.3);
+    }
+    .hero-cta.ghost:hover { background: var(--warm); }
     .hero-cta svg { flex-shrink: 0; }
 
     @media (max-width: 820px) {
@@ -298,57 +325,289 @@
       line-height: 1.1;
     }
 
-    /* ── Feature strip ───────────────────────────────────── */
-    #feature {
-      background: var(--brown);
-      padding: 88px 40px;
+    /* ── Collections Section ─────────────────────────────── */
+    #collections {
+      padding: 96px 40px;
+      background: var(--cream);
     }
-    #feature .section-title { color: var(--cream); }
-    #feature .section-eyebrow { color: var(--gold); }
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .feature-card {
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 3/4;
-    }
-    .feature-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      transition: transform 0.55s ease;
-    }
-    .feature-card:hover img { transform: scale(1.04); }
-    .feature-card .card-label {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 24px 20px 20px;
-      background: linear-gradient(to top, rgba(26,10,0,0.85) 0%, transparent 100%);
-      font-family: var(--serif);
-      font-size: 18px;
-      font-weight: 300;
-      letter-spacing: 0.08em;
-      color: var(--cream);
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.3s, transform 0.3s;
-    }
-    .feature-card:hover .card-label {
-      opacity: 1;
-      transform: translateY(0);
+    #collections .section-header {
+      margin-bottom: 48px;
     }
 
-    @media (max-width: 700px) {
-      .feature-grid { grid-template-columns: 1fr; gap: 2px; }
-      .feature-card .card-label { opacity: 1; transform: none; }
+    /* Gender toggle */
+    .gender-filter {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 32px;
+      border: 1px solid rgba(61,31,0,0.18);
+      border-radius: 3px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      overflow: hidden;
+    }
+    .gender-btn {
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 13px 36px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      border-right: 1px solid rgba(61,31,0,0.12);
+    }
+    .gender-btn:last-child { border-right: none; }
+    .gender-btn:hover { background: var(--warm); color: var(--brown); }
+    .gender-btn.active {
+      background: var(--brown);
+      color: var(--cream);
+    }
+
+    /* Category tabs */
+    .category-tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 52px;
+    }
+    .cat-btn {
+      font-family: var(--sans);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 9px 20px;
+      border: 1px solid rgba(61,31,0,0.18);
+      border-radius: 20px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .cat-btn:hover { background: var(--warm); color: var(--brown); border-color: rgba(61,31,0,0.3); }
+    .cat-btn.active {
+      background: var(--brown);
+      color: var(--cream);
+      border-color: var(--brown);
+    }
+
+    /* Results count */
+    .collection-meta {
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 36px;
+      min-height: 20px;
+    }
+
+    /* Product grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* Product card */
+    .product-card {
+      background: #fff;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(61,31,0,0.07);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(26,10,0,0.1);
+    }
+    .product-image-wrap {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      background: var(--warm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .product-logo-img {
+      width: 68%;
+      height: 68%;
+      object-fit: contain;
+      animation: adw-product-float 3.2s ease-in-out infinite;
+      will-change: transform, filter;
+    }
+    @keyframes adw-product-float {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 6px 18px rgba(200,139,26,0.28));
+      }
+      50% {
+        transform: translateY(-9px) scale(1.035);
+        filter: drop-shadow(0 18px 32px rgba(200,139,26,0.52));
+      }
+    }
+    .product-card:nth-child(2n) .product-logo-img   { animation-delay: -1.6s; }
+    .product-card:nth-child(3n) .product-logo-img   { animation-delay: -0.8s; }
+    .product-card:nth-child(4n) .product-logo-img   { animation-delay: -2.4s; }
+    .product-card:nth-child(5n) .product-logo-img   { animation-delay: -0.4s; }
+    .product-card:nth-child(7n) .product-logo-img   { animation-delay: -2.0s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .product-logo-img { animation: none; }
+      #adw-loader .logo-wrap { animation: none; }
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: var(--brown);
+      border-radius: 2px;
+      padding: 4px 10px;
+    }
+    .product-gender-pill {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 8px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 20px;
+      padding: 4px 10px;
+    }
+    .product-gender-pill.men    { background: rgba(42,102,64,0.15); color: var(--green); border: 1px solid rgba(42,102,64,0.25); }
+    .product-gender-pill.women  { background: rgba(184,74,26,0.12); color: var(--rust);  border: 1px solid rgba(184,74,26,0.2); }
+    .product-gender-pill.unisex { background: rgba(200,139,26,0.12); color: var(--gold);  border: 1px solid rgba(200,139,26,0.25); }
+
+    .product-info {
+      padding: 18px 16px 20px;
+    }
+    .product-category-label {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 5px;
+    }
+    .product-name {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--brown);
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .product-colors {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .color-swatch {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.6);
+      box-shadow: 0 0 0 1px rgba(61,31,0,0.12);
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      flex-shrink: 0;
+    }
+    .color-swatch:hover {
+      transform: scale(1.25);
+      box-shadow: 0 0 0 2px var(--gold);
+    }
+    .product-sizes {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .size-chip {
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid rgba(61,31,0,0.15);
+      border-radius: 2px;
+      padding: 3px 7px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .size-chip:hover {
+      background: var(--brown);
+      color: var(--cream);
+      border-color: var(--brown);
+    }
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .product-price {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--brown);
+      letter-spacing: 0.04em;
+    }
+    .product-enquire {
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(200,139,26,0.35);
+      border-radius: 2px;
+      padding: 6px 12px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .product-enquire:hover {
+      background: var(--gold);
+      color: var(--cream);
+    }
+
+    /* No results */
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--muted);
+      font-family: var(--serif);
+      font-size: 22px;
+      font-style: italic;
+    }
+
+    @media (max-width: 1100px) {
+      .product-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 820px) {
+      #collections { padding: 64px 20px; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .gender-btn { padding: 11px 22px; }
+    }
+    @media (max-width: 500px) {
+      .product-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .product-info { padding: 12px 10px 14px; }
+      .product-name { font-size: 14px; }
+      .cat-btn { padding: 8px 14px; font-size: 9px; }
+    }
+    @media (max-width: 360px) {
+      .product-grid { grid-template-columns: 1fr; }
     }
 
     /* ── Gallery ─────────────────────────────────────────── */
@@ -392,7 +651,7 @@
       .gallery-item.wide { grid-column: span 1; }
     }
 
-    /* ── About / Coming Soon ─────────────────────────────── */
+    /* ── About ─────────────────────────────────────────── */
     #about {
       padding: 100px 40px;
       background: var(--cream);
@@ -403,9 +662,7 @@
       margin: 0 auto;
       align-items: center;
     }
-    .about-img {
-      position: relative;
-    }
+    .about-img { position: relative; }
     .about-img img {
       width: 100%;
       border-radius: 2px;
@@ -439,21 +696,14 @@
       text-transform: uppercase;
       color: rgba(245,240,232,0.6);
     }
-    .about-content .section-header {
-      text-align: left;
-      margin-bottom: 24px;
-    }
+    .about-content .section-header { text-align: left; margin-bottom: 24px; }
     .about-body {
       font-size: 15px;
       line-height: 1.85;
       color: var(--muted);
       margin-bottom: 32px;
     }
-    .about-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 10px; }
     .tag {
       font-size: 10px;
       letter-spacing: 0.2em;
@@ -470,12 +720,7 @@
         gap: 48px;
         padding: 64px 24px;
       }
-      .about-badge {
-        bottom: -14px;
-        right: -8px;
-        width: 96px;
-        height: 96px;
-      }
+      .about-badge { bottom: -14px; right: -8px; width: 96px; height: 96px; }
       .about-badge span:first-child { font-size: 18px; }
       .about-content .section-header { text-align: center; }
       .about-body { text-align: center; }
@@ -534,11 +779,8 @@
       outline: none;
       transition: border-color 0.2s, background 0.2s;
     }
-    .cf-input::placeholder,
-    .cf-textarea::placeholder { color: rgba(245,240,232,0.28); }
-    .cf-input:focus,
-    .cf-select:focus,
-    .cf-textarea:focus {
+    .cf-input::placeholder, .cf-textarea::placeholder { color: rgba(245,240,232,0.28); }
+    .cf-input:focus, .cf-select:focus, .cf-textarea:focus {
       border-color: var(--gold);
       background: rgba(245,240,232,0.11);
     }
@@ -581,22 +823,6 @@
       margin-top: 14px;
       letter-spacing: 0.05em;
     }
-    .wa-direct {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 32px;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      color: rgba(245,240,232,0.35);
-    }
-    .wa-direct a {
-      color: #25D366;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .wa-direct a:hover { text-decoration: underline; }
 
     @media (max-width: 600px) {
       #contact { padding: 72px 20px; }
@@ -621,7 +847,6 @@
       width: 48px;
       height: 48px;
       object-fit: contain;
-      opacity: 0.9;
     }
     .footer-logo span {
       font-family: var(--serif);
@@ -647,88 +872,6 @@
       footer { padding: 40px 24px; }
     }
 
-    /* ── Screen-reader only ──────────────────────────────── */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0,0,0,0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    /* ── Streetwear grid ────────────────────────────────── */
-    #streetwear {
-      padding: 96px 40px;
-      background: var(--cream);
-    }
-    .sw-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 3px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .sw-item {
-      position: relative;
-      overflow: hidden;
-      background: #f9f6f0;
-      cursor: pointer;
-    }
-    .sw-item img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      object-position: center top;
-      transition: transform 0.5s ease;
-    }
-    .sw-item:hover .sw-front { opacity: 0 !important; }
-    .sw-item:hover .sw-back { opacity: 1 !important; }
-    .sw-item:hover .sw-image-container { transform: scale(1.04); transition: transform 0.5s ease; }
-    .sw-item .sw-label {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 20px 16px 16px;
-      background: linear-gradient(to top, rgba(26,10,0,0.78) 0%, transparent 100%);
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      transform: translateY(4px);
-      opacity: 0;
-      transition: opacity 0.3s, transform 0.3s;
-    }
-    .sw-item:hover .sw-label {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .sw-label .sw-name {
-      font-family: var(--serif);
-      font-size: 17px;
-      font-weight: 400;
-      color: var(--cream);
-      letter-spacing: 0.06em;
-    }
-    .sw-label .sw-tag {
-      font-size: 9px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    @media (max-width: 820px) {
-      #streetwear { padding: 64px 20px; }
-      .sw-grid { grid-template-columns: repeat(2, 1fr); }
-      .sw-item .sw-label { opacity: 1; transform: none; }
-    }
-    @media (max-width: 480px) {
-      .sw-grid { grid-template-columns: 1fr; }
-    }
-
     /* ── Scroll reveal ───────────────────────────────────── */
     .reveal {
       opacity: 0;
@@ -742,6 +885,13 @@
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
     }
+
+    /* ── Screen-reader only ──────────────────────────────── */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
   </style>
 </head>
 <body>
@@ -749,7 +899,7 @@
   <!-- ── Loading screen ── -->
   <div id="adw-loader" role="status" aria-label="Loading Ancestral Designer Wear">
     <div class="logo-wrap">
-      <img src="./assets/adw_headshot_transparent.png" alt="" aria-hidden="true" />
+      <img src="./assets/adw-logo-nobg.png" alt="" aria-hidden="true" />
     </div>
     <div class="loader-brand">A.D.W</div>
     <div class="loader-dots" aria-hidden="true">
@@ -761,16 +911,18 @@
   <!-- ── Nav ── -->
   <nav>
     <a href="#" class="nav-logo">
-      <img src="./assets/new_adw_logo.png" alt="A.D.W logo" />
+      <img src="./assets/adw-logo-nobg.png" alt="A.D.W logo" />
       <span>A.D.W</span>
     </a>
     <ul class="nav-links">
-      <li><a href="#feature">Collections</a></li>
-      <li><a href="#streetwear">Streetwear</a></li>
+      <li><a href="#collections">Collections</a></li>
       <li><a href="#gallery">Studio</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">WhatsApp Us</a></li>
     </ul>
+    <button class="nav-mobile-menu" aria-label="Menu" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <main id="main-content">
@@ -779,7 +931,7 @@
   <section id="hero">
     <div class="hero-image">
       <img src="./assets/img-7307.jpeg"
-           alt="A.D.W editorial fashion campaign — model in vibrant kente print surrounded by mannequins"
+           alt="A.D.W editorial fashion campaign — model in vibrant kente print"
            loading="eager" />
     </div>
     <div class="hero-text reveal">
@@ -791,162 +943,50 @@
         A.D.W — Ancestral Designer Wear is a fashion and lifestyle house rooted in African artistry.
         Every piece tells a story of origin, draped in the future.
       </p>
-      <a href="#contact" class="hero-cta">
-        Join the waitlist
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2.5 7H11.5M7.5 3L11.5 7L7.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-    </div>
-  </section>
-
-  <!-- ── Feature strip ── -->
-  <section id="feature">
-    <div style="max-width:1200px;margin:0 auto 56px;padding:0 0;" class="section-header reveal">
-      <p class="section-eyebrow">Collections</p>
-      <h2 class="section-title" style="color:var(--cream);">Rooted. Refined. Worn.</h2>
-    </div>
-    <div class="feature-grid">
-      <div class="feature-card reveal">
-        <img src="./assets/img-7311.jpeg" alt="ADW fashion design sketch with perfume concept" loading="lazy" />
-        <div class="card-label">Design Archive</div>
-      </div>
-      <div class="feature-card reveal">
-        <img src="./assets/img-7310.jpeg" alt="ADW fashion sketches — garment and fragrance studies" loading="lazy" />
-        <div class="card-label">Garments</div>
-      </div>
-      <div class="feature-card reveal">
-        <img src="./assets/img-7315.jpeg" alt="ADW Ghana fashion sketch with perfume bottle" loading="lazy" />
-        <div class="card-label">Ghana Series</div>
+      <div class="hero-ctas">
+        <a href="#collections" class="hero-cta">
+          Shop Collections
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2.5 7H11.5M7.5 3L11.5 7L7.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="#contact" class="hero-cta ghost">Join Waitlist</a>
       </div>
     </div>
   </section>
 
-  <!-- ── Streetwear ── -->
-  <section id="streetwear">
+  <!-- ── Collections Section ── -->
+  <section id="collections">
     <div class="section-header reveal">
-      <p class="section-eyebrow">Streetwear Collection</p>
-      <h2 class="section-title">The full range.<br><em style="font-style:italic;color:var(--rust);">Coming soon.</em></h2>
+      <p class="section-eyebrow">The Full Range</p>
+      <h2 class="section-title">Collections</h2>
+      <p style="font-size:13px;color:var(--muted);margin-top:14px;letter-spacing:0.04em;">Rooted in African artistry. Crafted for the future.</p>
     </div>
-    <div class="sw-grid">
-      <div class="sw-item reveal">
-        <div class="sw-image-container" style="position: relative; aspect-ratio: 1/1; overflow: hidden;">
-          <img src="./assets/hoodie-mockup.jpg"
-               alt="ADW hoodie front view with ADW logo"
-               class="sw-front"
-               style="width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s ease;"
-               loading="lazy" />
-          <img src="./assets/hoodie-back-mockup.png"
-               alt="ADW hoodie back view with character logo"
-               class="sw-back"
-               style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s ease;"
-               loading="lazy" />
-        </div>
-        <div class="sw-label">
-          <span class="sw-name">Hoodie &amp; Sweatpants</span>
-          <span class="sw-tag">New Arrival · Coming Soon</span>
-        </div>
-      </div>
-      <div class="sw-item reveal">
-        <img src="./assets/sketch-tshirt.jpeg"
-             alt="ADW oversized graphic T-shirt sketchbook design — front and back views"
-             loading="lazy" />
-        <div class="sw-label">
-          <span class="sw-name">Oversized Tee</span>
-          <span class="sw-tag">Coming Soon</span>
-        </div>
-      </div>
-      <div class="sw-item reveal">
-        <img src="./assets/sketch-jacket.jpeg"
-             alt="ADW bomber jacket sketchbook design — front and back views with large back graphic"
-             loading="lazy" />
-        <div class="sw-label">
-          <span class="sw-name">Bomber Jacket</span>
-          <span class="sw-tag">Coming Soon</span>
-        </div>
-      </div>
-      <div class="sw-item reveal">
-        <img src="./assets/sketch-cap.jpeg"
-             alt="ADW snapback cap sketchbook design — front, back, side and top views"
-             loading="lazy" />
-        <div class="sw-label">
-          <span class="sw-name">Snapback Cap</span>
-          <span class="sw-tag">Coming Soon</span>
-        </div>
-      </div>
-      <div class="sw-item reveal">
-        <img src="./assets/sketch-sneakers.jpeg"
-             alt="ADW sneaker sketchbook design — side, back, top and sole views"
-             loading="lazy" />
-        <div class="sw-label">
-          <span class="sw-name">ADW Sneakers</span>
-          <span class="sw-tag">Coming Soon</span>
-        </div>
-      </div>
-      <div class="sw-item reveal">
-        <img src="./assets/sketch-bag.jpeg"
-             alt="ADW backpack sketchbook design — front, side, back and detail views"
-             loading="lazy" />
-        <div class="sw-label">
-          <span class="sw-name">Streetwear Backpack</span>
-          <span class="sw-tag">Coming Soon</span>
-        </div>
-      </div>
-      <div class="sw-item reveal">
-        <img src="./assets/sketch-crewneck.jpeg"
-             alt="ADW crewneck sweatshirt sketchbook design — front and back views with colour palette"
-             loading="lazy" />
-        <div class="sw-label">
-          <span class="sw-name">Crewneck Sweatshirt</span>
-          <span class="sw-tag">Coming Soon</span>
-        </div>
-      </div>
-      <div class="sw-item reveal">
-        <img src="./assets/sketch-polo.jpeg"
-             alt="ADW oversized camp-collar polo shirt sketchbook design"
-             loading="lazy" />
-        <div class="sw-label">
-          <span class="sw-name">Camp Collar Polo</span>
-          <span class="sw-tag">Coming Soon</span>
-        </div>
-      </div>
-      <div class="sw-item reveal">
-        <img src="./assets/sketch-shorts.jpeg"
-             alt="ADW athletic track shorts sketchbook design — front, back and waistband details"
-             loading="lazy" />
-        <div class="sw-label">
-          <span class="sw-name">Track Shorts</span>
-          <span class="sw-tag">Coming Soon</span>
-        </div>
-      </div>
-      <div class="sw-item reveal">
-        <img src="./assets/sketch-bucket-hat.jpeg"
-             alt="ADW bucket hat sketchbook design — front, side, top and inside views"
-             loading="lazy" />
-        <div class="sw-label">
-          <span class="sw-name">Bucket Hat</span>
-          <span class="sw-tag">Coming Soon</span>
-        </div>
-      </div>
-      <div class="sw-item reveal">
-        <img src="./assets/sketch-tank.jpeg"
-             alt="ADW muscle tank top sketchbook design — front, back and neckline details"
-             loading="lazy" />
-        <div class="sw-label">
-          <span class="sw-name">Muscle Tank</span>
-          <span class="sw-tag">Coming Soon</span>
-        </div>
-      </div>
-      <div class="sw-item reveal">
-        <img src="./assets/sketch-accessories.jpeg"
-             alt="ADW accessories sketchbook — phone case, socks, keychain, backpack, woven patch and lanyard"
-             loading="lazy" />
-        <div class="sw-label">
-          <span class="sw-name">Accessories</span>
-          <span class="sw-tag">Coming Soon</span>
-        </div>
-      </div>
+
+    <!-- Gender filter -->
+    <div class="gender-filter reveal" role="group" aria-label="Filter by gender">
+      <button class="gender-btn active" data-gender="all" onclick="setGender(this,'all')">All</button>
+      <button class="gender-btn" data-gender="men"  onclick="setGender(this,'men')">Men</button>
+      <button class="gender-btn" data-gender="women" onclick="setGender(this,'women')">Women</button>
     </div>
+
+    <!-- Category tabs -->
+    <div class="category-tabs reveal" role="group" aria-label="Filter by category">
+      <button class="cat-btn active" data-cat="all"         onclick="setCat(this,'all')">All</button>
+      <button class="cat-btn" data-cat="clothes"     onclick="setCat(this,'clothes')">Clothes</button>
+      <button class="cat-btn" data-cat="shoes"       onclick="setCat(this,'shoes')">Shoes</button>
+      <button class="cat-btn" data-cat="watches"     onclick="setCat(this,'watches')">Watches</button>
+      <button class="cat-btn" data-cat="bags"        onclick="setCat(this,'bags')">Bags</button>
+      <button class="cat-btn" data-cat="accessories" onclick="setCat(this,'accessories')">Accessories</button>
+      <button class="cat-btn" data-cat="jewelry"     onclick="setCat(this,'jewelry')">Jewelry</button>
+      <button class="cat-btn" data-cat="perfume"     onclick="setCat(this,'perfume')">Perfume</button>
+      <button class="cat-btn" data-cat="headwear"    onclick="setCat(this,'headwear')">Headwear</button>
+    </div>
+
+    <p class="collection-meta" id="collection-count"></p>
+
+    <!-- Product grid (JS-rendered) -->
+    <div class="product-grid" id="product-grid" aria-live="polite"></div>
   </section>
 
   <!-- ── Gallery ── -->
@@ -957,29 +997,19 @@
     </div>
     <div class="gallery-grid">
       <div class="gallery-item wide reveal">
-        <img src="./assets/img-7308.jpeg"
-             alt="ADW perfume bottle architectural sketch on Africa map"
-             loading="lazy" />
+        <img src="./assets/img-7308.jpeg" alt="ADW perfume bottle architectural sketch on Africa map" loading="lazy" />
       </div>
       <div class="gallery-item reveal">
-        <img src="./assets/img-7309.jpeg"
-             alt="ADW perfume vessel design with Ancestral Designer Wears branding"
-             loading="lazy" />
+        <img src="./assets/img-7309.jpeg" alt="ADW perfume vessel design with Ancestral Designer Wears branding" loading="lazy" />
       </div>
       <div class="gallery-item reveal">
-        <img src="./assets/img-7312.jpeg"
-             alt="ADW fragrance bottle collection sketches"
-             loading="lazy" />
+        <img src="./assets/img-7312.jpeg" alt="ADW fragrance bottle collection sketches" loading="lazy" />
       </div>
       <div class="gallery-item reveal">
-        <img src="./assets/img-7313.jpeg"
-             alt="ADW perfume bottle blueprint study"
-             loading="lazy" />
+        <img src="./assets/img-7313.jpeg" alt="ADW perfume bottle blueprint study" loading="lazy" />
       </div>
       <div class="gallery-item wide reveal">
-        <img src="./assets/img-7314.jpeg"
-             alt="ADW brand identity — coming soon composition"
-             loading="lazy" />
+        <img src="./assets/img-7314.jpeg" alt="ADW brand identity — coming soon composition" loading="lazy" />
       </div>
     </div>
   </section>
@@ -988,8 +1018,7 @@
   <section>
     <div id="about">
       <div class="about-img reveal">
-        <img src="./assets/img-7307.jpeg"
-             alt="A.D.W campaign editorial — rooted in African fashion identity" />
+        <img src="./assets/img-7307.jpeg" alt="A.D.W campaign editorial — rooted in African fashion identity" />
         <div class="about-badge">
           <span>ADW</span>
           <span>Est. 2024</span>
@@ -1011,6 +1040,7 @@
           <span class="tag">Accessories</span>
           <span class="tag">Fragrance</span>
           <span class="tag">African Heritage</span>
+          <span class="tag">Men &amp; Women</span>
           <span class="tag">Coming Soon</span>
         </div>
       </div>
@@ -1035,44 +1065,45 @@
             <input id="cf-name" class="cf-input" type="text" placeholder="e.g. Kofi Mensah" required />
           </div>
           <div>
+            <label class="cf-label" for="cf-gender-pref">Shopping for</label>
+            <select id="cf-gender-pref" class="cf-select">
+              <option value="" disabled selected>Men / Women / Both</option>
+              <option>Men</option>
+              <option>Women</option>
+              <option>Both</option>
+            </select>
+          </div>
+          <div>
             <label class="cf-label" for="cf-interest">I'm interested in</label>
             <select id="cf-interest" class="cf-select" required>
-              <option value="" disabled selected>Select an item…</option>
-              <option>Hoodie &amp; Sweatpants</option>
-              <option>Oversized Tee</option>
-              <option>Bomber Jacket</option>
-              <option>Crewneck Sweatshirt</option>
-              <option>Camp Collar Polo</option>
-              <option>Track Shorts</option>
-              <option>Muscle Tank</option>
-              <option>Snapback Cap</option>
-              <option>Bucket Hat</option>
-              <option>ADW Sneakers</option>
-              <option>Streetwear Backpack</option>
+              <option value="" disabled selected>Select a category…</option>
+              <option>Clothes</option>
+              <option>Shoes</option>
+              <option>Watches</option>
+              <option>Bags</option>
               <option>Accessories</option>
+              <option>Jewelry</option>
+              <option>Perfume</option>
+              <option>Headwear</option>
               <option>Full Collection — Notify me of everything</option>
             </select>
           </div>
           <div>
-            <label class="cf-label" for="cf-size">Preferred size</label>
+            <label class="cf-label" for="cf-size">Preferred size (clothing)</label>
             <select id="cf-size" class="cf-select">
               <option value="" disabled selected>Select size (optional)</option>
-              <option>XS</option>
-              <option>S</option>
-              <option>M</option>
-              <option>L</option>
-              <option>XL</option>
-              <option>XXL</option>
+              <option>XS</option><option>S</option><option>M</option>
+              <option>L</option><option>XL</option><option>XXL</option>
               <option>Not sure yet</option>
             </select>
           </div>
           <div>
             <label class="cf-label" for="cf-message">Anything else? (optional)</label>
-            <textarea id="cf-message" class="cf-textarea" placeholder="e.g. I'd love to know when the bomber jacket drops, or ask about custom orders…"></textarea>
+            <textarea id="cf-message" class="cf-textarea" placeholder="e.g. I'd love to know when the bomber jacket drops, custom orders, sizing queries…"></textarea>
           </div>
         </div>
         <button type="submit" class="wa-btn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
           </svg>
           Send via WhatsApp
@@ -1080,31 +1111,283 @@
         <p class="wa-disclaimer">Opens WhatsApp with your message pre-filled — we'll reply within 24 hrs.</p>
       </form>
     </div>
-<!-- Direct contact removed as requested -->
   </section>
 
-  </main><!-- /#main-content -->
+  </main>
 
   <!-- ── Footer ── -->
   <footer>
     <div class="footer-logo">
-      <img src="./assets/new_adw_logo.png" alt="A.D.W logo" />
+      <img src="./assets/adw-logo-nobg.png" alt="A.D.W logo" />
       <span>Ancestral Designer Wear</span>
     </div>
     <p class="footer-tagline">Heritage · Craft · Identity</p>
-    <div class="footer-social" style="display: flex; gap: 20px; margin-top: 10px;">
-      <a href="https://www.instagram.com/adwears233/" target="_blank" rel="noopener" style="color: var(--cream); text-decoration: none;" aria-label="Instagram">
+    <div style="display:flex;gap:20px;margin-top:10px;">
+      <a href="https://www.instagram.com/adwears233/" target="_blank" rel="noopener" style="color:var(--cream);text-decoration:none;" aria-label="Instagram">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
       </a>
-      <a href="https://www.facebook.com/share/1FLLn61R7K/?mibextid=wwXIfr" target="_blank" rel="noopener" style="color: var(--cream); text-decoration: none;" aria-label="Facebook">
+      <a href="https://www.facebook.com/share/1FLLn61R7K/?mibextid=wwXIfr" target="_blank" rel="noopener" style="color:var(--cream);text-decoration:none;" aria-label="Facebook">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
       </a>
     </div>
-    <p class="footer-copy">© 2024 A.D.W — Ancestral Designer Wear. All rights reserved.</p>
+    <p class="footer-copy">© 2025 A.D.W — Ancestral Designer Wear. All rights reserved.</p>
   </footer>
 
   <script>
-    // ── Loader dismiss ──────────────────────────────────────
+    // ─────────────────────────────────────────────────────────
+    // Product catalogue
+    // ─────────────────────────────────────────────────────────
+    var C = {
+      INK:     '#1a0a00',
+      BROWN:   '#3d1f00',
+      GOLD:    '#c88b1a',
+      RUST:    '#b84a1a',
+      GREEN:   '#2a6640',
+      SADDLE:  '#8b4513',
+      BGOLD:   '#d4af37',
+      CREAM:   '#e8e0d0',
+      BLUE:    '#2c4a6e',
+      TERRA:   '#c1604a',
+      PURPLE:  '#4a2040',
+      EMERALD: '#1e4d3a',
+      ROSE:    '#c4706a',
+      COPPER:  '#b87333',
+    };
+
+    var PRODUCTS = [
+      // ── CLOTHES ─ Men (8) ──────────────────────────────────
+      { id:1,  name:'Heritage Hoodie',         cat:'clothes',     gender:'men',    price:'GH₵ 580',  colors:[C.INK, C.BROWN, C.GOLD, C.GREEN, C.RUST],              sizes:['XS','S','M','L','XL','XXL'] },
+      { id:2,  name:'Kente Bomber Jacket',     cat:'clothes',     gender:'men',    price:'GH₵ 920',  colors:[C.INK, C.GOLD, C.GREEN],                               sizes:['S','M','L','XL','XXL'] },
+      { id:3,  name:'Adinkra Trench Coat',     cat:'clothes',     gender:'men',    price:'GH₵ 1,450',colors:[C.SADDLE, C.INK, C.BROWN],                             sizes:['S','M','L','XL'] },
+      { id:4,  name:'Tribal Print Tee',        cat:'clothes',     gender:'men',    price:'GH₵ 280',  colors:[C.CREAM, C.INK, C.RUST, C.GREEN, C.GOLD, C.BLUE],      sizes:['XS','S','M','L','XL','XXL'] },
+      { id:5,  name:'Ankara Joggers',          cat:'clothes',     gender:'men',    price:'GH₵ 460',  colors:[C.INK, C.BROWN, C.TERRA, C.GREEN],                     sizes:['XS','S','M','L','XL','XXL'] },
+      { id:6,  name:'Wax Print Shorts',        cat:'clothes',     gender:'men',    price:'GH₵ 320',  colors:[C.GOLD, C.RUST, C.GREEN, C.BLUE],                      sizes:['S','M','L','XL','XXL'] },
+      { id:7,  name:'Dashiki Shirt',           cat:'clothes',     gender:'men',    price:'GH₵ 540',  colors:[C.GOLD, C.RUST, C.GREEN, C.CREAM],                     sizes:['S','M','L','XL','XXL'] },
+      { id:8,  name:'Royal Kufi Coat',         cat:'clothes',     gender:'men',    price:'GH₵ 1,850',colors:[C.INK, C.BROWN, C.PURPLE],                             sizes:['S','M','L','XL'] },
+      // ── CLOTHES ─ Women (8) ────────────────────────────────
+      { id:9,  name:'Ankara Maxi Dress',       cat:'clothes',     gender:'women',  price:'GH₵ 680',  colors:[C.RUST, C.GOLD, C.EMERALD, C.BLUE, C.PURPLE],          sizes:['XS','S','M','L','XL'] },
+      { id:10, name:'Kente Wrap Blouse',       cat:'clothes',     gender:'women',  price:'GH₵ 420',  colors:[C.GOLD, C.RUST, C.GREEN, C.CREAM],                     sizes:['XS','S','M','L','XL'] },
+      { id:11, name:'Heritage Midi Skirt',     cat:'clothes',     gender:'women',  price:'GH₵ 480',  colors:[C.BROWN, C.RUST, C.GOLD, C.EMERALD],                   sizes:['XS','S','M','L','XL'] },
+      { id:12, name:'Adinkra Bodysuit',        cat:'clothes',     gender:'women',  price:'GH₵ 360',  colors:[C.INK, C.BROWN, C.ROSE],                               sizes:['XS','S','M','L','XL'] },
+      { id:13, name:'Tribal Print Blazer',     cat:'clothes',     gender:'women',  price:'GH₵ 860',  colors:[C.INK, C.BROWN, C.CREAM],                              sizes:['XS','S','M','L'] },
+      { id:14, name:'Wax Print Jumpsuit',      cat:'clothes',     gender:'women',  price:'GH₵ 720',  colors:[C.RUST, C.EMERALD, C.GOLD, C.BLUE],                    sizes:['XS','S','M','L','XL'] },
+      { id:15, name:'Silk Kente Slip Dress',   cat:'clothes',     gender:'women',  price:'GH₵ 980',  colors:[C.GOLD, C.RUST, C.CREAM],                              sizes:['XS','S','M','L'] },
+      { id:16, name:'Ankara Crop Top',         cat:'clothes',     gender:'women',  price:'GH₵ 260',  colors:[C.RUST, C.GOLD, C.GREEN, C.BLUE, C.PURPLE],            sizes:['XS','S','M','L','XL'] },
+      // ── SHOES ─ Men (8) ────────────────────────────────────
+      { id:17, name:'ADW Heritage Sneakers',   cat:'shoes',       gender:'men',    price:'GH₵ 780',  colors:[C.CREAM, C.INK, C.GOLD, C.RUST, C.GREEN],              sizes:['40','41','42','43','44','45'] },
+      { id:18, name:'Kente High-Tops',         cat:'shoes',       gender:'men',    price:'GH₵ 860',  colors:[C.GOLD, C.INK, C.RUST],                                sizes:['40','41','42','43','44','45'] },
+      { id:19, name:'Tribal Loafers',          cat:'shoes',       gender:'men',    price:'GH₵ 650',  colors:[C.BROWN, C.INK, C.SADDLE],                             sizes:['40','41','42','43','44','45'] },
+      { id:20, name:'Ankara Chelsea Boots',    cat:'shoes',       gender:'men',    price:'GH₵ 920',  colors:[C.INK, C.BROWN, C.SADDLE],                             sizes:['40','41','42','43','44','45'] },
+      { id:21, name:'Heritage Derby',          cat:'shoes',       gender:'men',    price:'GH₵ 880',  colors:[C.INK, C.BROWN, C.COPPER],                             sizes:['40','41','42','43','44','45'] },
+      { id:22, name:'Wax Print Slides',        cat:'shoes',       gender:'men',    price:'GH₵ 320',  colors:[C.GOLD, C.RUST, C.GREEN, C.BLUE],                      sizes:['40','41','42','43','44','45'] },
+      { id:23, name:'Desert Boot',             cat:'shoes',       gender:'men',    price:'GH₵ 750',  colors:[C.SADDLE, C.CREAM, C.INK],                             sizes:['40','41','42','43','44','45'] },
+      { id:24, name:'Royal Moccasin',          cat:'shoes',       gender:'men',    price:'GH₵ 820',  colors:[C.BROWN, C.COPPER, C.SADDLE],                          sizes:['40','41','42','43','44','45'] },
+      // ── SHOES ─ Women (8) ──────────────────────────────────
+      { id:25, name:'ADW Platform Sneakers',   cat:'shoes',       gender:'women',  price:'GH₵ 820',  colors:[C.CREAM, C.INK, C.GOLD, C.ROSE],                       sizes:['36','37','38','39','40','41'] },
+      { id:26, name:'Kente Heeled Mules',      cat:'shoes',       gender:'women',  price:'GH₵ 680',  colors:[C.GOLD, C.RUST, C.CREAM],                              sizes:['36','37','38','39','40','41'] },
+      { id:27, name:'Heritage Sandals',        cat:'shoes',       gender:'women',  price:'GH₵ 440',  colors:[C.SADDLE, C.GOLD, C.TERRA],                            sizes:['36','37','38','39','40','41'] },
+      { id:28, name:'Tribal Pumps',            cat:'shoes',       gender:'women',  price:'GH₵ 750',  colors:[C.INK, C.RUST, C.EMERALD],                             sizes:['36','37','38','39','40','41'] },
+      { id:29, name:'Ankara Ankle Boot',       cat:'shoes',       gender:'women',  price:'GH₵ 880',  colors:[C.INK, C.BROWN, C.COPPER],                             sizes:['36','37','38','39','40','41'] },
+      { id:30, name:'Wax Print Ballet Flat',   cat:'shoes',       gender:'women',  price:'GH₵ 380',  colors:[C.RUST, C.GOLD, C.GREEN, C.BLUE],                      sizes:['36','37','38','39','40','41'] },
+      { id:31, name:'Embroidered Slipper',     cat:'shoes',       gender:'women',  price:'GH₵ 350',  colors:[C.GOLD, C.CREAM, C.ROSE],                              sizes:['36','37','38','39','40','41'] },
+      { id:32, name:'Strappy Heritage Heel',   cat:'shoes',       gender:'women',  price:'GH₵ 820',  colors:[C.SADDLE, C.GOLD, C.INK],                              sizes:['36','37','38','39','40','41'] },
+      // ── WATCHES ─ Men (8) ──────────────────────────────────
+      { id:33, name:'Heritage Gold Dial',      cat:'watches',     gender:'men',    price:'GH₵ 2,400',colors:[C.GOLD, C.CREAM, C.BROWN],                             sizes:['38mm','40mm','42mm','44mm'] },
+      { id:34, name:'Onyx Midnight',           cat:'watches',     gender:'men',    price:'GH₵ 2,200',colors:[C.INK, C.GOLD],                                        sizes:['40mm','42mm','44mm'] },
+      { id:35, name:'Kente Dial Watch',        cat:'watches',     gender:'men',    price:'GH₵ 2,800',colors:[C.GOLD, C.RUST, C.GREEN],                              sizes:['40mm','42mm','44mm'] },
+      { id:36, name:'Bronze Edition',          cat:'watches',     gender:'men',    price:'GH₵ 2,600',colors:[C.COPPER, C.BROWN, C.CREAM],                           sizes:['38mm','40mm','42mm','44mm'] },
+      { id:37, name:'Tribal Motif Watch',      cat:'watches',     gender:'men',    price:'GH₵ 3,200',colors:[C.INK, C.COPPER, C.GOLD],                              sizes:['40mm','42mm','44mm'] },
+      { id:38, name:'Savanna Sport',           cat:'watches',     gender:'men',    price:'GH₵ 1,800',colors:[C.CREAM, C.INK, C.RUST, C.GREEN],                      sizes:['42mm','44mm'] },
+      { id:39, name:'Ivory Classic',           cat:'watches',     gender:'men',    price:'GH₵ 2,100',colors:[C.CREAM, C.SADDLE, C.GOLD],                            sizes:['38mm','40mm','42mm'] },
+      { id:40, name:'Black Steel Heritage',    cat:'watches',     gender:'men',    price:'GH₵ 2,900',colors:[C.INK, C.BGOLD],                                       sizes:['40mm','42mm','44mm'] },
+      // ── WATCHES ─ Women (8) ────────────────────────────────
+      { id:41, name:'Rose Gold Kente',         cat:'watches',     gender:'women',  price:'GH₵ 2,400',colors:[C.ROSE, C.GOLD, C.CREAM],                              sizes:['34mm','36mm','38mm'] },
+      { id:42, name:'Pearl Ivory Dial',        cat:'watches',     gender:'women',  price:'GH₵ 2,200',colors:[C.CREAM, C.GOLD, C.SADDLE],                            sizes:['34mm','36mm','38mm'] },
+      { id:43, name:'Ankara Print Strap',      cat:'watches',     gender:'women',  price:'GH₵ 2,600',colors:[C.RUST, C.GOLD, C.EMERALD],                            sizes:['34mm','36mm','38mm'] },
+      { id:44, name:'Gold Bezel Classic',      cat:'watches',     gender:'women',  price:'GH₵ 2,800',colors:[C.BGOLD, C.CREAM, C.INK],                              sizes:['34mm','36mm','38mm'] },
+      { id:45, name:'Copper Heritage',         cat:'watches',     gender:'women',  price:'GH₵ 2,100',colors:[C.COPPER, C.CREAM, C.BROWN],                           sizes:['34mm','36mm','38mm'] },
+      { id:46, name:'Floral Kente Watch',      cat:'watches',     gender:'women',  price:'GH₵ 2,300',colors:[C.GOLD, C.RUST, C.GREEN, C.CREAM],                     sizes:['34mm','36mm','38mm'] },
+      { id:47, name:'Slim Tribal',             cat:'watches',     gender:'women',  price:'GH₵ 1,950',colors:[C.INK, C.GOLD, C.ROSE],                                sizes:['28mm','30mm','34mm'] },
+      { id:48, name:'Crystal Adinkra',         cat:'watches',     gender:'women',  price:'GH₵ 2,750',colors:[C.CREAM, C.BGOLD, C.ROSE],                             sizes:['34mm','36mm','38mm'] },
+      // ── BAGS ─ Men (8) ─────────────────────────────────────
+      { id:49, name:'Streetwear Backpack',     cat:'bags',        gender:'men',    price:'GH₵ 680',  colors:[C.INK, C.BROWN, C.RUST, C.GREEN],                      sizes:['One Size'] },
+      { id:50, name:'Heritage Duffel',         cat:'bags',        gender:'men',    price:'GH₵ 820',  colors:[C.INK, C.BROWN, C.SADDLE],                             sizes:['One Size'] },
+      { id:51, name:'Tribal Crossbody',        cat:'bags',        gender:'men',    price:'GH₵ 520',  colors:[C.BROWN, C.SADDLE, C.INK],                             sizes:['One Size'] },
+      { id:52, name:'Wax Print Tote',          cat:'bags',        gender:'men',    price:'GH₵ 440',  colors:[C.RUST, C.GOLD, C.GREEN, C.BLUE],                      sizes:['One Size'] },
+      { id:53, name:'Laptop Satchel',          cat:'bags',        gender:'men',    price:'GH₵ 760',  colors:[C.BROWN, C.INK, C.SADDLE],                             sizes:['One Size'] },
+      { id:54, name:'ADW Waist Bag',           cat:'bags',        gender:'men',    price:'GH₵ 380',  colors:[C.INK, C.GOLD, C.RUST, C.GREEN],                       sizes:['One Size'] },
+      { id:55, name:'Ankara Messenger',        cat:'bags',        gender:'men',    price:'GH₵ 580',  colors:[C.GOLD, C.RUST, C.GREEN, C.BROWN],                     sizes:['One Size'] },
+      { id:56, name:'ADW Weekender',           cat:'bags',        gender:'men',    price:'GH₵ 960',  colors:[C.INK, C.BROWN],                                       sizes:['One Size'] },
+      // ── BAGS ─ Women (8) ───────────────────────────────────
+      { id:57, name:'Heritage Tote',           cat:'bags',        gender:'women',  price:'GH₵ 560',  colors:[C.SADDLE, C.RUST, C.GOLD, C.EMERALD],                  sizes:['One Size'] },
+      { id:58, name:'Kente Mini Bag',          cat:'bags',        gender:'women',  price:'GH₵ 420',  colors:[C.GOLD, C.RUST, C.GREEN],                              sizes:['One Size'] },
+      { id:59, name:'Adinkra Clutch',          cat:'bags',        gender:'women',  price:'GH₵ 380',  colors:[C.BGOLD, C.CREAM, C.ROSE],                             sizes:['One Size'] },
+      { id:60, name:'Wax Print Crossbody',     cat:'bags',        gender:'women',  price:'GH₵ 480',  colors:[C.RUST, C.GOLD, C.EMERALD, C.BLUE],                    sizes:['One Size'] },
+      { id:61, name:'Ankara Shopper',          cat:'bags',        gender:'women',  price:'GH₵ 520',  colors:[C.GOLD, C.RUST, C.BROWN],                              sizes:['One Size'] },
+      { id:62, name:'Tribal Bucket Bag',       cat:'bags',        gender:'women',  price:'GH₵ 540',  colors:[C.BROWN, C.SADDLE, C.COPPER],                          sizes:['One Size'] },
+      { id:63, name:'Heritage Satchel',        cat:'bags',        gender:'women',  price:'GH₵ 680',  colors:[C.SADDLE, C.BROWN, C.INK],                             sizes:['One Size'] },
+      { id:64, name:'Embroidered Evening Bag', cat:'bags',        gender:'women',  price:'GH₵ 760',  colors:[C.BGOLD, C.CREAM, C.INK],                              sizes:['One Size'] },
+      // ── ACCESSORIES ─ Men (8) ──────────────────────────────
+      { id:65, name:'Kente Belt',              cat:'accessories', gender:'men',    price:'GH₵ 220',  colors:[C.BROWN, C.INK, C.SADDLE],                             sizes:['S/M','L/XL'] },
+      { id:66, name:'Tribal Sunglasses',       cat:'accessories', gender:'men',    price:'GH₵ 380',  colors:[C.INK, C.GOLD, C.BROWN],                               sizes:['One Size'] },
+      { id:67, name:'Adinkra Keychain',        cat:'accessories', gender:'men',    price:'GH₵ 95',   colors:[C.GOLD, C.INK, C.RUST],                                sizes:['One Size'] },
+      { id:68, name:'Heritage Beanie',         cat:'accessories', gender:'men',    price:'GH₵ 240',  colors:[C.INK, C.BROWN, C.RUST, C.GREEN],                      sizes:['One Size'] },
+      { id:69, name:'Wax Print Scarf',         cat:'accessories', gender:'men',    price:'GH₵ 280',  colors:[C.RUST, C.GOLD, C.GREEN, C.BLUE],                      sizes:['One Size'] },
+      { id:70, name:'ADW Socks Set',           cat:'accessories', gender:'men',    price:'GH₵ 180',  colors:[C.CREAM, C.INK, C.GOLD, C.RUST, C.GREEN],              sizes:['S/M','L/XL'] },
+      { id:71, name:'Leather Card Holder',     cat:'accessories', gender:'men',    price:'GH₵ 195',  colors:[C.BROWN, C.INK, C.SADDLE],                             sizes:['One Size'] },
+      { id:72, name:'Tribal Phone Case',       cat:'accessories', gender:'men',    price:'GH₵ 165',  colors:[C.INK, C.GOLD, C.BROWN, C.RUST],                       sizes:['One Size'] },
+      // ── ACCESSORIES ─ Women (8) ────────────────────────────
+      { id:73, name:'Adinkra Headband',        cat:'accessories', gender:'women',  price:'GH₵ 160',  colors:[C.GOLD, C.RUST, C.GREEN, C.CREAM],                     sizes:['One Size'] },
+      { id:74, name:'Heritage Beret',          cat:'accessories', gender:'women',  price:'GH₵ 280',  colors:[C.BROWN, C.INK, C.RUST, C.EMERALD],                    sizes:['One Size'] },
+      { id:75, name:'Tribal Bandana',          cat:'accessories', gender:'women',  price:'GH₵ 140',  colors:[C.RUST, C.GOLD, C.GREEN, C.BLUE],                      sizes:['One Size'] },
+      { id:76, name:'Wax Print Fascinator',    cat:'accessories', gender:'women',  price:'GH₵ 360',  colors:[C.GOLD, C.RUST, C.EMERALD],                            sizes:['One Size'] },
+      { id:77, name:'Ankara Hair Clip Set',    cat:'accessories', gender:'women',  price:'GH₵ 195',  colors:[C.GOLD, C.RUST, C.GREEN, C.INK, C.BLUE],               sizes:['One Size'] },
+      { id:78, name:'ADW Sunglasses',          cat:'accessories', gender:'women',  price:'GH₵ 380',  colors:[C.INK, C.ROSE, C.BGOLD],                               sizes:['One Size'] },
+      { id:79, name:'Heritage Silk Wrap',      cat:'accessories', gender:'women',  price:'GH₵ 320',  colors:[C.RUST, C.GOLD, C.CREAM, C.BLUE],                      sizes:['One Size'] },
+      { id:80, name:'Embroidered Coin Purse',  cat:'accessories', gender:'women',  price:'GH₵ 155',  colors:[C.GOLD, C.SADDLE, C.RUST],                             sizes:['One Size'] },
+      // ── JEWELRY ─ Men (8) ──────────────────────────────────
+      { id:81, name:'Heritage Gold Chain',     cat:'jewelry',     gender:'men',    price:'GH₵ 1,200',colors:[C.BGOLD, C.GOLD, C.COPPER],                            sizes:['45cm','50cm','55cm','60cm'] },
+      { id:82, name:'Adinkra Cuff Bracelet',   cat:'jewelry',     gender:'men',    price:'GH₵ 680',  colors:[C.BGOLD, C.COPPER, C.INK],                             sizes:['S','M','L'] },
+      { id:83, name:'Tribal Signet Ring',      cat:'jewelry',     gender:'men',    price:'GH₵ 580',  colors:[C.BGOLD, C.INK],                                       sizes:['18mm','19mm','20mm','21mm','22mm'] },
+      { id:84, name:'Kente Pendant',           cat:'jewelry',     gender:'men',    price:'GH₵ 480',  colors:[C.BGOLD, C.COPPER, C.RUST],                            sizes:['One Size'] },
+      { id:85, name:'Heritage Stud Earring',   cat:'jewelry',     gender:'men',    price:'GH₵ 280',  colors:[C.BGOLD, C.INK, C.COPPER],                             sizes:['One Size'] },
+      { id:86, name:'Adinkra Bead Bracelet',   cat:'jewelry',     gender:'men',    price:'GH₵ 320',  colors:[C.BGOLD, C.RUST, C.GREEN, C.INK],                      sizes:['S','M','L','XL'] },
+      { id:87, name:'Tribal Lapel Pin',        cat:'jewelry',     gender:'men',    price:'GH₵ 195',  colors:[C.BGOLD, C.COPPER, C.INK],                             sizes:['One Size'] },
+      { id:88, name:'Ancestral Dog Tag',       cat:'jewelry',     gender:'men',    price:'GH₵ 350',  colors:[C.BGOLD, C.INK, C.COPPER],                             sizes:['One Size'] },
+      // ── JEWELRY ─ Women (8) ────────────────────────────────
+      { id:89, name:'Kente Waist Beads',       cat:'jewelry',     gender:'women',  price:'GH₵ 280',  colors:[C.BGOLD, C.RUST, C.GREEN, C.BLUE, C.INK, C.CREAM, C.PURPLE, C.ROSE], sizes:['Adjustable'] },
+      { id:90, name:'Adinkra Stud Earrings',   cat:'jewelry',     gender:'women',  price:'GH₵ 320',  colors:[C.BGOLD, C.COPPER, C.ROSE],                            sizes:['One Size'] },
+      { id:91, name:'Heritage Choker',         cat:'jewelry',     gender:'women',  price:'GH₵ 480',  colors:[C.BGOLD, C.CREAM, C.INK],                              sizes:['Adjustable'] },
+      { id:92, name:'Tribal Hoop Set',         cat:'jewelry',     gender:'women',  price:'GH₵ 420',  colors:[C.BGOLD, C.ROSE, C.COPPER],                            sizes:['S','M','L'] },
+      { id:93, name:'Gold Charm Bracelet',     cat:'jewelry',     gender:'women',  price:'GH₵ 560',  colors:[C.BGOLD, C.ROSE, C.CREAM],                             sizes:['16cm','18cm','20cm'] },
+      { id:94, name:'Kente Pendant Necklace',  cat:'jewelry',     gender:'women',  price:'GH₵ 520',  colors:[C.BGOLD, C.COPPER, C.EMERALD],                         sizes:['45cm','50cm','55cm'] },
+      { id:95, name:'Crystal Anklet',          cat:'jewelry',     gender:'women',  price:'GH₵ 260',  colors:[C.BGOLD, C.CREAM, C.ROSE],                             sizes:['Adjustable'] },
+      { id:96, name:'Heritage Statement Ring', cat:'jewelry',     gender:'women',  price:'GH₵ 480',  colors:[C.BGOLD, C.COPPER, C.EMERALD],                         sizes:['16mm','17mm','18mm','19mm','20mm'] },
+      // ── PERFUME ─ Men (8) ──────────────────────────────────
+      { id:97,  name:'Ancestry Noir',          cat:'perfume',     gender:'men',    price:'GH₵ 580',  colors:[C.INK, C.BGOLD, C.COPPER],                             sizes:['30ml','50ml','100ml'] },
+      { id:98,  name:'Heritage Oud',           cat:'perfume',     gender:'men',    price:'GH₵ 720',  colors:[C.BROWN, C.BGOLD, C.COPPER],                           sizes:['30ml','50ml','100ml'] },
+      { id:99,  name:'Gold Coast Man',         cat:'perfume',     gender:'men',    price:'GH₵ 650',  colors:[C.BGOLD, C.SADDLE, C.INK],                             sizes:['30ml','50ml','100ml'] },
+      { id:100, name:'Savanna Deep',           cat:'perfume',     gender:'men',    price:'GH₵ 540',  colors:[C.EMERALD, C.BGOLD, C.BROWN],                          sizes:['30ml','50ml','100ml'] },
+      { id:101, name:'Midnight Accra',         cat:'perfume',     gender:'men',    price:'GH₵ 680',  colors:[C.INK, C.BLUE, C.BGOLD],                               sizes:['30ml','50ml','100ml'] },
+      { id:102, name:'Royal Cedarwood',        cat:'perfume',     gender:'men',    price:'GH₵ 760',  colors:[C.SADDLE, C.BGOLD, C.INK],                             sizes:['50ml','100ml'] },
+      { id:103, name:'Kente Amber',            cat:'perfume',     gender:'men',    price:'GH₵ 620',  colors:[C.COPPER, C.BGOLD, C.BROWN],                           sizes:['30ml','50ml','100ml'] },
+      { id:104, name:'The Founder',            cat:'perfume',     gender:'men',    price:'GH₵ 1,200',colors:[C.INK, C.BGOLD],                                       sizes:['50ml','100ml','200ml'] },
+      // ── PERFUME ─ Women (8) ────────────────────────────────
+      { id:105, name:'Ancestry Bloom',         cat:'perfume',     gender:'women',  price:'GH₵ 580',  colors:[C.ROSE, C.BGOLD, C.CREAM],                             sizes:['30ml','50ml','100ml'] },
+      { id:106, name:'Kente Rose',             cat:'perfume',     gender:'women',  price:'GH₵ 640',  colors:[C.ROSE, C.RUST, C.BGOLD],                              sizes:['30ml','50ml','100ml'] },
+      { id:107, name:'Heritage Florals',       cat:'perfume',     gender:'women',  price:'GH₵ 560',  colors:[C.CREAM, C.ROSE, C.EMERALD],                           sizes:['30ml','50ml','100ml'] },
+      { id:108, name:'Savanna Dreams',         cat:'perfume',     gender:'women',  price:'GH₵ 600',  colors:[C.BGOLD, C.CREAM, C.GREEN],                            sizes:['30ml','50ml','100ml'] },
+      { id:109, name:'Gold Coast Woman',       cat:'perfume',     gender:'women',  price:'GH₵ 680',  colors:[C.BGOLD, C.ROSE, C.CREAM],                             sizes:['30ml','50ml','100ml'] },
+      { id:110, name:'Ancestral Jasmine',      cat:'perfume',     gender:'women',  price:'GH₵ 720',  colors:[C.CREAM, C.BGOLD, C.GREEN],                            sizes:['30ml','50ml','100ml'] },
+      { id:111, name:'Shea & Vanilla',         cat:'perfume',     gender:'women',  price:'GH₵ 520',  colors:[C.CREAM, C.SADDLE, C.BGOLD],                           sizes:['30ml','50ml','100ml'] },
+      { id:112, name:'The Matriarch',          cat:'perfume',     gender:'women',  price:'GH₵ 1,200',colors:[C.ROSE, C.BGOLD, C.PURPLE],                            sizes:['50ml','100ml','200ml'] },
+      // ── HEADWEAR ─ Men (8) ─────────────────────────────────
+      { id:113, name:'Kente Snapback',         cat:'headwear',    gender:'men',    price:'GH₵ 320',  colors:[C.GOLD, C.INK, C.RUST, C.GREEN],                       sizes:['S/M','L/XL'] },
+      { id:114, name:'Heritage Kufi',          cat:'headwear',    gender:'men',    price:'GH₵ 360',  colors:[C.BGOLD, C.INK, C.BROWN, C.GREEN],                     sizes:['S','M','L'] },
+      { id:115, name:'Dashiki Cap',            cat:'headwear',    gender:'men',    price:'GH₵ 280',  colors:[C.GOLD, C.RUST, C.GREEN, C.BLUE],                      sizes:['S/M','L/XL'] },
+      { id:116, name:'Ankara Beret',           cat:'headwear',    gender:'men',    price:'GH₵ 340',  colors:[C.RUST, C.INK, C.BROWN],                               sizes:['S/M','L/XL'] },
+      { id:117, name:'Tribal Fez',             cat:'headwear',    gender:'men',    price:'GH₵ 420',  colors:[C.RUST, C.BGOLD, C.BROWN],                             sizes:['S','M','L'] },
+      { id:118, name:'ADW Bucket Hat',         cat:'headwear',    gender:'men',    price:'GH₵ 300',  colors:[C.INK, C.CREAM, C.RUST, C.GREEN, C.GOLD],              sizes:['S/M','L/XL'] },
+      { id:119, name:'Wax Print Flat Cap',     cat:'headwear',    gender:'men',    price:'GH₵ 350',  colors:[C.RUST, C.GOLD, C.GREEN, C.BLUE],                      sizes:['S/M','L/XL'] },
+      { id:120, name:'Heritage Crown Hat',     cat:'headwear',    gender:'men',    price:'GH₵ 580',  colors:[C.BGOLD, C.INK, C.BROWN],                              sizes:['One Size'] },
+      // ── HEADWEAR ─ Women (8) ───────────────────────────────
+      { id:121, name:'Kente Head Wrap',        cat:'headwear',    gender:'women',  price:'GH₵ 360',  colors:[C.GOLD, C.RUST, C.GREEN, C.BLUE, C.CREAM, C.PURPLE],   sizes:['One Size'] },
+      { id:122, name:'Ankara Gele',            cat:'headwear',    gender:'women',  price:'GH₵ 480',  colors:[C.GOLD, C.RUST, C.GREEN, C.BLUE],                      sizes:['One Size'] },
+      { id:123, name:'Heritage Turban',        cat:'headwear',    gender:'women',  price:'GH₵ 420',  colors:[C.RUST, C.BGOLD, C.EMERALD, C.CREAM, C.PURPLE],        sizes:['One Size'] },
+      { id:124, name:'Tribal Head Scarf',      cat:'headwear',    gender:'women',  price:'GH₵ 280',  colors:[C.GOLD, C.RUST, C.GREEN, C.BLUE, C.CREAM],             sizes:['One Size'] },
+      { id:125, name:'Adinkra Crown Band',     cat:'headwear',    gender:'women',  price:'GH₵ 520',  colors:[C.BGOLD, C.CREAM, C.ROSE],                             sizes:['Adjustable'] },
+      { id:126, name:'Wax Print Beret',        cat:'headwear',    gender:'women',  price:'GH₵ 340',  colors:[C.RUST, C.GOLD, C.GREEN, C.BROWN],                     sizes:['One Size'] },
+      { id:127, name:'Heritage Fascinator',    cat:'headwear',    gender:'women',  price:'GH₵ 680',  colors:[C.BGOLD, C.CREAM, C.ROSE, C.EMERALD],                  sizes:['One Size'] },
+      { id:128, name:'Royal Embroidered Cap',  cat:'headwear',    gender:'women',  price:'GH₵ 440',  colors:[C.BGOLD, C.RUST, C.EMERALD],                           sizes:['One Size'] },
+    ];
+
+    // ─────────────────────────────────────────────────────────
+    // Filter state
+    // ─────────────────────────────────────────────────────────
+    var state = { gender: 'all', cat: 'all' };
+
+    function setGender(btn, val) {
+      state.gender = val;
+      document.querySelectorAll('.gender-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      renderGrid();
+    }
+    function setCat(btn, val) {
+      state.cat = val;
+      document.querySelectorAll('.cat-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      renderGrid();
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // Category display names
+    // ─────────────────────────────────────────────────────────
+    var CAT_LABELS = {
+      clothes:'Clothes', shoes:'Shoes', watches:'Watches', bags:'Bags',
+      accessories:'Accessories', jewelry:'Jewelry', perfume:'Perfume', headwear:'Headwear'
+    };
+
+    // ─────────────────────────────────────────────────────────
+    // Render
+    // ─────────────────────────────────────────────────────────
+    function renderGrid() {
+      var filtered = PRODUCTS.filter(function(p) {
+        var gMatch = state.gender === 'all' || p.gender === state.gender ||
+                     (state.gender === 'men'   && p.gender === 'unisex') ||
+                     (state.gender === 'women' && p.gender === 'unisex');
+        var cMatch = state.cat === 'all' || p.cat === state.cat;
+        return gMatch && cMatch;
+      });
+
+      var count = filtered.length;
+      var g = state.gender === 'all' ? 'All' : (state.gender === 'men' ? "Men's" : "Women's");
+      var c = state.cat === 'all' ? 'Collections' : CAT_LABELS[state.cat];
+      document.getElementById('collection-count').textContent =
+        count + ' item' + (count !== 1 ? 's' : '') + ' — ' + g + ' · ' + c;
+
+      var grid = document.getElementById('product-grid');
+      if (count === 0) {
+        grid.innerHTML = '<p class="no-results">No items found for this selection.</p>';
+        return;
+      }
+
+      grid.innerHTML = filtered.map(function(p) {
+        var gLabel = p.gender === 'men' ? 'Men' : p.gender === 'women' ? 'Women' : 'Unisex';
+        var swatches = p.colors.map(function(c, i) {
+          return '<span class="color-swatch" style="background:' + c + '" title="Variant ' + (i+1) + '" role="img" aria-label="Colour variant ' + (i+1) + '"></span>';
+        }).join('');
+        var chips = p.sizes.map(function(s) {
+          return '<span class="size-chip">' + s + '</span>';
+        }).join('');
+        var waMsg = encodeURIComponent('Hi ADW! 👋\n\nI\'m interested in the *' + p.name + '* from the ' + CAT_LABELS[p.cat] + ' collection (' + gLabel + ').\n\nCould you let me know availability and next steps? 🙏');
+        return [
+          '<article class="product-card" aria-label="' + p.name + '">',
+          '  <div class="product-image-wrap">',
+          '    <img src="./assets/adw-logo-nobg.png" class="product-logo-img" alt="A.D.W ' + p.name + '" loading="lazy" />',
+          '    <span class="product-badge">Coming Soon</span>',
+          '    <span class="product-gender-pill ' + p.gender + '">' + gLabel + '</span>',
+          '  </div>',
+          '  <div class="product-info">',
+          '    <p class="product-category-label">' + CAT_LABELS[p.cat] + '</p>',
+          '    <h3 class="product-name">' + p.name + '</h3>',
+          '    <div class="product-colors" aria-label="Colour options">' + swatches + '</div>',
+          '    <div class="product-sizes" aria-label="Available sizes">' + chips + '</div>',
+          '    <div class="product-footer">',
+          '      <span class="product-price">' + p.price + '</span>',
+          '      <a href="https://wa.me/233500325083?text=' + waMsg + '" target="_blank" rel="noopener" class="product-enquire" aria-label="Enquire about ' + p.name + ' on WhatsApp">Enquire</a>',
+          '    </div>',
+          '  </div>',
+          '</article>'
+        ].join('\n');
+      }).join('');
+    }
+
+    // Initial render on DOM ready
+    document.addEventListener('DOMContentLoaded', function() { renderGrid(); });
+
+    // ─────────────────────────────────────────────────────────
+    // Loader dismiss
+    // ─────────────────────────────────────────────────────────
     (function () {
       var dismissed = false;
       function hideLoader() {
@@ -1127,19 +1410,17 @@
       if (document.readyState === 'complete') {
         setTimeout(hideLoader, 900);
       } else {
-        window.addEventListener('load', function () {
-          setTimeout(hideLoader, 900);
-        });
+        window.addEventListener('load', function () { setTimeout(hideLoader, 900); });
       }
       setTimeout(hideLoader, 5500);
     })();
 
-    // ── Scroll reveal ───────────────────────────────────────
+    // ─────────────────────────────────────────────────────────
+    // Scroll reveal
+    // ─────────────────────────────────────────────────────────
     (function () {
       if (!('IntersectionObserver' in window)) {
-        document.querySelectorAll('.reveal').forEach(function (el) {
-          el.classList.add('visible');
-        });
+        document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
         return;
       }
       var observer = new IntersectionObserver(function (entries) {
@@ -1150,31 +1431,30 @@
           }
         });
       }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-      document.querySelectorAll('.reveal').forEach(function (el) {
-        observer.observe(el);
-      });
+      document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
     })();
 
-    // ── WhatsApp contact form ───────────────────────────────
+    // ─────────────────────────────────────────────────────────
+    // WhatsApp contact form
+    // ─────────────────────────────────────────────────────────
     function sendToWhatsApp(e) {
       e.preventDefault();
-      var name     = (document.getElementById('cf-name').value     || '').trim();
-      var interest = (document.getElementById('cf-interest').value || '').trim();
-      var size     = (document.getElementById('cf-size').value     || '').trim();
-      var message  = (document.getElementById('cf-message').value  || '').trim();
-
+      var name     = (document.getElementById('cf-name').value        || '').trim();
+      var genderP  = (document.getElementById('cf-gender-pref').value || '').trim();
+      var interest = (document.getElementById('cf-interest').value    || '').trim();
+      var size     = (document.getElementById('cf-size').value        || '').trim();
+      var message  = (document.getElementById('cf-message').value     || '').trim();
       var lines = [];
       lines.push('Hi ADW! 👋');
       lines.push('');
       lines.push('*Name:* ' + name);
+      if (genderP)  lines.push('*Shopping for:* ' + genderP);
       lines.push('*Interested in:* ' + interest);
       if (size && size !== 'Not sure yet') lines.push('*Preferred size:* ' + size);
       if (message) { lines.push(''); lines.push('*Message:* ' + message); }
       lines.push('');
       lines.push('I\'d love to be on the waitlist and get updates on the collection. 🙏');
-
-      var text = lines.join('\n');
-      var url  = 'https://wa.me/233500325083?text=' + encodeURIComponent(text);
+      var url = 'https://wa.me/233500325083?text=' + encodeURIComponent(lines.join('\n'));
       window.open(url, '_blank', 'noopener');
     }
   </script>
