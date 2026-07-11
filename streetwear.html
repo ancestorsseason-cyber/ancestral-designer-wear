@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <style>.nav-overlay{clip-path:inset(0 0 100% 0)!important;pointer-events:none!important}.nav-overlay.open{clip-path:inset(0 0 0% 0)!important;pointer-events:auto!important}</style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Streetwear — A.D.W Ancestral Designer Wear</title>
   <meta name="description" content="A.D.W Streetwear collection — hoodies, tees, caps, sneakers, bags and more. Coming soon." />
@@ -10,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./assets/style.css?v=2" />
+  <link rel="stylesheet" href="./assets/style.css?v=3" />
   <style>
     /* ── Streetwear Grid ──────────────────────────────────── */
     #streetwear { padding: 80px 40px 96px; background: var(--cream); }
@@ -124,28 +123,17 @@
       <span class="menu-btn-label">Menu</span>
       <div class="menu-btn-lines"><span></span><span></span></div>
     </button>
-  </nav>
-
-  <div class="nav-overlay" id="nav-overlay" aria-hidden="true">
-    <div class="overlay-wrap">
-      <nav class="overlay-nav">
-        <a href="./collections.html" class="overlay-link">Collections</a>
-        <a href="./streetwear.html"  class="overlay-link active">Streetwear</a>
-        <a href="./studio.html"      class="overlay-link">Studio</a>
-        <a href="./about.html"       class="overlay-link">About</a>
-        <a href="./reviews.html"     class="overlay-link">Reviews</a>
-        <a href="./contact.html"     class="overlay-link">Contact</a>
+    <div class="nav-dropdown" id="nav-dropdown" aria-hidden="true" style="display:none">
+      <nav class="dropdown-nav">
+        <a href="./collections.html" class="dropdown-link">Collections</a>
+        <a href="./streetwear.html"  class="dropdown-link active">Streetwear</a>
+        <a href="./studio.html"      class="dropdown-link">Studio</a>
+        <a href="./about.html"       class="dropdown-link">About</a>
+        <a href="./reviews.html"     class="dropdown-link">Reviews</a>
+        <a href="./contact.html"     class="dropdown-link">Contact</a>
       </nav>
-      <div class="overlay-deco">
-        <p class="overlay-tagline">Ancestral<br><em>Designer</em><br>Wear</p>
-      </div>
     </div>
-    <div class="overlay-footer">
-      <a href="https://www.instagram.com/adwears233/" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://www.facebook.com/share/1FLLn61R7K/" target="_blank" rel="noopener">Facebook</a>
-      <span class="overlay-footer-copy">© 2025 A.D.W</span>
-    </div>
-  </div>
+  </nav>
 
   <main class="page-body">
 
@@ -384,30 +372,31 @@
   </script>
   <script>
     (function() {
-      var btn     = document.getElementById('menu-btn');
-      var overlay = document.getElementById('nav-overlay');
+      var btn      = document.getElementById('menu-btn');
+      var dropdown = document.getElementById('nav-dropdown');
       function openMenu() {
-        overlay.classList.add('open');
+        dropdown.classList.add('open');
         btn.classList.add('open');
         btn.setAttribute('aria-expanded', 'true');
-        overlay.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
+        dropdown.setAttribute('aria-hidden', 'false');
       }
       function closeMenu() {
-        overlay.classList.remove('open');
+        dropdown.classList.remove('open');
         btn.classList.remove('open');
         btn.setAttribute('aria-expanded', 'false');
-        overlay.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
+        dropdown.setAttribute('aria-hidden', 'true');
       }
-      btn.addEventListener('click', function() {
-        overlay.classList.contains('open') ? closeMenu() : openMenu();
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        dropdown.classList.contains('open') ? closeMenu() : openMenu();
+      });
+      document.addEventListener('click', function(e) {
+        if (!dropdown.contains(e.target)) closeMenu();
       });
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') closeMenu();
       });
-      // Close overlay if a link in it is clicked
-      overlay.querySelectorAll('.overlay-link').forEach(function(link) {
+      dropdown.querySelectorAll('.dropdown-link').forEach(function(link) {
         link.addEventListener('click', function() { closeMenu(); });
       });
     })();
