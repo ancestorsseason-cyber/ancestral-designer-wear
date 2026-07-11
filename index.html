@@ -478,83 +478,125 @@
       .about-tags { justify-content: center; }
     }
 
-    /* ── Newsletter / Waitlist ───────────────────────────── */
-    #waitlist {
+    /* ── WhatsApp Contact ────────────────────────────────── */
+    #contact {
       padding: 96px 40px;
       background: var(--brown);
       text-align: center;
     }
-    #waitlist .section-eyebrow { color: var(--gold); }
-    #waitlist .section-title { color: var(--cream); }
-    .waitlist-sub {
+    #contact .section-eyebrow { color: var(--gold); }
+    #contact .section-title { color: var(--cream); }
+    .contact-sub {
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.75;
       color: rgba(245,240,232,0.55);
-      max-width: 480px;
-      margin: 16px auto 40px;
+      max-width: 500px;
+      margin: 14px auto 44px;
     }
-    .waitlist-form {
-      display: flex;
-      gap: 0;
-      max-width: 440px;
+    .contact-card {
+      max-width: 520px;
       margin: 0 auto;
+      background: rgba(245,240,232,0.05);
+      border: 1px solid rgba(245,240,232,0.12);
+      border-radius: 6px;
+      padding: 40px 40px 36px;
+      text-align: left;
     }
-    .waitlist-form input {
-      flex: 1;
-      padding: 15px 20px;
+    .contact-form-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .cf-label {
+      display: block;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.45);
+      margin-bottom: 6px;
+    }
+    .cf-input,
+    .cf-select,
+    .cf-textarea {
+      width: 100%;
+      padding: 13px 16px;
       font-size: 13px;
       font-family: var(--sans);
-      background: rgba(245,240,232,0.08);
-      border: 1px solid rgba(245,240,232,0.18);
-      border-right: none;
-      border-radius: 2px 0 0 2px;
+      background: rgba(245,240,232,0.07);
+      border: 1px solid rgba(245,240,232,0.16);
+      border-radius: 3px;
       color: var(--cream);
       outline: none;
       transition: border-color 0.2s, background 0.2s;
     }
-    .waitlist-form input::placeholder { color: rgba(245,240,232,0.35); }
-    .waitlist-form input:focus {
+    .cf-input::placeholder,
+    .cf-textarea::placeholder { color: rgba(245,240,232,0.28); }
+    .cf-input:focus,
+    .cf-select:focus,
+    .cf-textarea:focus {
       border-color: var(--gold);
-      background: rgba(245,240,232,0.12);
+      background: rgba(245,240,232,0.11);
     }
-    .waitlist-form button {
-      padding: 15px 24px;
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      font-family: var(--sans);
-      background: var(--gold);
-      color: var(--brown);
-      border: none;
-      border-radius: 0 2px 2px 0;
+    .cf-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(245,240,232,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
       cursor: pointer;
-      font-weight: 600;
-      transition: background 0.2s;
     }
-    .waitlist-form button:hover { background: #e0a030; }
-    .form-note {
-      font-size: 11px;
-      color: rgba(245,240,232,0.25);
-      margin-top: 16px;
+    .cf-select option { background: #2d1000; color: var(--cream); }
+    .cf-textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+    .wa-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px 24px;
+      background: #25D366;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--sans);
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .wa-btn:hover { background: #1ebe5d; transform: translateY(-1px); }
+    .wa-btn:active { transform: translateY(0); }
+    .wa-btn svg { flex-shrink: 0; }
+    .wa-disclaimer {
+      font-size: 10px;
+      color: rgba(245,240,232,0.22);
+      text-align: center;
+      margin-top: 14px;
       letter-spacing: 0.05em;
     }
-    .form-success {
-      display: none;
-      font-family: var(--serif);
-      font-size: 22px;
-      font-weight: 300;
-      color: var(--gold);
-      letter-spacing: 0.08em;
+    .wa-direct {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 32px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: rgba(245,240,232,0.35);
     }
+    .wa-direct a {
+      color: #25D366;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .wa-direct a:hover { text-decoration: underline; }
 
-    @media (max-width: 520px) {
-      #waitlist { padding: 72px 24px; }
-      .waitlist-form { flex-direction: column; gap: 10px; }
-      .waitlist-form input {
-        border-right: 1px solid rgba(245,240,232,0.18);
-        border-radius: 2px;
-      }
-      .waitlist-form button { border-radius: 2px; }
+    @media (max-width: 600px) {
+      #contact { padding: 72px 20px; }
+      .contact-card { padding: 28px 20px 24px; }
     }
 
     /* ── Footer ──────────────────────────────────────────── */
@@ -721,7 +763,7 @@
       <li><a href="#streetwear">Streetwear</a></li>
       <li><a href="#gallery">Studio</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="#waitlist">Join Waitlist</a></li>
+      <li><a href="#contact">WhatsApp Us</a></li>
     </ul>
   </nav>
 
@@ -743,7 +785,7 @@
         A.D.W — Ancestral Designer Wear is a fashion and lifestyle house rooted in African artistry.
         Every piece tells a story of origin, draped in the future.
       </p>
-      <a href="#waitlist" class="hero-cta">
+      <a href="#contact" class="hero-cta">
         Join the waitlist
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M2.5 7H11.5M7.5 3L11.5 7L7.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -835,6 +877,60 @@
           <span class="sw-tag">Coming Soon</span>
         </div>
       </div>
+      <div class="sw-item reveal">
+        <img src="./assets/sketch-crewneck.jpeg"
+             alt="ADW crewneck sweatshirt sketchbook design — front and back views with colour palette"
+             loading="lazy" />
+        <div class="sw-label">
+          <span class="sw-name">Crewneck Sweatshirt</span>
+          <span class="sw-tag">Coming Soon</span>
+        </div>
+      </div>
+      <div class="sw-item reveal">
+        <img src="./assets/sketch-polo.jpeg"
+             alt="ADW oversized camp-collar polo shirt sketchbook design"
+             loading="lazy" />
+        <div class="sw-label">
+          <span class="sw-name">Camp Collar Polo</span>
+          <span class="sw-tag">Coming Soon</span>
+        </div>
+      </div>
+      <div class="sw-item reveal">
+        <img src="./assets/sketch-shorts.jpeg"
+             alt="ADW athletic track shorts sketchbook design — front, back and waistband details"
+             loading="lazy" />
+        <div class="sw-label">
+          <span class="sw-name">Track Shorts</span>
+          <span class="sw-tag">Coming Soon</span>
+        </div>
+      </div>
+      <div class="sw-item reveal">
+        <img src="./assets/sketch-bucket-hat.jpeg"
+             alt="ADW bucket hat sketchbook design — front, side, top and inside views"
+             loading="lazy" />
+        <div class="sw-label">
+          <span class="sw-name">Bucket Hat</span>
+          <span class="sw-tag">Coming Soon</span>
+        </div>
+      </div>
+      <div class="sw-item reveal">
+        <img src="./assets/sketch-tank.jpeg"
+             alt="ADW muscle tank top sketchbook design — front, back and neckline details"
+             loading="lazy" />
+        <div class="sw-label">
+          <span class="sw-name">Muscle Tank</span>
+          <span class="sw-tag">Coming Soon</span>
+        </div>
+      </div>
+      <div class="sw-item reveal">
+        <img src="./assets/sketch-accessories.jpeg"
+             alt="ADW accessories sketchbook — phone case, socks, keychain, backpack, woven patch and lanyard"
+             loading="lazy" />
+        <div class="sw-label">
+          <span class="sw-name">Accessories</span>
+          <span class="sw-tag">Coming Soon</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -906,25 +1002,73 @@
     </div>
   </section>
 
-  <!-- ── Waitlist ── -->
-  <section id="waitlist">
+  <!-- ── WhatsApp Contact ── -->
+  <section id="contact">
     <div class="section-header reveal">
-      <p class="section-eyebrow">Stay Close</p>
-      <h2 class="section-title" style="color:var(--cream);">Be first to know.</h2>
+      <p class="section-eyebrow">Get in Touch</p>
+      <h2 class="section-title" style="color:var(--cream);">Join the waitlist.<br>Message us directly.</h2>
     </div>
-    <p class="waitlist-sub reveal">
-      The collection is coming. Join the waitlist for early access, behind-the-scenes previews,
-      and exclusive launch offers.
+    <p class="contact-sub reveal">
+      The collection is coming. Fill in the form below and we'll send you straight to
+      our WhatsApp to confirm your spot and answer any questions.
     </p>
-    <form class="waitlist-form reveal" id="waitlist-form" onsubmit="handleWaitlist(event)">
-      <label for="waitlist-email" class="sr-only">Email address</label>
-      <input id="waitlist-email" type="email" placeholder="your@email.com" required />
-      <button type="submit">Notify me</button>
-    </form>
-    <p class="form-note reveal">No spam. Unsubscribe any time.</p>
-    <p class="form-success reveal" id="form-success">
-      You're on the list. ✦
-    </p>
+    <div class="contact-card reveal">
+      <form id="contact-form" onsubmit="sendToWhatsApp(event)">
+        <div class="contact-form-fields">
+          <div>
+            <label class="cf-label" for="cf-name">Your name</label>
+            <input id="cf-name" class="cf-input" type="text" placeholder="e.g. Kofi Mensah" required />
+          </div>
+          <div>
+            <label class="cf-label" for="cf-interest">I'm interested in</label>
+            <select id="cf-interest" class="cf-select" required>
+              <option value="" disabled selected>Select an item…</option>
+              <option>Hoodie &amp; Sweatpants</option>
+              <option>Oversized Tee</option>
+              <option>Bomber Jacket</option>
+              <option>Crewneck Sweatshirt</option>
+              <option>Camp Collar Polo</option>
+              <option>Track Shorts</option>
+              <option>Muscle Tank</option>
+              <option>Snapback Cap</option>
+              <option>Bucket Hat</option>
+              <option>ADW Sneakers</option>
+              <option>Streetwear Backpack</option>
+              <option>Accessories</option>
+              <option>Full Collection — Notify me of everything</option>
+            </select>
+          </div>
+          <div>
+            <label class="cf-label" for="cf-size">Preferred size</label>
+            <select id="cf-size" class="cf-select">
+              <option value="" disabled selected>Select size (optional)</option>
+              <option>XS</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+              <option>XXL</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div>
+            <label class="cf-label" for="cf-message">Anything else? (optional)</label>
+            <textarea id="cf-message" class="cf-textarea" placeholder="e.g. I'd love to know when the bomber jacket drops, or ask about custom orders…"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="wa-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Send via WhatsApp
+        </button>
+        <p class="wa-disclaimer">Opens WhatsApp with your message pre-filled — we'll reply within 24 hrs.</p>
+      </form>
+    </div>
+    <div class="wa-direct reveal">
+      <span>Or message us directly —</span>
+      <a href="https://wa.me/233500325083" target="_blank" rel="noopener">+233 50 032 5083</a>
+    </div>
   </section>
 
   </main><!-- /#main-content -->
@@ -991,15 +1135,27 @@
       });
     })();
 
-    // ── Waitlist form ───────────────────────────────────────
-    function handleWaitlist(e) {
+    // ── WhatsApp contact form ───────────────────────────────
+    function sendToWhatsApp(e) {
       e.preventDefault();
-      var form = document.getElementById('waitlist-form');
-      var note = document.querySelector('.form-note');
-      var success = document.getElementById('form-success');
-      form.style.display = 'none';
-      if (note) note.style.display = 'none';
-      if (success) { success.style.display = 'block'; }
+      var name     = (document.getElementById('cf-name').value     || '').trim();
+      var interest = (document.getElementById('cf-interest').value || '').trim();
+      var size     = (document.getElementById('cf-size').value     || '').trim();
+      var message  = (document.getElementById('cf-message').value  || '').trim();
+
+      var lines = [];
+      lines.push('Hi ADW! 👋');
+      lines.push('');
+      lines.push('*Name:* ' + name);
+      lines.push('*Interested in:* ' + interest);
+      if (size && size !== 'Not sure yet') lines.push('*Preferred size:* ' + size);
+      if (message) { lines.push(''); lines.push('*Message:* ' + message); }
+      lines.push('');
+      lines.push('I\'d love to be on the waitlist and get updates on the collection. 🙏');
+
+      var text = lines.join('\n');
+      var url  = 'https://wa.me/233500325083?text=' + encodeURIComponent(text);
+      window.open(url, '_blank', 'noopener');
     }
   </script>
 
