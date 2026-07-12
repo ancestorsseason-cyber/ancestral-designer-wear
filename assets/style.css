@@ -235,8 +235,12 @@ section { width:100%; }
 }
 .page-banner::before {
   content:''; position:absolute; inset:0;
-  background: url('./hero-texture-v4.png') center/cover;
-  opacity:.06;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(245,240,232,.04) 0px, rgba(245,240,232,.04) 1px,
+    transparent 1px, transparent 12px
+  );
+  opacity:1;
 }
 .page-banner-eyebrow {
   font-size:10px; letter-spacing:.32em; text-transform:uppercase;
