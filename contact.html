@@ -124,19 +124,24 @@
       <img src="./assets/adw-logo-nobg.png" alt="A.D.W logo" />
       <span>A.D.W</span>
     </a>
-    <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false">
-      <span class="menu-btn-label">Menu</span>
-      <div class="menu-btn-lines"><span></span><span></span></div>
+    <div class="nav-links">
+      <a href="./collections.html" class="nav-link">Collections</a>
+      <a href="./streetwear.html"  class="nav-link">Streetwear</a>
+      <a href="./studio.html"      class="nav-link">Studio</a>
+      <a href="./about.html"       class="nav-link">About</a>
+      <a href="./reviews.html"     class="nav-link">Reviews</a>
+      <a href="./contact.html"     class="nav-link active">Contact</a>
+    </div>
+    <button class="ham-btn" id="ham-btn" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span>
     </button>
-    <div class="nav-dropdown" id="nav-dropdown" aria-hidden="true" style="display:none">
-      <nav class="dropdown-nav">
-        <a href="./collections.html" class="dropdown-link">Collections</a>
-        <a href="./streetwear.html"  class="dropdown-link">Streetwear</a>
-        <a href="./studio.html"      class="dropdown-link">Studio</a>
-        <a href="./about.html"       class="dropdown-link">About</a>
-        <a href="./reviews.html"     class="dropdown-link">Reviews</a>
-        <a href="./contact.html"     class="dropdown-link active">Contact</a>
-      </nav>
+    <div class="mobile-nav" id="mobile-nav" style="display:none">
+      <a href="./collections.html" class="mobile-nav-link">Collections</a>
+      <a href="./streetwear.html"  class="mobile-nav-link">Streetwear</a>
+      <a href="./studio.html"      class="mobile-nav-link">Studio</a>
+      <a href="./about.html"       class="mobile-nav-link">About</a>
+      <a href="./reviews.html"     class="mobile-nav-link">Reviews</a>
+      <a href="./contact.html"     class="mobile-nav-link active">Contact</a>
     </div>
   </nav>
 
@@ -434,32 +439,28 @@
   </script>
   <script>
     (function() {
-      var btn      = document.getElementById('menu-btn');
-      var dropdown = document.getElementById('nav-dropdown');
+      var btn  = document.getElementById('ham-btn');
+      var menu = document.getElementById('mobile-nav');
+      if (!btn || !menu) return;
       function openMenu() {
-        dropdown.classList.add('open');
+        menu.classList.add('open');
         btn.classList.add('open');
         btn.setAttribute('aria-expanded', 'true');
-        dropdown.setAttribute('aria-hidden', 'false');
       }
       function closeMenu() {
-        dropdown.classList.remove('open');
+        menu.classList.remove('open');
         btn.classList.remove('open');
         btn.setAttribute('aria-expanded', 'false');
-        dropdown.setAttribute('aria-hidden', 'true');
       }
       btn.addEventListener('click', function(e) {
         e.stopPropagation();
-        dropdown.classList.contains('open') ? closeMenu() : openMenu();
+        menu.classList.contains('open') ? closeMenu() : openMenu();
       });
       document.addEventListener('click', function(e) {
-        if (!dropdown.contains(e.target)) closeMenu();
+        if (!menu.contains(e.target) && e.target !== btn) closeMenu();
       });
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') closeMenu();
-      });
-      dropdown.querySelectorAll('.dropdown-link').forEach(function(link) {
-        link.addEventListener('click', function() { closeMenu(); });
       });
     })();
   </script>

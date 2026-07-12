@@ -94,45 +94,53 @@ nav {
   letter-spacing: .14em; color: var(--brown); text-transform: uppercase;
 }
 
-/* ── MENU button — top right ─────────────────────────────── */
-.menu-btn {
-  display: flex; align-items: center; gap: 13px;
-  background: none; border: none; cursor: pointer;
-  padding: 6px 0; z-index: 1;
-  transition: opacity .2s;
+/* ── Desktop nav links ──────────────────────────────────── */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
 }
-.menu-btn:hover { opacity: .72; }
-.menu-btn-label {
-  font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
-  color: var(--brown); font-family: var(--sans); font-weight: 500;
-  transition: opacity .25s;
+.nav-link {
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--brown);
+  text-decoration: none;
+  font-family: var(--sans);
+  font-weight: 500;
+  opacity: .6;
+  padding-bottom: 3px;
+  border-bottom: 1px solid transparent;
+  transition: opacity .2s, border-color .2s;
 }
-.menu-btn-lines {
-  display: flex; flex-direction: column; gap: 5px; width: 26px;
-}
-.menu-btn-lines span {
-  display: block; height: 1.5px; background: var(--brown);
-  border-radius: 2px;
-  transform-origin: center;
-  transition: transform .32s cubic-bezier(.77,0,.175,1),
-              width .25s ease, opacity .2s;
-}
-.menu-btn-lines span:nth-child(1) { width: 26px; }
-.menu-btn-lines span:nth-child(2) { width: 17px; }
-/* X state */
-.menu-btn.open .menu-btn-lines span:nth-child(1) {
-  width: 22px; transform: translateY(3.25px) rotate(45deg);
-}
-.menu-btn.open .menu-btn-lines span:nth-child(2) {
-  width: 22px; transform: translateY(-3.25px) rotate(-45deg);
-}
-.menu-btn.open .menu-btn-label { opacity: 0; }
+.nav-link:hover { opacity: 1; border-color: rgba(200,139,26,.5); }
+.nav-link.active { opacity: 1; border-bottom-color: var(--gold); }
 
-/* ── Nav Dropdown ────────────────────────────────────────── */
-.nav-dropdown {
-  display: none;           /* hidden by default — most reliable cross-browser */
+/* ── Mobile hamburger ───────────────────────────────────── */
+.ham-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 6px 0;
+  z-index: 1;
+}
+.ham-btn span {
+  display: block; height: 1.5px; background: var(--brown);
+  border-radius: 2px; transform-origin: center;
+  transition: transform .32s cubic-bezier(.77,0,.175,1), width .25s ease;
+}
+.ham-btn span:nth-child(1) { width: 26px; }
+.ham-btn span:nth-child(2) { width: 17px; }
+.ham-btn.open span:nth-child(1) { width: 22px; transform: translateY(3.25px) rotate(45deg); }
+.ham-btn.open span:nth-child(2) { width: 22px; transform: translateY(-3.25px) rotate(-45deg); }
+
+/* ── Mobile nav (opens on hamburger tap) ────────────────── */
+.mobile-nav {
   position: absolute;
-  top: 100%;               /* flush below the nav bar, no pixel math */
+  top: 100%;
   right: 0;
   z-index: 490;
   background: var(--brown);
@@ -142,20 +150,12 @@ nav {
   box-shadow: 0 20px 56px rgba(26,10,0,.38);
   min-width: 210px;
 }
-.nav-dropdown.open {
-  display: block !important;
-  animation: ddFadeIn .2s ease forwards;
-}
-@keyframes ddFadeIn {
+.mobile-nav.open { display: block !important; animation: mnOpen .2s ease forwards; }
+@keyframes mnOpen {
   from { opacity: 0; transform: translateY(-8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.dropdown-nav {
-  padding: 8px 0;
-  display: flex;
-  flex-direction: column;
-}
-.dropdown-link {
+.mobile-nav-link {
   display: block;
   padding: 14px 28px;
   font-size: 10px;
@@ -169,15 +169,17 @@ nav {
   white-space: nowrap;
   border-bottom: 1px solid rgba(245,240,232,.06);
 }
-.dropdown-link:last-child { border-bottom: none; }
-.dropdown-link:hover { color: var(--gold); background: rgba(245,240,232,.07); }
-.dropdown-link.active { color: var(--gold); }
+.mobile-nav-link:last-child { border-bottom: none; }
+.mobile-nav-link:hover { color: var(--gold); background: rgba(245,240,232,.07); }
+.mobile-nav-link.active { color: var(--gold); }
 
 /* ── Mobile ──────────────────────────────────────────────── */
 @media (max-width:820px) {
   nav { padding: 0 24px; }
   .nav-logo span { font-size: 15px; }
-  .nav-dropdown { min-width: 180px; }
+  .nav-links { display: none; }
+  .ham-btn { display: flex; }
+  .mobile-nav { min-width: 180px; }
 }
 
 /* ── Page body offset ───────────────────────────────────── */
